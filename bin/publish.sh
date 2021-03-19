@@ -8,8 +8,8 @@
 
 set -euo pipefail
 
-git config --global user.name 'HMPPS Tech Team Bot'
-git config --global user.email 'hmpps-tech-team-bot@users.noreply.github.com'
+git config user.name 'github-actions'
+git config user.email 'github-actions@users.noreply.github.com'
 
 echo "Copy latest build docs to publish branch"
 mv docs docs-temp

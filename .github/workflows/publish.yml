@@ -14,6 +14,8 @@ jobs:
       image: ministryofjustice/cloud-platform-tech-docs-publisher:1.1
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - name: Build
       run: bin/build.sh
     - name: Link checker
