@@ -1,0 +1,22 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "source/**"
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    container:
+      image: ministryofjustice/cloud-platform-tech-docs-publisher:1.1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: bin/build.sh
+    - name: Link checker
+      run: bin/check.sh
+    - name: Publish site
+      run: bin/publish.sh

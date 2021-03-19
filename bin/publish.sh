@@ -8,23 +8,18 @@
 
 set -euo pipefail
 
-# PUBLISHING_GIT_TOKEN is a secret in the source repository. It should contain a github personal access token
-# with `public_repo` scope, and MoJ SSO enabled.
-REPOSITORY_PATH="https://${PUBLISHING_GIT_TOKEN}@github.com/$GITHUB_PAGES_REPO_OWNER/$GITHUB_PAGES_REPO_NAME.git"
+git config --global user.name 'HMPPS Tech Team Bot'
+git config --global user.email 'hmpps-tech-team-bot@users.noreply.github.com'
 
-echo "Checkout the publish repo"
-git clone $REPOSITORY_PATH
-
-echo "Add compiled files"
-cp -R docs/* $GITHUB_PAGES_REPO_NAME
-
-cd $GITHUB_PAGES_REPO_NAME
+echo "Copy latest build docs to publish branch"
+mv docs docs-temp
+git checkout gh-pages
+rm -r docs
+mv docs-temp docs
 
 echo "Push the changes"
-git config --global user.email "${GITHUB_PAGES_REPO_AUTHOR_EMAIL}"
-git config --global user.name "${GITHUB_PAGES_REPO_AUTHOR}"
 git add .
-git commit -m "Published at $(date)"
-git push --force
+git commit -am "Published at $(date)"
+git push
 
 echo "Publishing complete"
