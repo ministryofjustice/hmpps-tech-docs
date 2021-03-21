@@ -17,6 +17,9 @@ git checkout gh-pages
 rm -r docs
 mv docs-temp docs
 
+echo "Copying cname across too"
+cp -a CNAME docs
+
 echo "Push the changes"
 git add .
 git commit -am "Published at $(date)"
