@@ -98,6 +98,61 @@
     <ul>
       <li>
         <a href="#who-is-this-documentation-for"><span>Who is this documentation for?</span></a>
+        <ul>
+          <li>
+            <a href="#readme"><span>README</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#publishing-apis"><span>Publishing APIs</span></a>
+      </li>
+      <li>
+        <a href="#coding-standards"><span>Coding standards</span></a>
+        <ul>
+          <li>
+            <a href="#breaking-changes"><span>Breaking changes</span></a>
+          </li>
+          <li>
+            <a href="#releases"><span>Releases</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#service-endpoints"><span>Service endpoints</span></a>
+        <ul>
+          <li>
+            <a href="#health"><span>/health</span></a>
+          </li>
+          <li>
+            <a href="#ping"><span>/ping</span></a>
+          </li>
+          <li>
+            <a href="#info"><span>/info</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#deployments"><span>Deployments</span></a>
+        <ul>
+          <li>
+            <a href="#helm"><span>Helm</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#monitoring"><span>Monitoring</span></a>
+        <ul>
+          <li>
+            <a href="#logging-requests-with-individual-clients"><span>Logging requests with individual clients</span></a>
+          </li>
+          <li>
+            <a href="#correlating-requests"><span>Correlating requests</span></a>
+          </li>
+          <li>
+            <a href="#application-version"><span>Application version</span></a>
+          </li>
+        </ul>
       </li>
       <li>
         <a href="#adding-to-the-documentation"><span>Adding to the documentation</span></a>
@@ -113,7 +168,61 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
-              <h1 id="hmpps-tech-team-docs">HMPPS Tech Team docs</h1><h2 id="who-is-this-documentation-for">Who is this documentation for?</h2><p>This documentation is for teams interacting with HMPPS Tech Team managed services.</p>
+              <h1 id="hmpps-tech-team-docs">HMPPS Tech Team docs</h1><h2 id="who-is-this-documentation-for">Who is this documentation for?</h2><p>This documentation describes what standards we adhere to when writing our services, as well as providing guidelines for interaction.</p>
+<h3 id="readme">README</h3><p>All our services should have a github README.md at the root of their repository. Information in this should include:</p>
+
+<ul>
+<li>Who to contact with any questions</li>
+<li>Where the API docs are located</li>
+<li>How to call the endpoints and whether any authentication / special authorisation is required</li>
+<li>How to check that the service is up and running i.e. the health endpoint</li>
+<li>How to check that the service is responding to requests i.e. the ping endpoint</li>
+<li>How to find out the version of the deployed application and link it back to a specific git commit.</li>
+<li>How to rollback a deployed service to a previous version</li>
+<li>How to run the application locally</li>
+</ul>
+<h2 id="publishing-apis">Publishing APIs</h2><p>All services should have clear API documentation that details the endpoints with the authorisation requirements.</p>
+<p>The API documentation should be in OpenAPI 3 format, according to <a href="https://www.gov.uk/government/publications/recommended-open-standards-for-government/describing-restful-apis-with-openapi-3" title="Describing RESTful APIs with OpenAPI 3">GDS guidelines</a>.
+It should include examples for the various data elements as well as the possible values for constrained items.</p>
+<h2 id="coding-standards">Coding standards</h2><p>All our code is peer reviewed before being merged and then released.
+All commits should include a JIRA reference so that we can trace back the reasons for the change etc.</p>
+<h3 id="breaking-changes">Breaking changes</h3><p>We follow these principles for each of our endpoints:</p>
+
+<ul>
+<li>We do not take anything away</li>
+<li>We do not change processing rules</li>
+<li>We do not make optional things required</li>
+<li>Anything we add must be optional</li>
+</ul>
+<p>Consumers need to be resilient enough to support these changes, e.g. they shouldn&rsquo;t bind tightly to an expected representation as new fields may be added at a later date.</p>
+<p>This means that a new endpoint should be added instead of making a breaking change to an existing endpoint.
+Since we know what clients call which endpoints we can then inform the clients to switch to the new endpoint.
+When all the clients have switched over we can then remove the old endpoint.</p>
+<h3 id="releases">Releases</h3><p>We will endevour to release as soon as a new feature has been tested, rather than bulking up multiple changes into a release.
+If an application release contains multiple changes since the last release then it is important that agreement with all the changers is sought before release.
+A changelog will be generated containing all the changes since the last release to production and it will be posted in the appropriate slack channel.</p>
+<h2 id="service-endpoints">Service endpoints</h2><h3 id="health"><code>/health</code></h3><p>Our services all provide a <code>/health</code> endpoint which checks all dependencies are healthy (e.g. database connection) and returns a http status of 200 if everything is up and running.
+The endpoint shouldn&rsquo;t then call <code>/health</code> on any of the dependencies though as this will create cascading health checks so that one health check could call health checks in the dependencies, which could then call health checks in the dependencies etc.
+This is called on a regular basis by our Pingdom check, which will then alert to us in slack in #dps_alerts if there are issues.
+It is also called by the DPS Monitor at https://dps-monitor.prison.service.justice.gov.uk/health to provide a dashboard of all the DPS services health.</p>
+<h3 id="ping"><code>/ping</code></h3><p>This is a simple check that will just return a http status of 200 if the application is up and running.
+It is therefore entirely suited to be called by other applications&rsquo; health checks and also by kubernetes liveness and readiness probes if the application framework doesn&rsquo;t provide specific endpoints.</p>
+<h3 id="info"><code>/info</code></h3><p>This provides basic information in a json format about the current application version, github commit reference and other useful application information.</p>
+<h2 id="deployments">Deployments</h2><p>Our release candidates are automatically deployed to our development environments using circleci.
+When a ticket has been successfully tested it is then approved for deployment to a production like environment before then being deployed to production.</p>
+<h3 id="helm">Helm</h3><p>We use helm to manage the kubernetes deployments and configuration.
+A helm_deploy/README is included in all projects to provide information on how to find out the current deployed version and also to rollback to previous vresions.</p>
+<h2 id="monitoring">Monitoring</h2><p>We use <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/" title="Azure Monitor documentation">azure monitor</a> and in particular application insights to monitor our production systems.
+Our applications logs are ingested, as well as requests, exceptions and dependency calls.
+This means that we can tell how long requests take in our systems and how long each of the individual dependencies (e.g. database interactions) take.</p>
+<h3 id="logging-requests-with-individual-clients">Logging requests with individual clients</h3><p>All HMPPS Auth tokens contain a <code>client_id</code> and optionally a <code>user_name</code>.
+Each frontend application / service is issued with a different <code>client_id</code> so therefore this will uniquely identify a client.
+For system to system interaction the <code>user_name</code> will normally be empty.
+Both should then be included as extra attributes in the request logging so that clients can be identified and therefore we can track what clients are calling what endpoints and how often.</p>
+<h3 id="correlating-requests">Correlating requests</h3><p>We confirm to <a href="https://www.w3.org/TR/trace-context/" title="Trace Context">W3C tracing guidelines</a>.
+This means that we accept a <code>traceparent</code> header which can then be used to correlate requests across all applications and to identify a user&rsquo;s journey through the application stack.</p>
+<h3 id="application-version">Application version</h3><p>All our requests are also augmented with the current version of the application to help identify when issues first occurred and link back to the correct code.
+This is of format <date>.<circleci job number>.<github reference> so can be traced back not only to the circleci job that built the code, but also the github commit of the code.</p>
 <h2 id="adding-to-the-documentation">Adding to the documentation</h2><p>If there&rsquo;s something missing, please either let us know and we&rsquo;ll add a new
 article, or if you&rsquo;re comfortable writing one yourself, PRs will be gratefully
 received. Details on how to get in touch are in the &ldquo;Getting Help&rdquo; section above, and
