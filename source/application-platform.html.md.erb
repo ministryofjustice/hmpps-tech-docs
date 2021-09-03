@@ -1,0 +1,150 @@
+---
+title: HMPPS Application Platform
+last_reviewed_on: 2021-09-03
+review_in: 3 months
+weight: 20
+---
+
+# <%= current_page.data.title %>
+
+## Introduction
+
+This document describes the application platform used across HMPPS to share common development patterns.
+
+## About the HMPPS Application Platform
+
+The HMPPS Application Platform provides the core components developers need to start building applications quickly.
+
+This includes:
+
+* Template projects for frontend and backend services
+* A project generator to automatically configure projects and build pipelines
+* Build tools and plugins to use our standard build patterns
+* Generic alerts to monitor application status
+* Libraries for sharing common development patterns
+
+All of the above are designed to work with the [MOJ Cloud Platform](https://user-guide.cloud-platform.service.justice.gov.uk/#cloud-platform-user-guide).
+
+### Benefits of using the Application Platform
+
+The Application Platform captures various patterns that have matured within the DPS development community and makes them easy to adopt on new projects.
+
+#### Build new services quickly
+
+Historically development teams would spend several weeks working on Sprint Zero to create a build pipeline for their skeleton project. Often Sprint Zero is never completed and projects start with the burden of technical debt.
+
+By using our Project Bootstrapper it is possible to deploy a skeleton project to production in hours. This allows developers to quickly start delivering user stories and add value to the end users.
+
+#### Adopt common standards
+
+Innovation is encouraged but we don't want teams diverging too much. Otherwise we end up with many solutions to the same problems causing a maintenance headache for both developers and operations.
+
+By using standard components available in the Application Platform we can manage services in a consistent way and share best practice.
+
+#### Increase institutional knowledge
+
+As the trickle of new services turns into a flood we find that many projects are at different levels of maturity. These then require different levels of support from teams of different sizes.
+
+By using standard components we share knowledge of our development practices. This makes it easier to move developers between teams and provide the right levels of support where needed.
+
+#### Secure services
+
+Security is no longer an afterthought tagged onto the end of a project by overworked security and operations staff. To maintain a secure estate we must build security best practices in from the start of a project and in a consistent manner.
+
+By using our various build tools it's easier to keep services up to date with the latest security patches and identify security vulnerabilities.
+
+#### Add observability into services
+
+No service runs in isolation and gaining a holistic view of the whole estate presents difficult challenges. There are many open source technologies to help with observability but these need coordinating between services to be successful.
+
+By using our application templates we standardise the capturing of telemetry and tracing. This allow us to provide a common toolset for observing our suite of microservices.
+
+#### Take advantage of mature development patterns
+
+Many problems facing developers in HMPPS have been "solved" and using these patterns gives teams a head start.
+
+By using our various build plugins and libraries we have captured some of these patterns to distribute amongst teams. This allows developers to focus on providing value to end users.
+
+## Application Platform Shared Components
+
+### Project Bootstrapper
+
+The [project bootstrapper](https://github.com/ministryofjustice/dps-project-bootstrap) is a utility for generating new projects and/or configuring build pipelines for projects. It works by [defining a project](https://github.com/ministryofjustice/dps-project-bootstrap/blob/main/projects.json) and running a script to create and configure a Github project, a CircleCI project, a quay.io project and a Kubernetes namespace.
+
+The bootstrapper can be used to copy an existing Kotlin or Typescript template project or can run against an existing project.
+
+As well as removing the effort required to create a build pipeline it allows us to standardise things like Github project configuration.
+
+See the [project readme](https://github.com/ministryofjustice/dps-project-bootstrap) for usage details.
+
+### Kotlin Template
+
+The [Kotlin Template project](https://github.com/ministryofjustice/hmpps-template-kotlin) is a skeleton backend Kotlin / Spring Boot application. It can be copied to create a new project.
+
+The application is very light and provides little more than example health checks. The main value is gained from the CircleCI, Helm, Docker, Gradle and Application Insights configurations. These allow a new application to be built and deployed to a Kubernetes namespace. The template application itself runs in the namespace `hmpps-template-kotlin` on Cloud Platform as a test to prove it is deployable.
+
+The template works best in conjunction with the [Project Bootstrapper](#project-bootstrapper) which configures a build pipeline to get the application deployed into Kubernetes.
+
+Any questions or suggestions relating to the Kotlin template should be directed to MOJ Slack channel `#kotlin-dev`.
+
+### Typescript Template
+
+The [Typescript Template project](https://github.com/ministryofjustice/hmpps-template-typescript) is a skeleton frontend / Node application. It can be copied to create a new project.
+
+Note that this template is not a DPS Tech Team project but is community driven and owned by the MOJ Slack channel `#typescript`. It has been included here because it is a great fit with the other offerings.
+
+The application is very light but provides enough detail to get a skeleton application up and running. The template application itself runs in the namespace `hmpps-template-typescript` on Cloud Platform as a test to prove it is deployable.
+
+The template works best in conjunction with the [Project Bootstrapper](#project-bootstrapper) which configures a build pipeline to get the application deployed into Kubernetes.
+
+Any questions or suggestions relating to the Typescript template should be directed to MOJ Slack channel `#typescript`.
+
+### Gradle Build Plugin
+
+The [Gradle Plugin](https://github.com/ministryofjustice/dps-gradle-spring-boot) is used to orchestrate Gradle builds of Java/Kotlin Spring Boot projects. "Orchestrate" means it applies 3rd party Gradle plugins and configures them rather than adding new build logic. The plugins applied can be found in the [build.gradle.kts](https://github.com/ministryofjustice/dps-gradle-spring-boot/blob/main/build.gradle.kts) file.
+
+One notable plugin that is applied to all projects is the [dependency check plugin](https://github.com/dependency-check/dependency-check-gradle). This is run in scheduled CircleCI builds to find vulnerabilities in our dependencies. It also includes a way of suppressing [false positives](https://github.com/ministryofjustice/dps-gradle-spring-boot/blob/main/src/main/resources/dps-gradle-spring-boot-suppressions.xml).
+
+Please see the [project readme](https://github.com/ministryofjustice/dps-gradle-spring-boot) for more information on the plugin.
+
+Note that the plugin is used in our [Kotlin Template project](#kotlin-template).
+
+### CircleCI Orb
+
+The [CircleCI Orb](https://github.com/ministryofjustice/hmpps-circleci-orb) is a plugin used in CircleCI builds to provide standard build executions, jobs and commands.
+
+Jobs exist to perform common tasks such as building and publishing docker images, deploying to environments and running security checks.
+
+Common commands include installing build tools such as AWS CLI and helm and a standard way of generating application versions.
+
+Default executors are available for building different development stacks.
+
+Note that a default CircleCI build using the relevant Orb components is included in both the [Kotlin Template project](#kotlin-template) and the [Typescript Template project](#typescript-template) (in the directory `.circleci`).
+
+More details can be found on the [Orb's registry page](https://circleci.com/developer/orbs/orb/ministryofjustice/hmpps).
+
+### Helm Charts
+
+The [HMPPS Helm Charts project](https://github.com/ministryofjustice/hmpps-helm-charts) provides generic Helm charts that can be used by any service. These are Helm templates with various extension points that can be configured in Helm values files.
+
+A [generic service chart](https://github.com/ministryofjustice/hmpps-helm-charts/tree/main/charts/generic-service) is available to deploy any service into the Kubernetes instance hosted by Cloud Platforms.
+
+A [generic prometheus alerts chart](https://github.com/ministryofjustice/hmpps-helm-charts/tree/main/charts/generic-prometheus-alerts) provides a standard set of alerts for Kubernetes deployments and ingresses.
+
+A [ClamAV chart](https://github.com/ministryofjustice/hmpps-helm-charts/tree/main/charts/clamav) adds an antivirus utility to a namespace.
+
+Note that the generic service chart and generic prometheus alerts chart are used by both the [Kotlin Template project](#kotlin-template) and the [Typescript Template project](#typescript-template) (in the directory `helm_deploy`).
+
+### Spring Boot SQS Starter Library
+
+The [hmpps-spring-boot-sqs project](https://github.com/ministryofjustice/hmpps-spring-boot-sqs) publishes a Spring Boot starter library for using AWS SQS and SNS in a standard HMPPS way.
+
+The library captures various patterns for using the AWS SQS and SNS client libraries that have been widely adopted within HMPPS. These patterns include creating secure clients, JMS listeners, queue health indicators, retry/purge endpoints and integration with the AWS testing utility Localstack.
+
+To see an example of the library in action look at the project's [test application](https://github.com/ministryofjustice/hmpps-spring-boot-sqs/tree/main/test-app) which is used for both functional tests and can be spun up locally. The library has also been used in [several projects](https://github.com/search?q=org%3Aministryofjustice+hmpps-sqs-spring-boot-starter&type=code) and these provide good real life examples.
+
+## Creating A New Service
+
+Coming soon...
+
+
