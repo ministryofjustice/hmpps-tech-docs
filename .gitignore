@@ -20,3 +20,6 @@
 Staticfile.auth
 
 docs
+
+# Ignore Intellij
+.idea/
