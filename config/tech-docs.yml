@@ -3,7 +3,7 @@ host: https://tech-docs.hmpps.service.justice.gov.uk
 
 # Header-related options
 show_govuk_logo: false
-service_name: HMPPS Tech Team docs
+service_name: DPS Tech Team docs
 service_link: /
 
 # Links to show on right-hand-side of header
@@ -23,10 +23,10 @@ enable_search: true
 ga_tracking_id:
 
 # Enable multipage navigation in the sidebar
-multipage_nav: false
+multipage_nav: true
 
 # Enable collapsible navigation in the sidebar
-collapsible_nav: false
+collapsible_nav: true
 
 # Table of contents depth – how many levels to include in the table of contents.
 # If your ToC is too long, reduce this number and we'll only show higher-level
@@ -39,3 +39,4 @@ prevent_indexing: true
 show_contribution_banner: true
 github_repo: ministryofjustice/hmpps-tech-docs
 github_branch: main
+
