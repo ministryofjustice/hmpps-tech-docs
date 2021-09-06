@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en" class="govuk-template no-js">
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+      <meta name="robots" content="noindex">
+
+    <title>HMPPS Application Platform - DPS Tech Team docs</title>
+
+    <link href="/stylesheets/manifest.css" rel="stylesheet" />
+
+    <link rel="canonical" href="https://tech-docs.hmpps.service.justice.gov.uk/application-platform.html">
+
+
+      <meta property="og:image" content="https://tech-docs.hmpps.service.justice.gov.uk/images/govuk-large.png" />
+      <meta property="og:site_name" content="DPS Tech Team docs" />
+      <meta property="og:title" content="HMPPS Application Platform" />
+      <meta property="og:type" content="object" />
+      <meta property="og:url" content="https://tech-docs.hmpps.service.justice.gov.uk/application-platform.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="tech-docs.hmpps.service.justice.gov.uk" />
+      <meta property="twitter:image" content="https://tech-docs.hmpps.service.justice.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="HMPPS Application Platform - DPS Tech Team docs" />
+      <meta property="twitter:url" content="https://tech-docs.hmpps.service.justice.gov.uk/application-platform.html" />
+
+    
+  </head>
+
+  <body class="govuk-template__body">
+    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+
+    <div class="app-pane">
+      <div class="app-pane__header toc-open-disabled">
+        <a href="#content" class="govuk-skip-link">Skip to main content</a>
+
+        <header class="govuk-header app-header" role="banner" data-module="govuk-header">
+  <div class="govuk-header__container govuk-header__container--full-width">
+    <div class="govuk-header__logo">
+      <a href="/" class="govuk-header__link govuk-header__link--homepage">
+        <span class="govuk-header__product-name">
+          DPS Tech Team docs
+        </span>
+      </a>
+    </div>
+    <div class="govuk-header__content">
+      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <nav>
+        <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="mailto:dps+hmpps@digital.justice.gov.uk?subject=Tech+Team+docs+feedback">Feedback / Report a problem</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/">Documentation</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="https://github.com/ministryofjustice/hmpps-tech-docs">GitHub</a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+      </div>
+
+        <div id="toc-heading" class="toc-show fixedsticky">
+          <a href="#toc" class="toc-show__label js-toc-show" aria-controls="toc">
+            Table of contents <span class="toc-show__icon"></span>
+          </a>
+        </div>
+
+      <div class="app-pane__body" data-module="in-page-navigation">
+          <div class="app-pane__toc">
+            <div class="toc" data-module="table-of-contents">
+              <div class="search" data-module="search">
+  <form action="https://www.google.co.uk/search" method="get" role="search">
+    <input type="hidden" name="as_sitesearch" value="https://tech-docs.hmpps.service.justice.gov.uk"/>
+    <label class="govuk-label search__label" for="search">
+      Search (via Google)
+    </label>
+    <input class="govuk-input govuk-!-margin-bottom-4" id="search" name="q" type="text" aria-controls="search-results" placeholder="Search">
+  </form>
+  <div id="search-results" class="search-results" aria-hidden="true" role="dialog" aria-labelledby="search-results-title">
+    <div class="search-results__inner">
+      <button class="search-results__close">Close<span class="search-results__close-label"> search results</span></button>
+      <h2 id="search-results-title" class="search-results__title" aria-live="polite">Results</h2>
+      <div class="search-results__content"></div>
+    </div>
+  </div>
+</div>
+
+              <a href="#" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></a>
+              <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading" data-module="collapsible-navigation">
+                      <ul>
+  <li>
+    <a href="/#dps-tech-team-docs"><span>DPS Tech Team docs</span></a>
+    <ul>
+      <li>
+        <a href="/#adding-to-the-documentation"><span>Adding to the documentation</span></a>
+      </li>
+    </ul>
+  </li>
+</ul>
+<ul>
+  <li>
+    <a href="/service-standards.html#service-standards"><span>Service Standards</span></a>
+    <ul>
+      <li>
+        <a href="/service-standards.html#readme"><span>README</span></a>
+      </li>
+      <li>
+        <a href="/service-standards.html#publishing-apis"><span>Publishing APIs</span></a>
+      </li>
+      <li>
+        <a href="/service-standards.html#coding-standards"><span>Coding standards</span></a>
+        <ul>
+          <li>
+            <a href="/service-standards.html#breaking-changes"><span>Breaking changes</span></a>
+          </li>
+          <li>
+            <a href="/service-standards.html#releases"><span>Releases</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/service-standards.html#service-endpoints"><span>Service endpoints</span></a>
+        <ul>
+          <li>
+            <a href="/service-standards.html#health"><span>/health</span></a>
+          </li>
+          <li>
+            <a href="/service-standards.html#ping"><span>/ping</span></a>
+          </li>
+          <li>
+            <a href="/service-standards.html#info"><span>/info</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/service-standards.html#deployments"><span>Deployments</span></a>
+        <ul>
+          <li>
+            <a href="/service-standards.html#helm"><span>Helm</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/service-standards.html#monitoring"><span>Monitoring</span></a>
+        <ul>
+          <li>
+            <a href="/service-standards.html#logging-requests-with-individual-clients"><span>Logging requests with individual clients</span></a>
+          </li>
+          <li>
+            <a href="/service-standards.html#correlating-requests"><span>Correlating requests</span></a>
+          </li>
+          <li>
+            <a href="/service-standards.html#application-version"><span>Application version</span></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<ul>
+  <li>
+    <a href="/application-platform.html#hmpps-application-platform"><span>HMPPS Application Platform</span></a>
+    <ul>
+      <li>
+        <a href="/application-platform.html#about-the-hmpps-application-platform"><span>About the HMPPS Application Platform</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#benefits-of-using-the-application-platform"><span>Benefits of using the Application Platform</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/application-platform.html#application-platform-shared-components"><span>Application Platform Shared Components</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#project-bootstrapper"><span>Project Bootstrapper</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#kotlin-template"><span>Kotlin Template</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#typescript-template"><span>Typescript Template</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#gradle-build-plugin"><span>Gradle Build Plugin</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#circleci-orb"><span>CircleCI Orb</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#helm-charts"><span>Helm Charts</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#spring-boot-sqs-starter-library"><span>Spring Boot SQS Starter Library</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/application-platform.html#creating-a-new-service"><span>Creating A New Service</span></a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+
+              </nav>
+            </div>
+          </div>
+
+        <div class="app-pane__content toc-open-disabled">
+          <main id="content" class="technical-documentation" data-module="anchored-headings">
+              <h1 id="hmpps-application-platform">HMPPS Application Platform</h1><p>This document describes the application platform used across HMPPS to share common development patterns.</p>
+<h2 id="about-the-hmpps-application-platform">About the HMPPS Application Platform</h2><p>The HMPPS Application Platform provides the core components developers need to start building applications quickly.</p>
+<p>This includes:</p>
+
+<ul>
+<li>Template projects for frontend and backend services</li>
+<li>A project generator to automatically configure projects and build pipelines</li>
+<li>Build tools and plugins to use our standard build patterns</li>
+<li>Generic alerts to monitor application status</li>
+<li>Libraries for sharing common development patterns</li>
+</ul>
+<p>All of the above are designed to work with the <a href="https://user-guide.cloud-platform.service.justice.gov.uk/#cloud-platform-user-guide">MOJ Cloud Platform</a>.</p>
+<h3 id="benefits-of-using-the-application-platform">Benefits of using the Application Platform</h3><p>The Application Platform captures various patterns that have matured within the DPS development community and makes them easy to adopt on new projects.</p>
+<h4 id="build-new-services-quickly">Build new services quickly</h4><p>Historically development teams would spend several weeks working on Sprint Zero to create a build pipeline for their skeleton project. Often Sprint Zero is never completed and projects start with the burden of technical debt.</p>
+<p>By using our Project Bootstrapper it is possible to deploy a skeleton project to production in hours. This allows developers to quickly start delivering user stories and add value to the end users.</p>
+<h4 id="adopt-common-standards">Adopt common standards</h4><p>Innovation is encouraged but we don&rsquo;t want teams diverging too much. Otherwise we end up with many solutions to the same problems causing a maintenance headache for both developers and operations.</p>
+<p>By using standard components available in the Application Platform we can manage services in a consistent way and share best practice.</p>
+<h4 id="increase-institutional-knowledge">Increase institutional knowledge</h4><p>As the trickle of new services turns into a flood we find that many projects are at different levels of maturity. These then require different levels of support from teams of different sizes.</p>
+<p>By using standard components we share knowledge of our development practices. This makes it easier to move developers between teams and provide the right levels of support where needed.</p>
+<h4 id="secure-services">Secure services</h4><p>Security is no longer an afterthought tagged onto the end of a project by overworked security and operations staff. To maintain a secure estate we must build security best practices in from the start of a project and in a consistent manner.</p>
+<p>By using our various build tools it&rsquo;s easier to keep services up to date with the latest security patches and identify security vulnerabilities.</p>
+<h4 id="add-observability-into-services">Add observability into services</h4><p>No service runs in isolation and gaining a holistic view of the whole estate presents difficult challenges. There are many open source technologies to help with observability but these need coordinating between services to be successful.</p>
+<p>By using our application templates we standardise the capturing of telemetry and tracing. This allow us to provide a common toolset for observing our suite of microservices.</p>
+<h4 id="take-advantage-of-mature-development-patterns">Take advantage of mature development patterns</h4><p>Many problems facing developers in HMPPS have been &ldquo;solved&rdquo; and using these patterns gives teams a head start.</p>
+<p>By using our various build plugins and libraries we have captured some of these patterns to distribute amongst teams. This allows developers to focus on providing value to end users.</p>
+<h2 id="application-platform-shared-components">Application Platform Shared Components</h2><h3 id="project-bootstrapper">Project Bootstrapper</h3><p>The project bootstrapper is a utility for generating new projects and/or configuring build pipelines for projects. It works by defining a project in the <code>projects.json</code> file and running a script to create and configure a GitHub project, a CircleCI project, a quay.io project and a Kubernetes namespace.</p>
+<p>The bootstrapper can be used to copy an existing Kotlin or Typescript template project or can run against an existing project.</p>
+<p>As well as removing the effort required to create a build pipeline it allows us to standardise things like GitHub project configuration.</p>
+<p>See the project readme on GitHub for usage details.</p>
+<h4 id="external-links-requires-login-to-github">External links (requires login to GitHub)</h4><p>GitHub project: https://github.com/ministryofjustice/dps-project-bootstrap
+projects.json file: https://github.com/ministryofjustice/dps-project-bootstrap/blob/main/projects.json</p>
+<h3 id="kotlin-template">Kotlin Template</h3><p>The <a href="https://github.com/ministryofjustice/hmpps-template-kotlin">Kotlin Template project</a> is a skeleton backend Kotlin / Spring Boot application. It can be copied to create a new project.</p>
+<p>The application is very light and provides little more than example health checks. The main value is gained from the CircleCI, Helm, Docker, Gradle and Application Insights configurations. These allow a new application to be built and deployed to a Kubernetes namespace. The template application itself runs in the namespace <code>hmpps-template-kotlin</code> on Cloud Platform as a test to prove it is deployable.</p>
+<p>The template works best in conjunction with the <a href="#project-bootstrapper">Project Bootstrapper</a> which configures a build pipeline to get the application deployed into Kubernetes.</p>
+<p>Any questions or suggestions relating to the Kotlin template should be directed to MOJ Slack channel <code>#kotlin-dev</code>.</p>
+<h3 id="typescript-template">Typescript Template</h3><p>The <a href="https://github.com/ministryofjustice/hmpps-template-typescript">Typescript Template project</a> is a skeleton frontend / Node application. It can be copied to create a new project.</p>
+<p>Note that this template is not a DPS Tech Team project but is community driven and owned by the MOJ Slack channel <code>#typescript</code>. It has been included here because it is a great fit with the other offerings.</p>
+<p>The application is very light but provides enough detail to get a skeleton application up and running. The template application itself runs in the namespace <code>hmpps-template-typescript</code> on Cloud Platform as a test to prove it is deployable.</p>
+<p>The template works best in conjunction with the <a href="#project-bootstrapper">Project Bootstrapper</a> which configures a build pipeline to get the application deployed into Kubernetes.</p>
+<p>Any questions or suggestions relating to the Typescript template should be directed to MOJ Slack channel <code>#typescript</code>.</p>
+<h3 id="gradle-build-plugin">Gradle Build Plugin</h3><p>The <a href="https://github.com/ministryofjustice/dps-gradle-spring-boot">Gradle Plugin</a> is used to orchestrate Gradle builds of Java/Kotlin Spring Boot projects. &ldquo;Orchestrate&rdquo; means it applies 3rd party Gradle plugins and configures them rather than adding new build logic. The plugins applied can be found in the <a href="https://github.com/ministryofjustice/dps-gradle-spring-boot/blob/main/build.gradle.kts">build.gradle.kts</a> file.</p>
+<p>One notable plugin that is applied to all projects is the <a href="https://github.com/dependency-check/dependency-check-gradle">dependency check plugin</a>. This is run in scheduled CircleCI builds to find vulnerabilities in our dependencies. It also includes a way of suppressing <a href="https://github.com/ministryofjustice/dps-gradle-spring-boot/blob/main/src/main/resources/dps-gradle-spring-boot-suppressions.xml">false positives</a>.</p>
+<p>Please see the <a href="https://github.com/ministryofjustice/dps-gradle-spring-boot">project readme</a> for more information on the plugin.</p>
+<p>Note that the plugin is used in our <a href="#kotlin-template">Kotlin Template project</a>.</p>
+<h3 id="circleci-orb">CircleCI Orb</h3><p>The <a href="https://github.com/ministryofjustice/hmpps-circleci-orb">CircleCI Orb</a> is a plugin used in CircleCI builds to provide standard build executions, jobs and commands.</p>
+<p>Jobs exist to perform common tasks such as building and publishing docker images, deploying to environments and running security checks.</p>
+<p>Common commands include installing build tools such as AWS CLI and helm and a standard way of generating application versions.</p>
+<p>Default executors are available for building different development stacks.</p>
+<p>Note that a default CircleCI build using the relevant Orb components is included in both the <a href="#kotlin-template">Kotlin Template project</a> and the <a href="#typescript-template">Typescript Template project</a> (in the directory <code>.circleci</code>).</p>
+<p>More details can be found on the <a href="https://circleci.com/developer/orbs/orb/ministryofjustice/hmpps">Orb&rsquo;s registry page</a>.</p>
+<h3 id="helm-charts">Helm Charts</h3><p>The <a href="https://github.com/ministryofjustice/hmpps-helm-charts">HMPPS Helm Charts project</a> provides generic Helm charts that can be used by any service. These are Helm templates with various extension points that can be configured in Helm values files.</p>
+<p>A <a href="https://github.com/ministryofjustice/hmpps-helm-charts/tree/main/charts/generic-service">generic service chart</a> is available to deploy any service into the Kubernetes instance hosted by Cloud Platforms.</p>
+<p>A <a href="https://github.com/ministryofjustice/hmpps-helm-charts/tree/main/charts/generic-prometheus-alerts">generic prometheus alerts chart</a> provides a standard set of alerts for Kubernetes deployments and ingresses.</p>
+<p>A <a href="https://github.com/ministryofjustice/hmpps-helm-charts/tree/main/charts/clamav">ClamAV chart</a> adds an antivirus utility to a namespace.</p>
+<p>Note that the generic service chart and generic prometheus alerts chart are used by both the <a href="#kotlin-template">Kotlin Template project</a> and the <a href="#typescript-template">Typescript Template project</a> (in the directory <code>helm_deploy</code>).</p>
+<h3 id="spring-boot-sqs-starter-library">Spring Boot SQS Starter Library</h3><p>The <a href="https://github.com/ministryofjustice/hmpps-spring-boot-sqs">hmpps-spring-boot-sqs project</a> publishes a Spring Boot starter library for using AWS SQS and SNS in a standard HMPPS way.</p>
+<p>The library captures various patterns for using the AWS SQS and SNS client libraries that have been widely adopted within HMPPS. These patterns include creating secure clients, JMS listeners, queue health indicators, retry/purge endpoints and integration with the AWS testing utility Localstack.</p>
+<p>To see an example of the library in action look at the project&rsquo;s <a href="https://github.com/ministryofjustice/hmpps-spring-boot-sqs/tree/main/test-app">test application</a> which is used for both functional tests and can be spun up locally. The library has also been used in <a href="https://github.com/search?q=org%3Aministryofjustice+hmpps-sqs-spring-boot-starter&amp;type=code">several projects</a> and these provide good real life examples.</p>
+<h2 id="creating-a-new-service">Creating A New Service</h2><p>Coming soon&hellip;</p>
+
+
+              <div data-module='page-expiry' data-last-reviewed-on="2021-12-06">
+    <div class='page-expiry--not-expired'>
+      This page was last reviewed on 6 September 2021.
+
+        It needs to be reviewed again on 6 December 2021
+.
+    </div>
+
+    <div class='page-expiry--expired'>
+      This page was set to be reviewed before 6 December 2021.
+      This might mean the content is out of date.
+    </div>
+  </div>
+
+          </main>
+
+          <aside>
+              <ul class="contribution-banner">
+                <li><a href="https://github.com/ministryofjustice/hmpps-tech-docs/blob/main/source/application-platform.html.md.erb">View source</a></li>
+                <li><a href="https://github.com/ministryofjustice/hmpps-tech-docs/issues/new?labels=bug&amp;title=Re:%20'HMPPS%20Application%20Platform'&amp;body=Problem%20with%20'HMPPS%20Application%20Platform'%20(https://tech-docs.hmpps.service.justice.gov.uk/application-platform.html)">Report problem</a></li>
+                <li><a href="https://github.com/ministryofjustice/hmpps-tech-docs">GitHub Repo</a></li>
+              </ul>
+          </aside>
+
+          <footer class="govuk-footer app-footer" role="contentinfo">
+  <div class="govuk-footer__meta">
+    <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+
+
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        class="govuk-footer__licence-logo"
+        xmlns="http://www.w3.org/2000/svg"
+        viewbox="0 0 483.2 195.7"
+        height="17"
+        width="41"
+      >
+        <path
+          fill="currentColor"
+          d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"
+        />
+      </svg>
+      <span class="govuk-footer__licence-description">
+        All content is available under the
+        <a
+          class="govuk-footer__link"
+          href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+          rel="license"
+        >Open Government Licence v3.0</a>, except where otherwise stated
+      </span>
+    </div>
+    <div class="govuk-footer__meta-item">
+      <a
+        class="govuk-footer__link govuk-footer__copyright-logo"
+        href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
+      >© Crown copyright</a>
+    </div>
+  </div>
+</footer>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <script src="/javascripts/application.js"></script>
+  </body>
+</html>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138188246-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-138188246-1');
+</script>
+
+<script>
+  // Add the current window.location to the body of the
+  // feedback email message.
+  function sendFeedback(mailto, event) {
+    event.preventDefault();
+
+    var body = "Feedback/Problem on page: " + window.location + "\n";
+    var href = mailto + '&body=' + encodeURIComponent(body);
+
+    window.location = href;
+  }
+
+  $(document).ready(function() {
+    var feedbackLink = $('a[href^="mailto:"]:contains("Feedback")')[0];
+    var mailto = feedbackLink.href;
+    $(feedbackLink).on('click', function(event) { sendFeedback(mailto, event); });
+  });
+</script>
