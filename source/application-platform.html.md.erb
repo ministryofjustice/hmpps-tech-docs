@@ -149,6 +149,82 @@ To see an example of the library in action look at the project's [test applicati
 
 ## Creating A New Service
 
-Coming soon...
+By using the [application platform shared components](#application-platform-shared-components) it is possible to get a skeleton service into production very quickly.
+
+### Prerequisites
+
+* You must be a member of a team in the [Ministry of Justice](https://github.com/ministryofjustice) GitHub organisation. That team must belong to parent team [HMPPS Developers](https://github.com/orgs/ministryofjustice/teams/hmpps-developers).
+* The team must have an MOJ Slack channel. You may want a second channel dedicated to alerts.
+* The new service needs a [good name](https://www.gov.uk/service-manual/design/naming-your-service). Note that by convention we use the service name in the DNS domain used by the service. As this will have a size limit try not to make your service name too long - a maximum of 25 characters should be ok.
+* Decide which DNS domain to use depending on your user base. `.hmpps.service.justice.gov.uk`, `.prison.service.justice.gov.uk` or `.probation.service.justice.gov.uk` are already available and require no extra work. Anything else will need assistance from Cloud Platform.
+* Clone the [cloud-platform-environments git repository](https://github.com/ministryofjustice/cloud-platform-environments).
+* Decide upon the type of project - for backend projects we will be using the [Kotlin Template](#kotlin-template-project) and for frontend projects we will be using the [Typescript template](#typescript-template-project).
+* Install the Kubernetes CLI [kubectl](https://kubernetes.io/docs/tasks/tools/)
+
+### Creating resources in Cloud Platform
+
+Cloud Platform host a Kubernetes cluster which is logically divided into namespaces aka environments. We deploy applications into these namespaces. Each application will generally require three namespaces - `dev`, `preprod` and `prod`. (Note that sometimes closely related applications share a namespace but would still be split by `dev`, `preprod` and `prod` environments).
+
+Each namespace also needs some other Kubernetes resources such as an ingress (to allow inbound traffic), access roles (to give humans and build tools access to the namespace), a certificate (to use TLS) amongst others.
+
+In order to create the Kubernetes resources with Cloud Platform clone the [cloud-platform-environments git repository](https://github.com/ministryofjustice/cloud-platform-environments).
+
+#### dev namespace
+
+Initially we will create a dev namespace. We'll refer to this as `<your-new-service-name>-dev` where `<your-new-service-name>` is whatever you've called your new service.
+
+* In the `cloud-platform-environments` repo create a new branch
+* Look in directory `namespaces/live-1.cloud-platform.service.justice.gov.uk`
+* For APIs take a copy of the `hmpps-template-kotlin` directory or for UIs take a copy of the `hmpps-template-typescript` directory
+* For the new directory name append dev to your new service name, e.g. `<your-new-service-name>-dev`
+
+You will now have a bunch of Kubernetes definition files in your new directory. There will be several places that need updating:
+
+* Change the defaults under directory `resources/variables`
+* Replace the template namespace references with your new namespace name (e.g. replace all instances of `hmpps-template-kotlin` with `<your-new-service-name>-dev`)
+* When finished perform a quick search for the word `template` in your new directory in case you missed any
+* Add your GitHub team to the `rbac` yaml - copy the existing subject of kind `Group` but replace `dps-tech` with your GitHub team. (Note you should keep the `dps-tech` Group as this is required for some administration tasks on the namespace).
+* Update the certificate's DNS name. By convention we prefer `<your-new-service-name>-dev.hmpps|prison|probation.service.justice.gov.uk` - where you choose one of `hmpps`, `prison` or `probation`
+* Check that the certificate's DNS name isn't longer than 63 characters - if it is you'll need to choose a shorter service name
+
+Once your updates are complete push your branch back to the repo and raise a new Pull Request. You'll then need to ask on MOJ Slack channel `#ask_cloud_platform` for a review of the PR. Once approved, merge the PR.
+
+A Concourse job will run in the background which should eventually create your new namespace. When the namespace is ready the command `kubectl get namespaces | grep <your-new-service-name>-dev` should return your new namespace.
+
+#### preprod namespace
+
+To create the preprod namespace we can just take a copy of the recently created dev namespace.
+
+* Update the `cloud-platform-environments` repo and create a new branch
+* Look in directory `namespaces/live-1.cloud-platform.service.justice.gov.uk`
+* Copy the directory `<your-new-service-name>-dev` but name the new directory `<your-new-service-name>-preprod`
+
+This time you' wi'll need to find all occurrences of `dev` in the directory and rename to `preprod`.
+
+Again you'll need to raise a PR and ask Cloud Platform to review - the same process as for the [dev namespace](#dev-namespace).
+
+#### prod namespace
+
+To create the prod namespace we can just take a copy of the recently created preprod namespace.
+
+* Update the `cloud-platform-environments` repo and create a new branch
+* Look in directory `namespaces/live-1.cloud-platform.service.justice.gov.uk`
+* Copy the directory `<your-new-service-name>-preprod` but name the new directory `<your-new-service-name>-prod`
+
+This time you'll need to find all occurrences of `preprod` in the directory and rename to `prod`.
+
+However as this is prod there are a few other changes:
+
+* In the namespace yaml, change the `is-production` label to `true`. You may also wish to change the `slack-alert-channel` if you have a different channel for production alerts.
+* In the resource/variables yaml, also change the `is-production` variable to `true`.
+* In the certificates yaml, take `-prod` out of the DNS name. By convention we only use environment suffixes for non-production host names.
+* Add in a pingdom health check. Find another production namespace (e.g. `hmpps-audit-prod`) and copy file `resources/pingdom.tf` into your new directory. Update the name and change the url to match your certificate's `dnsName`.
+* Add pingdom version details to the file `resources/versions.tf` (copy an existing production namespace such as `hmpps-audit-prod`).
+
+Once again you'll need to raise a PR and ask Cloud Platform to review - the same process as for the [dev namespace](#dev-namespace).
+
+
+
+
 
 
