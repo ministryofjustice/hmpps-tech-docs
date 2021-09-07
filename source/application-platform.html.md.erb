@@ -163,13 +163,25 @@ By using the [application platform shared components](#application-platform-shar
 
 ### Creating resources in Cloud Platform
 
-Cloud Platform host a Kubernetes cluster which is logically divided into namespaces aka environments. We deploy applications into these namespaces. Each application will generally require three namespaces - `dev`, `preprod` and `prod`. (Note that sometimes closely related applications share a namespace but would still be split by `dev`, `preprod` and `prod` environments).
+#### Namespaces
 
-Each namespace also needs some other Kubernetes resources such as an ingress (to allow inbound traffic), access roles (to give humans and build tools access to the namespace), a certificate (to use TLS) amongst others.
+Cloud Platforms host a Kubernetes cluster which is logically divided into namespaces aka environments. We deploy applications into these namespaces using Helm. Each application will generally require three namespaces/environments - `dev`, `preprod` and `prod`.
 
-In order to create the Kubernetes resources with Cloud Platform clone the [cloud-platform-environments git repository](https://github.com/ministryofjustice/cloud-platform-environments).
+Sometimes it makes sense to group applications together into a single namespace, for example you may have a related UI and API that belong together. This is fine but we would still require multiple environment namespaces for `dev`, `preprod` and `prod`.
 
-#### dev namespace
+Sometimes we need additional environment namespaces, for example some probation applications also have a `staging` namespace to work with the Delius staging environment. This is fine but will mean some extra work in the Circle build and helm configurations when copying the template applications.
+
+#### Do I need a new namespace?
+
+If your application is in a new service area you will definitely need namespaces for the `dev`, `preprod` and `prod` environments. If your application fits nicely alongside existing application(s) you can skip creating a new namespace and reuse the existing ones. However, you will probably need to create a Kubernetes certificate resource for your new application.
+
+#### Creating new namespaces
+
+If you do need new namespaces then you will need to add some terraform to the [cloud-platform-environments git repository](https://github.com/ministryofjustice/cloud-platform-environments).
+
+Each new namespace needs new Kubernetes resources such as an ingress (to allow inbound traffic), access roles (to give humans and build tools access to the namespace), a certificate (to use TLS) amongst others.
+
+##### dev namespace
 
 Initially we will create a dev namespace. We'll refer to this as `<your-new-service-name>-dev` where `<your-new-service-name>` is whatever you've called your new service.
 
@@ -191,7 +203,7 @@ Once your updates are complete push your branch back to the repo and raise a new
 
 A Concourse job will run in the background which should eventually create your new namespace. When the namespace is ready the command `kubectl get namespaces | grep <your-new-service-name>-dev` should return your new namespace.
 
-#### preprod namespace
+##### preprod namespace
 
 To create the preprod namespace we can just take a copy of the recently created dev namespace.
 
@@ -199,11 +211,11 @@ To create the preprod namespace we can just take a copy of the recently created 
 * Look in directory `namespaces/live-1.cloud-platform.service.justice.gov.uk`
 * Copy the directory `<your-new-service-name>-dev` but name the new directory `<your-new-service-name>-preprod`
 
-This time you' wi'll need to find all occurrences of `dev` in the directory and rename to `preprod`.
+This time you'll need to find all occurrences of `dev` in the directory and rename to `preprod`.
 
 Again you'll need to raise a PR and ask Cloud Platform to review - the same process as for the [dev namespace](#dev-namespace).
 
-#### prod namespace
+##### prod namespace
 
 To create the prod namespace we can just take a copy of the recently created preprod namespace.
 
