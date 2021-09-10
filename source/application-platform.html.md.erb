@@ -265,6 +265,10 @@ Your project is now a copy of the template project. You'll want to rename some t
 
 You should now be able to clone the GitHub project, successfully run the tests, start the application locally and see the `/health` and `/info` pages.
 
+This is a good time to update `README.md` to replace the template readme with content more relevant to your service. See the [service standards](/service-standards.html#readme) for inspiration.
+
+Also update the Slack alert and release channels in the Circle build (.circleci/config.yml). These should be channels relating to your team / service area.
+
 ### Configuring the build pipeline
 
 We still have some configuration to do. If you go to the CircleCI project you should see that the build failed. If you run command `kubectl -n <your-new-service-name>-dev get pods` there are errors with the pods. The deployment failed due to missing secrets. Secrets are the kind of thing you can't save in a template repository.
@@ -281,7 +285,25 @@ Once you have the key you'll need to create the same secret in your namespace. Y
 
 When the secret has been created rerun the failing CircleCI job. If you have configured the secret successfully the build should complete and the application will now be deployed to dev. Running command `kubectl -n <your-new-service-name>-dev get pods` should show the running pods for your application.
 
-#### UI project secrets
+#### Typescript application secrets
+
+If you are trying to create a Typescript application your deployment is probably still failing. There are a few secrets that are only required by Typescript applications. Once these secrets are created your application should start deploying. It's worth running the command `kubectl -n <your-new-service-name>-dev get events` to try and spot which secrets are missing.
+
+##### session secret
+
+The Typescript template project requires a secret which is used to sign session cookies. This is how it knows that cookies haven't been tampered with when presented by a client. Using the [Cloud Platform secrets guide](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/add-secrets-to-deployment.html#adding-a-secret-to-an-application) update the secret `<your-new-service-name>` by adding a new key `SESSION_SECRET` followed by a random value (don't forget to base64 encode the value).
+
+##### authorization_code client
+
+Users sign in to the UI application using the Oauth2 `authorization_grant` flow. When successful the UI application calls `hmpps-auth` to receive a valid access token. We need a client and secret to prove to `hmpps-auth` that we are allowed to request access tokens. These secrets are stored in Kubernetes secrets `API_CLIENT_ID` and `API_CLIENT_SECRET`.
+
+To request a new authorization code client from `hmpps-auth` raise a ticket on the DPS Tech Team JIRA board in [this format](https://dsdmoj.atlassian.net/browse/DT-2550). Then ask in MOJ Slack channel `#dps_tech_team` for the ticket to be prioritised. Once the clients have been created in `hmpps-auth` the DPS Tech team will copy the secrets into your namespace.
+
+##### client_credentials client
+
+When a UI application needs to call an API it must prove that it has authorisation to call that API using the Oauth2 `client_credentials` flow. The UI application calls `hmpps-auth` to request an access token it can present to other APIs as authorisation. We need a client and secret to prove to `hmpps-auth` we can have an access token. These secrets are stored in Kubernetes secrets `SYSTEM_CLIENT_ID` and `SYSTEM_CLIENT_SECRET`.
+
+To request a new client credentials client from `hmpps-auth` raise a ticket on the DPS Tech Team JIRA board in [this format](https://dsdmoj.atlassian.net/browse/DT-2549). Then ask in MOJ Slack channel `#dps_tech_team` for the ticket to be prioritised. Once the clients have been created in `hmpps-auth` the DPS Tech team will copy the secrets into your namespace.
 
 #### Checking the application is healthy
 
@@ -295,11 +317,13 @@ If you see an error such as `Your connection is not private` or `Potential secur
 
 As with the dev namespace we'll also need an Application Insights key for preprod. Follow the [same procedure as dev](#configuring-project-secrets) to create the `APPINSIGHTS_INSTRUMENTATIONKEY` secret in the preprod namespace.
 
-In the new project under the `helm_deploy` directory you should see a file called `values-dev.yaml`. This contains overrides to helm deployment configuration for the `dev` namespace. Create a `values-preprod.yaml` file in the same format which needs overrides to the `generic-service.replicaCount`, the `generic-service.ingress.host` and the `generic-prometheus-alerts.alertSeverity` properties.
+In the new project under the `helm_deploy` directory you should see a file called `values-dev.yaml`. This contains overrides to helm deployment configuration for the `dev` namespace. Create a `values-preprod.yaml` file in the same format. For Kotlin template projects this needs overrides to the `generic-service.replicaCount`, the `generic-service.ingress.host` and the `generic-prometheus-alerts.alertSeverity` properties. For Typescript template projects copy `values-dev.yaml` and update all properties in the `generic-service` section.
 
 If you look at the project in CircleCI you should see that the last step in the `build-test-and-deploy` job is `deploy_dev`. We also want to deploy to preprod. In the project file `.circleci/config.yml` you will see a big section commented out - this contains extra steps to deploy to preprod and prod. Uncomment the `request-preprod-approval` and preprod deployment steps.
 
 Once these changes have been made raise a PR and merge when reviewed. Your Circle build should now deploy to dev and preprod. Once deployed check that the deployment is healthy in a similar way to [checking the dev deployment](#checking-the-application-is-healthy) but replacing `dev` with `preprod`.
+
+If you are creating a Typescript application you may still have a failing deployment. Make sure you create the same secrets in preprod that you [created for dev](#typescript-application-secrets).
 
 #### Adding an external health check to prod
 
@@ -308,23 +332,19 @@ For production we use an external health check monitor called pingdom. This chec
 * In the `cloud-platform-environments` project add a pingdom health check for the application. Find another production namespace (e.g. `hmpps-audit-prod`) and copy file `resources/pingdom.tf` into your new directory. Update the name and change the url to match your certificate's `dnsName`.
 * Add pingdom version details to the file `resources/versions.tf` (copy an existing production namespace such as `hmpps-audit-prod`).
 * Raise a PR, ask in MOJ Slack channel `#ask-cloud-platform` for a review and merge when approved.
-* As we haven't deployed to prod yet we should receive an alert from pingdom saying that the application is down. This proves that the pingdom check is working.
+* As we haven't deployed to prod yet we should receive an alert from pingdom saying that the application is down. This proves that the pingdom check is working so wait for the alert before promoting to prod.
 
 #### Promoting to prod
 
 As with the preprod namespace we'll also need an Application Insights key. Follow the [same process as dev](#configuring-project-secrets) to create the `APPINSIGHTS_INSTRUMENTATIONKEY` secret in the prod namespace.
 
-We also need a values file for prod - copy the recently created `values-preprod.yaml` file into `values-prod.yaml`. We will need an override to the `generic-service.ingress.host` property. If you're unsure what the ingress hosts should be go back and look at the certificates yaml files in the `cloud-platforms-environments` project where they are saved in property `spec.dnsNames`.
+We also need a values file for prod - copy the recently created `values-preprod.yaml` file into `values-prod.yaml`. We will need an override to the `generic-service.ingress.host` property. If you're unsure what the ingress hosts should be go back and look at the certificates yaml files in the `cloud-platforms-environments` project where they are saved in property `spec.dnsNames`. For Typescript applications you'll also need to change the URLs in the `generic-service.env` properties. Copy these from the `values-preprod.yaml` file then remove `preprod` from the URLs.
 
 The CircleCI build needs changing to deploy to prod. In the project file `.circleci/config.yml` uncomment the remaining steps in the `build-test-and-deploy` job.
 
 Once these changes have been made raise a PR and merge when reviewed. Your Circle build should now deploy to dev, preprod and prod.
 
-You should receive another alert from pingdom saying that your application is now up indicating that the deployment succeeded and the app is healthy.
+If you're creating a Typescript application you may still have a failing deployment. Make sure you create the same secrets in prod that you [created for dev](#typescript-application-secrets).
 
-
-## TODO mention updating the readme and point to the service standards document
-
-
-
+Once the application is deployed you should receive another alert from pingdom saying that your application is now up. This means your deployment succeeded and the app is healthy.
 
