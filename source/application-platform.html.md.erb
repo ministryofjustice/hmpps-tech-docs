@@ -149,7 +149,7 @@ To see an example of the library in action look at the project's [test applicati
 
 ## Creating A New Service
 
-By using the [application platform shared components](#application-platform-shared-components) it is possible to get a skeleton service into production very quickly.
+By using the [application platform shared components](#application-platform-shared-components) it is possible to get a skeleton service into production very quickly. We recommend getting a skeleton application deployed all the way to production as early as possible. This removes any surprises you might encounter with deploying your application into production and allows you to start adding value to users as early as possible. Note that depending upon your project you may wish to limit access to your production service. Be careful who you publish the production service URLs to. Control access by using roles assigned to users or services - ask in MOJ Slack channel `#dps_tech_team` for more details.
 
 ### Prerequisites
 
@@ -160,7 +160,7 @@ By using the [application platform shared components](#application-platform-shar
 * Clone the [cloud-platform-environments git repository](https://github.com/ministryofjustice/cloud-platform-environments).
 * Decide upon the type of project - for backend projects we will be using the [Kotlin Template](#kotlin-template) and for frontend projects we will be using the [Typescript template](#typescript-template).
 * Install the Kubernetes CLI [kubectl](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html#how-to-use-kubectl-to-connect-to-the-cluster)
-* Yous should create an account on [Quay.io](https://quay.io)
+* Create an account on [Quay.io](https://quay.io) and lnik it to the [hmpps org](https://quay.io/organization/hmpps)
 
 ### Creating resources in Cloud Platform
 
@@ -273,21 +273,9 @@ Also update the Slack alert and release channels in the Circle build (.circleci/
 
 We still have some configuration to do. If you go to the CircleCI project you should see that the build failed. If you run command `kubectl -n <your-new-service-name>-dev get pods` there are errors with the pods. The deployment failed due to missing secrets. Secrets are the kind of thing you can't save in a template repository.
 
-#### Configuring project secrets
-
-If you run command `kubectl -n <your-new-service-name>-dev get events` you will see an error saying `Error: secret "<your-new-service-name>" not found`. If you search inside your project's `helm_deploy` directory for a file called `values.yaml` and search for `namespace_secrets` you can see that we have told helm to expect a Kubernetes secret called `<your-new-service-name>`. But it doesn't exist yet, hence the deployment failure.
-
-The missing secret is for Application Insights. An agent to send various logging and tracing details to Application Insights is bundled with the template projects. However we need a valid key to tell Application Insights we are authorised.
-
-First get hold of the Application Insights key for dev. If you have access to another dev namespace you can find the secret in that namespace and copy it. The secret you are looking for has key `APPINSIGHTS_INSTRUMENTATIONKEY`. Please see the [Cloud Platforms guide](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/add-secrets-to-deployment.html#listing-the-secrets-in-a-namespace) for retrieving secrets from a namespace.
-
-Once you have the key you'll need to create the same secret in your namespace. You should follow another [Cloud Platforms guide](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/add-secrets-to-deployment.html#adding-a-secret-to-an-application) for creating a secret.
-
-When the secret has been created rerun the failing CircleCI job. If you have configured the secret successfully the build should complete and the application will now be deployed to dev. Running command `kubectl -n <your-new-service-name>-dev get pods` should show the running pods for your application.
-
 #### Typescript application secrets
 
-If you are trying to create a Typescript application your deployment is probably still failing. There are a few secrets that are only required by Typescript applications. Once these secrets are created your application should start deploying. It's worth running the command `kubectl -n <your-new-service-name>-dev get events` to try and spot which secrets are missing.
+If you are trying to create a Typescript application your deployment is probably failing. There are a few secrets that are only required by Typescript applications. Once these secrets are created your application should start deploying. It's worth running the command `kubectl -n <your-new-service-name>-dev get events` to try and spot which secrets are missing.
 
 ##### session secret
 
@@ -295,13 +283,13 @@ The Typescript template project requires a secret which is used to sign session 
 
 ##### authorization_code client
 
-Users sign in to the UI application using the Oauth2 `authorization_grant` flow. When successful the UI application calls `hmpps-auth` to receive a valid access token. We need a client and secret to prove to `hmpps-auth` that we are allowed to request access tokens. These secrets are stored in Kubernetes secrets `API_CLIENT_ID` and `API_CLIENT_SECRET`.
+Users sign in to the UI application using the Oauth2 `authorization_grant` flow. After a successful sign in the UI application calls `hmpps-auth` to receive a valid access token. We need a client and secret to prove to `hmpps-auth` that we are allowed to request access tokens. These secrets are stored in Kubernetes secrets `API_CLIENT_ID` and `API_CLIENT_SECRET`.
 
 To request a new authorization code client from `hmpps-auth` raise a ticket on the DPS Tech Team JIRA board in [this format](https://dsdmoj.atlassian.net/browse/DT-2550). Then ask in MOJ Slack channel `#dps_tech_team` for the ticket to be prioritised. Once the clients have been created in `hmpps-auth` the DPS Tech team will copy the secrets into your namespace.
 
 ##### client_credentials client
 
-When a UI application needs to call an API it must prove that it has authorisation to call that API using the Oauth2 `client_credentials` flow. The UI application calls `hmpps-auth` to request an access token it can present to other APIs as authorisation. We need a client and secret to prove to `hmpps-auth` we can have an access token. These secrets are stored in Kubernetes secrets `SYSTEM_CLIENT_ID` and `SYSTEM_CLIENT_SECRET`.
+When a UI application needs to call an API it must prove that it is authorised to call that API using the Oauth2 `client_credentials` flow. The UI application calls `hmpps-auth` to request an access token it can present to other APIs as authorisation. We need a client and secret to prove to `hmpps-auth` we can have an access token. These secrets are stored in Kubernetes secrets `SYSTEM_CLIENT_ID` and `SYSTEM_CLIENT_SECRET`.
 
 To request a new client credentials client from `hmpps-auth` raise a ticket on the DPS Tech Team JIRA board in [this format](https://dsdmoj.atlassian.net/browse/DT-2549). Then ask in MOJ Slack channel `#dps_tech_team` for the ticket to be prioritised. Once the clients have been created in `hmpps-auth` the DPS Tech team will copy the secrets into your namespace.
 
@@ -315,13 +303,11 @@ If you see an error such as `Your connection is not private` or `Potential secur
 
 #### Promoting to preprod
 
-As with the dev namespace we'll also need an Application Insights key for preprod. Follow the [same procedure as dev](#configuring-project-secrets) to create the `APPINSIGHTS_INSTRUMENTATIONKEY` secret in the preprod namespace.
-
 In the new project under the `helm_deploy` directory you should see a file called `values-dev.yaml`. This contains overrides to helm deployment configuration for the `dev` namespace. Create a `values-preprod.yaml` file in the same format. For Kotlin template projects this needs overrides to the `generic-service.replicaCount`, the `generic-service.ingress.host` and the `generic-prometheus-alerts.alertSeverity` properties. For Typescript template projects copy `values-dev.yaml` and update all properties in the `generic-service` section.
 
 If you look at the project in CircleCI you should see that the last step in the `build-test-and-deploy` job is `deploy_dev`. We also want to deploy to preprod. In the project file `.circleci/config.yml` you will see a big section commented out - this contains extra steps to deploy to preprod and prod. Uncomment the `request-preprod-approval` and preprod deployment steps.
 
-Once these changes have been made raise a PR and merge when reviewed. Your Circle build should now deploy to dev and preprod. Once deployed check that the deployment is healthy in a similar way to [checking the dev deployment](#checking-the-application-is-healthy) but replacing `dev` with `preprod`.
+Once these changes have been made raise a PR and merge when reviewed. Your Circle build should now deploy to dev and request approval to deploy to preprod. Approve the preprod approval in Circle. Once deployed check that the deployment is healthy in a similar way to [checking the dev deployment](#checking-the-application-is-healthy) but replacing `dev` with `preprod`.
 
 If you are creating a Typescript application you may still have a failing deployment. Make sure you create the same secrets in preprod that you [created for dev](#typescript-application-secrets).
 
@@ -336,13 +322,11 @@ For production we use an external health check monitor called pingdom. This chec
 
 #### Promoting to prod
 
-As with the preprod namespace we'll also need an Application Insights key. Follow the [same process as dev](#configuring-project-secrets) to create the `APPINSIGHTS_INSTRUMENTATIONKEY` secret in the prod namespace.
-
 We also need a values file for prod - copy the recently created `values-preprod.yaml` file into `values-prod.yaml`. We will need an override to the `generic-service.ingress.host` property. If you're unsure what the ingress hosts should be go back and look at the certificates yaml files in the `cloud-platforms-environments` project where they are saved in property `spec.dnsNames`. For Typescript applications you'll also need to change the URLs in the `generic-service.env` properties. Copy these from the `values-preprod.yaml` file then remove `preprod` from the URLs.
 
 The CircleCI build needs changing to deploy to prod. In the project file `.circleci/config.yml` uncomment the remaining steps in the `build-test-and-deploy` job.
 
-Once these changes have been made raise a PR and merge when reviewed. Your Circle build should now deploy to dev, preprod and prod.
+Once these changes have been made raise a PR and merge when reviewed. Your Circle build should now deploy to dev and request approval for preprod. After approving the preprod deployment the build will request approval for prod deployment. Approve and your service will be deployed to prod.
 
 If you're creating a Typescript application you may still have a failing deployment. Make sure you create the same secrets in prod that you [created for dev](#typescript-application-secrets).
 
