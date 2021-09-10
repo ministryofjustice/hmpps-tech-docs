@@ -160,7 +160,7 @@ By using the [application platform shared components](#application-platform-shar
 * Clone the [cloud-platform-environments git repository](https://github.com/ministryofjustice/cloud-platform-environments).
 * Decide upon the type of project - for backend projects we will be using the [Kotlin Template](#kotlin-template) and for frontend projects we will be using the [Typescript template](#typescript-template).
 * Install the Kubernetes CLI [kubectl](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html#how-to-use-kubectl-to-connect-to-the-cluster)
-* Create an account on [Quay.io](https://quay.io) and lnik it to the [hmpps org](https://quay.io/organization/hmpps)
+* Create an account on [Quay.io](https://quay.io) and link it to the [hmpps org](https://quay.io/organization/hmpps)
 
 ### Creating resources in Cloud Platform
 
@@ -241,7 +241,7 @@ The easiest way to create a new application is using the [project bootstrapper](
 
 #### Bootstrapping the project
 
-Clone the bootstrap GitHub project from the link in the [project boostrapper section](#project-bootstrapper) and take a look at the README.
+Clone the bootstrap GitHub project from the link in the [project bootstrapper section](#project-bootstrapper) and take a look at the README.
 
 * Create a new branch
 * Add your project to the `projects.json` file. You should be able to copy from the README example for deploying from a template. The value of `github_template_repo` should be `hmpps-template-kotlin` for backend projects or `hmpps-template-typescript` for frontend projects.
@@ -270,8 +270,6 @@ This is a good time to update `README.md` to replace the template readme with co
 Also update the Slack alert and release channels in the Circle build (.circleci/config.yml). These should be channels relating to your team / service area.
 
 ### Configuring the build pipeline
-
-We still have some configuration to do. If you go to the CircleCI project you should see that the build failed. If you run command `kubectl -n <your-new-service-name>-dev get pods` there are errors with the pods. The deployment failed due to missing secrets. Secrets are the kind of thing you can't save in a template repository.
 
 #### Typescript application secrets
 
