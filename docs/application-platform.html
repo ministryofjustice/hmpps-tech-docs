@@ -202,6 +202,20 @@
       </li>
       <li>
         <a href="/application-platform.html#creating-a-new-service"><span>Creating A New Service</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#prerequisites"><span>Prerequisites</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#creating-resources-in-cloud-platform"><span>Creating resources in Cloud Platform</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#generating-your-project-and-build-pipeline"><span>Generating your project and build pipeline</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#configuring-the-build-pipeline"><span>Configuring the build pipeline</span></a>
+          </li>
+        </ul>
       </li>
     </ul>
   </li>
@@ -243,8 +257,8 @@
 <p>The bootstrapper can be used to copy an existing Kotlin or Typescript template project or can run against an existing project.</p>
 <p>As well as removing the effort required to create a build pipeline it allows us to standardise things like GitHub project configuration.</p>
 <p>See the project readme on GitHub for usage details.</p>
-<h4 id="external-links-requires-login-to-github">External links (requires login to GitHub)</h4><p>GitHub project: https://github.com/ministryofjustice/dps-project-bootstrap
-projects.json file: https://github.com/ministryofjustice/dps-project-bootstrap/blob/main/projects.json</p>
+<h4 id="external-links-requires-login-to-github">External links (requires login to GitHub)</h4><p><strong>GitHub project</strong>: https://github.com/ministryofjustice/dps-project-bootstrap</p>
+<p><strong>projects.json file</strong>: https://github.com/ministryofjustice/dps-project-bootstrap/blob/main/projects.json</p>
 <h3 id="kotlin-template">Kotlin Template</h3><p>The <a href="https://github.com/ministryofjustice/hmpps-template-kotlin">Kotlin Template project</a> is a skeleton backend Kotlin / Spring Boot application. It can be copied to create a new project.</p>
 <p>The application is very light and provides little more than example health checks. The main value is gained from the CircleCI, Helm, Docker, Gradle and Application Insights configurations. These allow a new application to be built and deployed to a Kubernetes namespace. The template application itself runs in the namespace <code>hmpps-template-kotlin</code> on Cloud Platform as a test to prove it is deployable.</p>
 <p>The template works best in conjunction with the <a href="#project-bootstrapper">Project Bootstrapper</a> which configures a build pipeline to get the application deployed into Kubernetes.</p>
@@ -272,7 +286,123 @@ projects.json file: https://github.com/ministryofjustice/dps-project-bootstrap/b
 <h3 id="spring-boot-sqs-starter-library">Spring Boot SQS Starter Library</h3><p>The <a href="https://github.com/ministryofjustice/hmpps-spring-boot-sqs">hmpps-spring-boot-sqs project</a> publishes a Spring Boot starter library for using AWS SQS and SNS in a standard HMPPS way.</p>
 <p>The library captures various patterns for using the AWS SQS and SNS client libraries that have been widely adopted within HMPPS. These patterns include creating secure clients, JMS listeners, queue health indicators, retry/purge endpoints and integration with the AWS testing utility Localstack.</p>
 <p>To see an example of the library in action look at the project&rsquo;s <a href="https://github.com/ministryofjustice/hmpps-spring-boot-sqs/tree/main/test-app">test application</a> which is used for both functional tests and can be spun up locally. The library has also been used in <a href="https://github.com/search?q=org%3Aministryofjustice+hmpps-sqs-spring-boot-starter&amp;type=code">several projects</a> and these provide good real life examples.</p>
-<h2 id="creating-a-new-service">Creating A New Service</h2><p>Coming soon&hellip;</p>
+<h2 id="creating-a-new-service">Creating A New Service</h2><p>By using the <a href="#application-platform-shared-components">application platform shared components</a> it is possible to get a skeleton service into production very quickly. We recommend getting a skeleton application deployed all the way to production as early as possible. This removes any surprises you might encounter with deploying your application into production and allows you to start adding value to users as early as possible. Note that depending upon your project you may wish to limit access to your production service. Be careful who you publish the production service URLs to. Control access by using roles assigned to users or services - ask in MOJ Slack channel <code>#dps_tech_team</code> for more details.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>You must be a member of a team in the <a href="https://github.com/ministryofjustice">Ministry of Justice</a> GitHub organisation. That team must belong to parent team <a href="https://github.com/orgs/ministryofjustice/teams/hmpps-developers">HMPPS Developers</a>.</li>
+<li>The team must have an MOJ Slack channel. You may want a second channel dedicated to alerts.</li>
+<li>The new service needs a <a href="https://www.gov.uk/service-manual/design/naming-your-service">good name</a>. Note that by convention we use the service name in the DNS domain used by the service. As this will have a size limit try not to make your service name too long - a maximum of 25 characters should be ok.</li>
+<li>Decide which DNS domain to use depending on your user base. <code>.hmpps.service.justice.gov.uk</code>, <code>.prison.service.justice.gov.uk</code> or <code>.probation.service.justice.gov.uk</code> are already available and require no extra work. Anything else will need assistance from Cloud Platform.</li>
+<li>Clone the <a href="https://github.com/ministryofjustice/cloud-platform-environments">cloud-platform-environments git repository</a>.</li>
+<li>Decide upon the type of project - for backend projects we will be using the <a href="#kotlin-template">Kotlin Template</a> and for frontend projects we will be using the <a href="#typescript-template">Typescript template</a>.</li>
+<li>Install the Kubernetes CLI <a href="https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html#how-to-use-kubectl-to-connect-to-the-cluster">kubectl</a></li>
+<li>Create an account on <a href="https://quay.io">Quay.io</a> and lnik it to the <a href="https://quay.io/organization/hmpps">hmpps org</a></li>
+</ul>
+<h3 id="creating-resources-in-cloud-platform">Creating resources in Cloud Platform</h3><h4 id="namespaces">Namespaces</h4><p>Cloud Platforms host a Kubernetes cluster which is logically divided into namespaces aka environments. We deploy applications into these namespaces using Helm. Each application will generally require three namespaces/environments - <code>dev</code>, <code>preprod</code> and <code>prod</code>.</p>
+<p>Sometimes it makes sense to group applications together into a single namespace, for example you may have a related UI and API that belong together. This is fine but we would still require multiple environment namespaces for <code>dev</code>, <code>preprod</code> and <code>prod</code>.</p>
+<p>Sometimes we need additional environment namespaces, for example some probation applications also have a <code>staging</code> namespace to work with the Delius staging environment. This is fine but will mean some extra work in the Circle build and helm configurations when copying the template applications.</p>
+<h4 id="do-i-need-a-new-namespace">Do I need a new namespace?</h4><p>If your application is in a new service area you will definitely need namespaces for the <code>dev</code>, <code>preprod</code> and <code>prod</code> environments. If your application fits nicely alongside existing application(s) you can skip creating a new namespace and reuse the existing ones. However, you will probably need to create a Kubernetes certificate resource for your new application.</p>
+<h4 id="creating-new-namespaces">Creating new namespaces</h4><p>If you do need new namespaces then you will need to add some terraform to the <a href="https://github.com/ministryofjustice/cloud-platform-environments">cloud-platform-environments git repository</a>.</p>
+<p>Each new namespace needs new Kubernetes resources such as an ingress (to allow inbound traffic), access roles (to give humans and build tools access to the namespace), a certificate (to use TLS) amongst others.</p>
+<h5 id="dev-namespace">dev namespace</h5><p>Initially we will create a dev namespace. We&rsquo;ll refer to this as <code>&lt;your-new-service-name&gt;-dev</code> where <code>&lt;your-new-service-name&gt;</code> is whatever you&rsquo;ve called your new service.</p>
+
+<ul>
+<li>In the <code>cloud-platform-environments</code> repo create a new branch</li>
+<li>Look in directory <code>namespaces/live-1.cloud-platform.service.justice.gov.uk</code></li>
+<li>For APIs take a copy of the <code>hmpps-template-kotlin</code> directory or for UIs take a copy of the <code>hmpps-template-typescript</code> directory</li>
+<li>For the new directory name append dev to your new service name, e.g. <code>&lt;your-new-service-name&gt;-dev</code></li>
+</ul>
+<p>You will now have a bunch of Kubernetes definition files in your new directory. There will be several places that need updating:</p>
+
+<ul>
+<li>Change the defaults under directory <code>resources/variables</code></li>
+<li>Replace the template namespace references with your new namespace name (e.g. replace all instances of <code>hmpps-template-kotlin</code> with <code>&lt;your-new-service-name&gt;-dev</code>)</li>
+<li>When finished perform a quick search for the word <code>template</code> in your new directory in case you missed any</li>
+<li>Add your GitHub team to the <code>rbac</code> yaml - copy the existing subject of kind <code>Group</code> but replace <code>dps-tech</code> with your GitHub team. (Note you should keep the <code>dps-tech</code> Group as this is required for some administration tasks on the namespace).</li>
+<li>Update the certificate&rsquo;s DNS name. By convention we prefer <code>&lt;your-new-service-name&gt;-dev.hmpps|prison|probation.service.justice.gov.uk</code> - where you choose one of <code>hmpps</code>, <code>prison</code> or <code>probation</code></li>
+<li>Check that the certificate&rsquo;s DNS name isn&rsquo;t longer than 63 characters - if it is you&rsquo;ll need to choose a shorter name</li>
+<li>Make sure the certificate&rsquo;s property <code>spec.secretName</code> doesn&rsquo;t include the word <code>dev</code>. This secret name should be the same for all namespaces/environments.</li>
+</ul>
+<p>Once your updates are complete push your branch back to the repo and raise a new Pull Request. You&rsquo;ll then need to ask on MOJ Slack channel <code>#ask_cloud_platform</code> for a review of the PR. Once approved, merge the PR.</p>
+<p>A Concourse job will run in the background which should eventually create your new namespace. When the namespace is ready the command <code>kubectl get namespaces | grep &lt;your-new-service-name&gt;-dev</code> should return your new namespace.</p>
+<h5 id="preprod-namespace">preprod namespace</h5><p>To create the preprod namespace we can just take a copy of the recently created dev namespace.</p>
+
+<ul>
+<li>Update the <code>cloud-platform-environments</code> repo and create a new branch</li>
+<li>Look in directory <code>namespaces/live-1.cloud-platform.service.justice.gov.uk</code></li>
+<li>Copy the directory <code>&lt;your-new-service-name&gt;-dev</code> but name the new directory <code>&lt;your-new-service-name&gt;-preprod</code></li>
+</ul>
+<p>This time you&rsquo;ll need to find all occurrences of <code>dev</code> in the directory and rename to <code>preprod</code>.</p>
+<p>Again you&rsquo;ll need to raise a PR and ask Cloud Platform to review - the same process as for the <a href="#dev-namespace">dev namespace</a>.</p>
+<h5 id="prod-namespace">prod namespace</h5><p>To create the prod namespace we can just take a copy of the recently created preprod namespace.</p>
+
+<ul>
+<li>Update the <code>cloud-platform-environments</code> repo and create a new branch</li>
+<li>Look in directory <code>namespaces/live-1.cloud-platform.service.justice.gov.uk</code></li>
+<li>Copy the directory <code>&lt;your-new-service-name&gt;-preprod</code> but name the new directory <code>&lt;your-new-service-name&gt;-prod</code></li>
+</ul>
+<p>This time you&rsquo;ll need to find all occurrences of <code>preprod</code> in the directory and rename to <code>prod</code>.</p>
+<p>However as this is prod there are a few other changes:</p>
+
+<ul>
+<li>In the namespace yaml, change the <code>is-production</code> label to <code>true</code>. You may also wish to change the <code>slack-alert-channel</code> if you have a different channel for production alerts.</li>
+<li>In the resource/variables yaml, also change the <code>is-production</code> variable to <code>true</code>.</li>
+<li>In the certificates yaml, take <code>-prod</code> out of the DNS name. By convention we only use environment suffixes for non-production host names.</li>
+</ul>
+<p>Once again you&rsquo;ll need to raise a PR and ask Cloud Platform to review - the same process as for the <a href="#dev-namespace">dev namespace</a>.</p>
+<h3 id="generating-your-project-and-build-pipeline">Generating your project and build pipeline</h3><p>The easiest way to create a new application is using the <a href="#project-bootstrapper">project bootstrapper</a>. This will create everything you need to get your skeleton project into production.</p>
+<h4 id="bootstrapping-the-project">Bootstrapping the project</h4><p>Clone the bootstrap GitHub project from the link in the <a href="#project-bootstrapper">project boostrapper section</a> and take a look at the README.</p>
+
+<ul>
+<li>Create a new branch</li>
+<li>Add your project to the <code>projects.json</code> file. You should be able to copy from the README example for deploying from a template. The value of <code>github_template_repo</code> should be <code>hmpps-template-kotlin</code> for backend projects or <code>hmpps-template-typescript</code> for frontend projects.</li>
+<li>Raise a Pull Request and ask for a review in the MOJ Slack channel <code>#dps_tech_team</code></li>
+<li>Once merged, ask again in <code>#dps_tech_team</code> for somebody to apply the changes</li>
+</ul>
+<p>Once complete you will have a new project on Github and your build pipeline will be ready. It&rsquo;s worth checking these resources to make sure the bootstrap worked and familiarise yourself with the build pipeline.</p>
+
+<ul>
+<li>Find the project on <a href="https://github.com/ministryofjustice">GitHub</a>. (Don&rsquo;t worry about the instructions in the README - we&rsquo;ll do that next).</li>
+<li>Find the project on <a href="https://app.circleci.com/projects/project-dashboard/github/ministryofjustice/">CircleCI</a>. (Don&rsquo;t worry that your first build has failed - we&rsquo;ll fix that in a minute).</li>
+<li>Find the project on <a href="https://quay.io/organization/hmpps">Quay.io</a>. (There are no docker images yet as we haven&rsquo;t completed a build).</li>
+<li>Check that secrets have been added to Kubernetes with command <code>kubectl -n &lt;your-new-service-name&gt;-prod get secrets</code>. You should see at least a Circle token and a certificate.</li>
+</ul>
+<h4 id="renaming-the-project">Renaming the project</h4><p>Your project is now a copy of the template project. You&rsquo;ll want to rename some things so you don&rsquo;t see the word <code>template</code> everywhere. There&rsquo;s a GitHub Action for this.</p>
+
+<ul>
+<li>Go to the GitHub project and select the <code>Actions</code> tab</li>
+<li>You should see a workflow called <code>rename-project-create-pr</code> - select the workflow and click the <code>Run workflow</code> button</li>
+<li>Once completed click on the <code>Pull Requests</code> tab - you should see a single PR raised by the Action. Review the PR and merge.</li>
+</ul>
+<p>You should now be able to clone the GitHub project, successfully run the tests, start the application locally and see the <code>/health</code> and <code>/info</code> pages.</p>
+<p>This is a good time to update <code>README.md</code> to replace the template readme with content more relevant to your service. See the <a href="/service-standards.html#readme">service standards</a> for inspiration.</p>
+<p>Also update the Slack alert and release channels in the Circle build (.circleci/config.yml). These should be channels relating to your team / service area.</p>
+<h3 id="configuring-the-build-pipeline">Configuring the build pipeline</h3><p>We still have some configuration to do. If you go to the CircleCI project you should see that the build failed. If you run command <code>kubectl -n &lt;your-new-service-name&gt;-dev get pods</code> there are errors with the pods. The deployment failed due to missing secrets. Secrets are the kind of thing you can&rsquo;t save in a template repository.</p>
+<h4 id="typescript-application-secrets">Typescript application secrets</h4><p>If you are trying to create a Typescript application your deployment is probably failing. There are a few secrets that are only required by Typescript applications. Once these secrets are created your application should start deploying. It&rsquo;s worth running the command <code>kubectl -n &lt;your-new-service-name&gt;-dev get events</code> to try and spot which secrets are missing.</p>
+<h5 id="session-secret">session secret</h5><p>The Typescript template project requires a secret which is used to sign session cookies. This is how it knows that cookies haven&rsquo;t been tampered with when presented by a client. Using the <a href="https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/add-secrets-to-deployment.html#adding-a-secret-to-an-application">Cloud Platform secrets guide</a> update the secret <code>&lt;your-new-service-name&gt;</code> by adding a new key <code>SESSION_SECRET</code> followed by a random value (don&rsquo;t forget to base64 encode the value).</p>
+<h5 id="authorization-code-client">authorization_code client</h5><p>Users sign in to the UI application using the Oauth2 <code>authorization_grant</code> flow. After a successful sign in the UI application calls <code>hmpps-auth</code> to receive a valid access token. We need a client and secret to prove to <code>hmpps-auth</code> that we are allowed to request access tokens. These secrets are stored in Kubernetes secrets <code>API_CLIENT_ID</code> and <code>API_CLIENT_SECRET</code>.</p>
+<p>To request a new authorization code client from <code>hmpps-auth</code> raise a ticket on the DPS Tech Team JIRA board in <a href="https://dsdmoj.atlassian.net/browse/DT-2550">this format</a>. Then ask in MOJ Slack channel <code>#dps_tech_team</code> for the ticket to be prioritised. Once the clients have been created in <code>hmpps-auth</code> the DPS Tech team will copy the secrets into your namespace.</p>
+<h5 id="client-credentials-client">client_credentials client</h5><p>When a UI application needs to call an API it must prove that it is authorised to call that API using the Oauth2 <code>client_credentials</code> flow. The UI application calls <code>hmpps-auth</code> to request an access token it can present to other APIs as authorisation. We need a client and secret to prove to <code>hmpps-auth</code> we can have an access token. These secrets are stored in Kubernetes secrets <code>SYSTEM_CLIENT_ID</code> and <code>SYSTEM_CLIENT_SECRET</code>.</p>
+<p>To request a new client credentials client from <code>hmpps-auth</code> raise a ticket on the DPS Tech Team JIRA board in <a href="https://dsdmoj.atlassian.net/browse/DT-2549">this format</a>. Then ask in MOJ Slack channel <code>#dps_tech_team</code> for the ticket to be prioritised. Once the clients have been created in <code>hmpps-auth</code> the DPS Tech team will copy the secrets into your namespace.</p>
+<h4 id="checking-the-application-is-healthy">Checking the application is healthy</h4><p>We have now deployed the application to dev and need to check it is up and running as expected. Run command <code>kubectl -n &lt;your-new-service-name&gt;-dev get ingress</code> where you should find the host of your application. In a browser go to page <code>https://&lt;hostname&gt;/health</code> and you should see a health page with status <code>UP</code>.</p>
+<h5 id="troubleshooting-missing-certificate">Troubleshooting - Missing certificate</h5><p>If you see an error such as <code>Your connection is not private</code> or <code>Potential security risk ahead</code> then it implies that the application is not using the certificate we generated with terraform earlier. Look in project file <code>helm_deploy/&lt;your-new-service-name&gt;/values.yaml</code> for property <code>generic-service.ingress.tlsSecretName</code> - this is the secret we copy the certificate from. Then run command <code>kubectl -n &lt;your-new-service&gt;-dev get secrets</code> to find a secret of type <code>kubernetes.io/tls</code> - this is the secret holding the certificate and should match the secret name in our project. If not then go back to the <code>cloud-platform-environments</code> project for dev and find the certificates yaml. Change the property <code>spec.secretName</code> to match the real secret name and issue a PR. You may also need to do this for preprod and prod.</p>
+<h4 id="promoting-to-preprod">Promoting to preprod</h4><p>In the new project under the <code>helm_deploy</code> directory you should see a file called <code>values-dev.yaml</code>. This contains overrides to helm deployment configuration for the <code>dev</code> namespace. Create a <code>values-preprod.yaml</code> file in the same format. For Kotlin template projects this needs overrides to the <code>generic-service.replicaCount</code>, the <code>generic-service.ingress.host</code> and the <code>generic-prometheus-alerts.alertSeverity</code> properties. For Typescript template projects copy <code>values-dev.yaml</code> and update all properties in the <code>generic-service</code> section.</p>
+<p>If you look at the project in CircleCI you should see that the last step in the <code>build-test-and-deploy</code> job is <code>deploy_dev</code>. We also want to deploy to preprod. In the project file <code>.circleci/config.yml</code> you will see a big section commented out - this contains extra steps to deploy to preprod and prod. Uncomment the <code>request-preprod-approval</code> and preprod deployment steps.</p>
+<p>Once these changes have been made raise a PR and merge when reviewed. Your Circle build should now deploy to dev and request approval to deploy to preprod. Approve the preprod approval in Circle. Once deployed check that the deployment is healthy in a similar way to <a href="#checking-the-application-is-healthy">checking the dev deployment</a> but replacing <code>dev</code> with <code>preprod</code>.</p>
+<p>If you are creating a Typescript application you may still have a failing deployment. Make sure you create the same secrets in preprod that you <a href="#typescript-application-secrets">created for dev</a>.</p>
+<h4 id="adding-an-external-health-check-to-prod">Adding an external health check to prod</h4><p>For production we use an external health check monitor called pingdom. This checks the application is up and can be reached from outside of our networks.</p>
+
+<ul>
+<li>In the <code>cloud-platform-environments</code> project add a pingdom health check for the application. Find another production namespace (e.g. <code>hmpps-audit-prod</code>) and copy file <code>resources/pingdom.tf</code> into your new directory. Update the name and change the url to match your certificate&rsquo;s <code>dnsName</code>.</li>
+<li>Add pingdom version details to the file <code>resources/versions.tf</code> (copy an existing production namespace such as <code>hmpps-audit-prod</code>).</li>
+<li>Raise a PR, ask in MOJ Slack channel <code>#ask-cloud-platform</code> for a review and merge when approved.</li>
+<li>As we haven&rsquo;t deployed to prod yet we should receive an alert from pingdom saying that the application is down. This proves that the pingdom check is working so wait for the alert before promoting to prod.</li>
+</ul>
+<h4 id="promoting-to-prod">Promoting to prod</h4><p>We also need a values file for prod - copy the recently created <code>values-preprod.yaml</code> file into <code>values-prod.yaml</code>. We will need an override to the <code>generic-service.ingress.host</code> property. If you&rsquo;re unsure what the ingress hosts should be go back and look at the certificates yaml files in the <code>cloud-platforms-environments</code> project where they are saved in property <code>spec.dnsNames</code>. For Typescript applications you&rsquo;ll also need to change the URLs in the <code>generic-service.env</code> properties. Copy these from the <code>values-preprod.yaml</code> file then remove <code>preprod</code> from the URLs.</p>
+<p>The CircleCI build needs changing to deploy to prod. In the project file <code>.circleci/config.yml</code> uncomment the remaining steps in the <code>build-test-and-deploy</code> job.</p>
+<p>Once these changes have been made raise a PR and merge when reviewed. Your Circle build should now deploy to dev and request approval for preprod. After approving the preprod deployment the build will request approval for prod deployment. Approve and your service will be deployed to prod.</p>
+<p>If you&rsquo;re creating a Typescript application you may still have a failing deployment. Make sure you create the same secrets in prod that you <a href="#typescript-application-secrets">created for dev</a>.</p>
+<p>Once the application is deployed you should receive another alert from pingdom saying that your application is now up. This means your deployment succeeded and the app is healthy.</p>
 
 
               <div data-module='page-expiry' data-last-reviewed-on="2021-12-06">
