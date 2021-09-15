@@ -316,14 +316,15 @@
 
 <ul>
 <li>Change the defaults under directory <code>resources/variables</code></li>
-<li>Replace the template namespace references with your new namespace name (e.g. replace all instances of <code>hmpps-template-kotlin</code> with <code>&lt;your-new-service-name&gt;-dev</code>)</li>
+<li>Replace the template namespace references with your new namespace name (e.g. replace all instances of <code>hmpps-template-kotlin</code> with <code>&lt;your-new-service-name&gt;-dev</code>). Some projects will not have a github repository at this point, the following stages after creating the namespaces will create this for you. The <code>cloud-platform.justice.gov.uk/source-code:</code> for you project will be <code>https://github.com/ministryofjustice/&lt;your-new-service-name&gt;.git</code></li>
 <li>When finished perform a quick search for the word <code>template</code> in your new directory in case you missed any</li>
 <li>Add your GitHub team to the <code>rbac</code> yaml - copy the existing subject of kind <code>Group</code> but replace <code>dps-tech</code> with your GitHub team. (Note you should keep the <code>dps-tech</code> Group as this is required for some administration tasks on the namespace).</li>
 <li>Update the certificate&rsquo;s DNS name. By convention we prefer <code>&lt;your-new-service-name&gt;-dev.hmpps|prison|probation.service.justice.gov.uk</code> - where you choose one of <code>hmpps</code>, <code>prison</code> or <code>probation</code></li>
 <li>Check that the certificate&rsquo;s DNS name isn&rsquo;t longer than 63 characters - if it is you&rsquo;ll need to choose a shorter name</li>
 <li>Make sure the certificate&rsquo;s property <code>spec.secretName</code> doesn&rsquo;t include the word <code>dev</code>. This secret name should be the same for all namespaces/environments.</li>
 </ul>
-<p>Once your updates are complete push your branch back to the repo and raise a new Pull Request. You&rsquo;ll then need to ask on MOJ Slack channel <code>#ask_cloud_platform</code> for a review of the PR. Once approved, merge the PR.</p>
+<p>Once your updates are complete push your branch back to the repo and raise a new Pull Request. You&rsquo;ll then need to ask on MOJ Slack channel <code>#ask_cloud_platform</code> for a review of the PR.</p>
+<p>Once approved, merge the PR.</p>
 <p>A Concourse job will run in the background which should eventually create your new namespace. When the namespace is ready the command <code>kubectl get namespaces | grep &lt;your-new-service-name&gt;-dev</code> should return your new namespace.</p>
 <h5 id="preprod-namespace">preprod namespace</h5><p>To create the preprod namespace we can just take a copy of the recently created dev namespace.</p>
 
@@ -371,7 +372,7 @@
 
 <ul>
 <li>Go to the GitHub project and select the <code>Actions</code> tab</li>
-<li>You should see a workflow called <code>rename-project-create-pr</code> - select the workflow and click the <code>Run workflow</code> button</li>
+<li>You should see a workflow called <code>rename-project-create-pr</code> - select the workflow from the drop down and click the <code>Run workflow</code> button, a banner will appear at the top of the section saying <code>workflow run was successfully requested</code></li>
 <li>Once completed click on the <code>Pull Requests</code> tab - you should see a single PR raised by the Action. Review the PR and merge.</li>
 </ul>
 <p>You should now be able to clone the GitHub project, successfully run the tests, start the application locally and see the <code>/health</code> and <code>/info</code> pages.</p>
