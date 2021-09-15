@@ -81,7 +81,7 @@ After changing the tag, you need to update the reference to the image in
 `.github/workflows/publish.yml` and the `makefile`.
 
 [branch protection]: https://help.github.com/articles/about-protected-branches/
-[tech-docs-multipage]: https://tdt-documentation.london.cloudapps.digital/multipage.html#repo-folder-structure
+[tech-docs-multipage]: https://tdt-documentation.london.cloudapps.digital/configure_project/frontmatter/#configure-page-settings
 [release]: https://github.com/ministryofjustice/hmpps-tech-docs/releases
 [Github Action]: https://github.com/features/actions
 [tech-docs]: https://tdt-documentation.london.cloudapps.digital/
