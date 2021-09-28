@@ -1,0 +1,213 @@
+---
+title: HMPPS Application Platform
+last_reviewed_on: 2021-09-27
+review_in: 3 months
+weight: 20
+---
+
+# <%= current_page.data.title %>
+
+This document describes HMPPS Auth, how it can be used and aspects to consider before integrating with the service
+
+## About HMPPS Auth
+HMPPS Auth is for accessing HMPPS digital services which includes Digital Prison Services (DPS) and probation services. 
+This service can be used to authenticate end users / consumers who wish to use any of the suite of digital products and legacy applications such as Delius. The HMPPS Auth service will authenticate the user and will issue a token to allow them to navigate across multiple services without the need to log on to each of individual services separately. This token contains the user details such as username and the roles that a user has when accessing a service.
+
+It is used by over **X** digital services and is used by more than **X** users each day.
+
+
+#### You can use HMPPS Auth to:
+- Authenticate your service so that it can access the data it needs via our APIs
+- Provide users with access to your service
+
+### Before you start
+When you are designing your service your user research should consider:
+- How will your users access your service? What kind of user accounts will they need? Do they work in prison or probation or are they external to MoJ? Do they already have NOMIS and/or Delius accounts?
+- How will you provide your users with the permissions they need to access and use your service? How will these be allocated and managed?
+- How will your users find your service? And how will they find out how to get help and support?
+- What data and from which existing APIs will your service be using data? How will it identify and authenticate itself to be allowed to access this data?
+
+### User accounts
+HMPPS Auth allows users to access digital services by signing in with:
+- NOMIS username and password - most, but not all, people working in prisons will have a NOMIS account
+- Delius username and password - most, but not all, probation staff will have a Delius account
+- HMPPS Auth external account username and password - for users that do not have a NOMIS or Delius account or are external to the Ministry of Justice. For example, the police or external prison training providers
+
+_Coming soon: users will be able to access HMPSS Auth with an **@justice.gov.uk account**_
+
+Some services have a mixture of users. For example, a service might be used by both prison and probation staff and the police, which means users may access the service with a NOMIS, Delius or an external account.
+
+### Users that sign in with a NOMIS account
+NOMIS is a system for managing people in prison but not everyone who works in a prison will have a NOMIS account.
+
+#### NOMIS users can:
+- sign in to HMPPS Auth with a NOMIS username and password
+- use HMPPS Auth to reset their NOMIS password and request an email reminder of their NOMIS username
+- be allocated digital prison service (DPS) roles
+
+When designing your service you should consider whether any of your users will have a NOMIS account.
+
+NOMIS user accounts are created by **[TBC]**.
+
+To find out how to create NOMIS user accounts in the Auth developer environment see _Testing your service_
+
+### Users that sign in with a DELIUS account
+Delius is a probation case management system, which is mainly used by probation staff but some prison staff also have Delius accounts.
+
+#### Delius users:
+- can sign in to HMPPS Auth with a Delius username and password
+- automatically have the probation role which means they can access any digital services that are available to users with this role
+- cannot be allocated additional roles
+- can change their Delius password in HMPPS Auth. This new password can then be used to sign into Delius too.
+- cannot change their email address in HMPPS Auth.  Delius users can update their account details in Delius.
+
+_Delius user accounts are created by **[TBC]**._
+
+### Auth external accounts
+External accounts are for users that don’t have a NOMIS or Delius account or are external to the Ministry of Justice. For example, users that work for charities, education or housing providers that work with people that are in or leaving prison.
+
+#### External accounts are not suitable for users that have:
+- A Delius account
+- A NOMIS account
+
+We have a hierarchy of external users to make the administration of user accounts simpler.  Group managers can be created by application support that are then responsible for creating and managing users within their own group.
+
+#### To add a new type of user we would normally suggest:
+- Add a new group (or set of groups) for the new users
+- Identify support staff that would be able to administer the users, create accounts for them (if necessary) and give them management privileges within those groups
+
+We have scripts for bulk creation of groups and users if required, please contact the tech team for future information.
+
+### Users that have multiple accounts
+Some users have both a NOMIS and a Delius account. This means that some users can see and access different digital services depending on which account they sign into HMPPS Auth with.
+
+For example, a user that signs into HMPPS Auth with their Delius account will only see services that are available to Delius users, even if these services are also available to NOMIS and external users. To access services that are only available to NOMIS users they will need to sign in to HMPPS Auth with their NOMIS account.
+
+### **Coming soon**: Accessing Auth with an _@justice.gov.uk_ account
+We are working on providing access to HMPPS Auth for users that have an _@justice.gov.uk_ email address.
+
+#### Benefits will include:
+- staff who are already signed in to their computers with their @justice.gov.uk account will not need to sign in again to access HMPPS digital services
+- Users that have multiple accounts will see all the services they have permission to access, from one place. For example, if a user can access two services when they sign in with their Delius account and four services when they sign in with their NOMIS account, they will see all six services when they access HMPPS Auth with their @justice.gov.uk account.
+
+**_Could we insert Peter’s video here?**_
+
+## Creating, allocating and managing user permissions
+The digital services that users can access with HMPPS Auth, and what they can do in those services, is determined by:
+which roles have been allocated to their account(s)
+Which groups they belong to
+
+
+### Groups and Roles
+
+- Auth user groups are: ...
+- Auth user roles are: ...
+- You should create groups when: ...
+- You should create user roles: 
+To provide access to your service. Every service will need at least one role even if the service also has groups. For example..
+
+### Creating and managing groups
+To add..
+
+
+_Can we include examples where it might be best to user roles over groups? (just thinking about how we can avoid the mistakes Refer and Monitor an Intervention made from happening again in the future)_
+
+
+### Creating and allocating roles
+
+Roles are a way to assign permissions to your users. For example, your service might have a role to suggest changes to an offender’s record and another role to approve those changes.
+
+Different types of roles can be allocated to different types of account:
+- NOMIS account users can be allocated DPS (digital prison service) roles.
+- Delius account users will automatically have the probation role.
+- External account users can be assigned external user roles.
+
+Before creating roles for your service you should consider:
+- Who are your users and how will they access your service?
+- Do they have a NOMIS and/or a Delius account?
+- Will your service be used by people outside of Ministry of Justice? For example, the police or external training providers.
+
+#### DPS (NOMIS) user roles
+To add.. 
+_How to create a role, how the roles will be allocated to users_
+
+#### External user roles
+To add.. 
+_How to create a role, how the roles will be allocated to users_
+
+#### Using the Delius probation role
+To add..
+
+### Giving your users multiple roles
+You might need to provide some of your users with more than one role. For example, a manager may need to both suggest and approve decisions in a service.
+
+Users can be allocated as many roles as they need but you should consider how your users will switch between roles in your service. For example, the Digital Categorisation service allows users with multiple roles to select which role they want to use from a menu at the top of the page.
+
+![Change roles in application](images/switch-roles.png)
+
+
+## Helping users to find your service
+HMPPS Auth provides users with access to a variety of digital services. This makes it easy for users to find everything they need from a single place.
+
+#### Users can access HMPPS digital services by:
+- Visiting the HMPPS Auth sign-in page and signing in
+- Clicking on the DPS desktop icon - this is available on most of the computers that prison staff use. When users click on the icon...??
+
+When users are signed in to HMPPS Auth all of the services they have permission to access will be displayed as service tiles.
+
+The landing page that users see after signing in at the HMPPS Auth sign in page:
+![Select Service](images/select-service.png)
+
+The Digital Prison Services homepage that users in prisons see after clicking on the ‘DPS’ desktop icon. This can also be accessed from the Digital Prison Services tile on the Auth landing page (shown above).
+![Select DPS Service](images/dps-select-service.png)
+
+
+### Create a service tile:
+To identify where you service tile should appear we need to know:
+- Will your service only be accessed by prison staff? If yes, the service tile will be added to the Digital Prison Services homepage.
+- Will your service be accessed by users that sign in with an external Auth account, a Delius account or an @justice.gov.uk account?
+
+To create a service tile you need to provide the following information about your service:
+
+- **Name**: (what is shown on the tile e.g Book a secure move, Allocate a POM)
+- **Description**: (short description to appear on the tile e.g Allocate the appropriate offender manager to a prisoner)
+- **Roles**: the role(s) users must have to be able to see the tile. For example: ROLE_ALLOC_MGR
+- **Url / email**: (the url of the service i.e where it should take the user once they have clicked on the tile.. e.g https://allocation-manager-staging.apps.live-1.cloud-platform.service.justice.gov.uk)
+- **Help email**: we need a contact email address for any enquiries about logging in/access from your users... some services set up a generic inbox for this i.e to manage enquiries from users who have been locked out of their account for any reason or login but aren't part of the group they expected to be in etc.
+
+### Feedback and support
+To add.. 
+
+The information teams need to provide to be listed on https://support-dev.hmpps.service.justice.gov.uk/feedback-and-support
+
+### Client credentials
+You will need client credentials to…
+
+#### Before requesting client credentials you should consider:
+- X
+- Y
+- Z
+
+### Requesting client credentials
+
+To request client credentials you must create a ticket on the DPS Tech Team’s Jira board. You can use this template ticket to provide the data we need.
+
+#### We need the following information from you:
+- X
+- Y
+- Z
+- 
+### Auth environments
+HMPPS Auth has three environments:
+- Prod - this is the environment your users will access your live service in. Access to production is restricted as it includes real data about people in prison.
+- Preprod - this environment is a copy of the prod environment. Every X weeks preprod will be overwritten to match the prod environment.
+- Dev (T3) - This environment is for testing and does not include any real data about people in prison.
+
+### Testing your service in Auth
+
+To test your service in the HMPPS Auth Dev environment someone in your team will need a NOMIS admin account so they can allocate your service’s role(s) to other members of your team.
+
+We often get asked about test data - do we have any guidance or anything we can say about that here?
+
+The above is just for testing services for NOMIS users.. Can we add more info about how to test as an external user and a Delius user?
+
