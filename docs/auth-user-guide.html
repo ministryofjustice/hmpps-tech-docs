@@ -198,6 +198,8 @@
         <a href="/auth-user-guide.html#creating-allocating-and-managing-user-permissions"><span>Creating, allocating and managing user permissions</span></a>
         <ul>
           <li>
+          </li>
+          <li>
             <a href="/auth-user-guide.html#groups-and-roles"><span>Groups and Roles</span></a>
           </li>
           <li>
@@ -228,11 +230,6 @@
           <li>
             <a href="/auth-user-guide.html#requesting-client-credentials"><span>Requesting client credentials</span></a>
           </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/auth-user-guide.html#z"><span>- Z</span></a>
-        <ul>
           <li>
             <a href="/auth-user-guide.html#auth-environments"><span>Auth environments</span></a>
           </li>
@@ -319,15 +316,19 @@ This service can be used to authenticate end users / consumers who wish to use a
 <li>Authenticate your service so that it can access the data it needs via our APIs</li>
 <li>Provide users with access to your service</li>
 </ul>
-<h3 id="before-you-start">Before you start</h3><p>When you are designing your service your user research should consider:
-- How will your users access your service? What kind of user accounts will they need? Do they work in prison or probation or are they external to MoJ? Do they already have NOMIS and/or Delius accounts?
-- How will you provide your users with the permissions they need to access and use your service? How will these be allocated and managed?
-- How will your users find your service? And how will they find out how to get help and support?
-- What data and from which existing APIs will your service be using data? How will it identify and authenticate itself to be allowed to access this data?</p>
-<h3 id="user-accounts">User accounts</h3><p>HMPPS Auth allows users to access digital services by signing in with:
-- NOMIS username and password - most, but not all, people working in prisons will have a NOMIS account
-- Delius username and password - most, but not all, probation staff will have a Delius account
-- HMPPS Auth external account username and password - for users that do not have a NOMIS or Delius account or are external to the Ministry of Justice. For example, the police or external prison training providers</p>
+<h3 id="before-you-start">Before you start</h3><h5 id="when-you-are-designing-your-service-your-user-research-should-consider">When you are designing your service your user research should consider:</h5>
+<ul>
+<li>How will your users access your service? What kind of user accounts will they need? Do they work in prison or probation or are they external to MoJ? Do they already have NOMIS and/or Delius accounts?</li>
+<li>How will you provide your users with the permissions they need to access and use your service? How will these be allocated and managed?</li>
+<li>How will your users find your service? And how will they find out how to get help and support?</li>
+<li>What data and from which existing APIs will your service be using data? How will it identify and authenticate itself to be allowed to access this data?</li>
+</ul>
+<h3 id="user-accounts">User accounts</h3><h5 id="hmpps-auth-allows-users-to-access-digital-services-by-signing-in-with">HMPPS Auth allows users to access digital services by signing in with:</h5>
+<ul>
+<li>NOMIS username and password - most, but not all, people working in prisons will have a NOMIS account</li>
+<li>Delius username and password - most, but not all, probation staff will have a Delius account</li>
+<li>HMPPS Auth external account username and password - for users that do not have a NOMIS or Delius account or are external to the Ministry of Justice. For example, the police or external prison training providers</li>
+</ul>
 <p><em>Coming soon: users will be able to access HMPSS Auth with an <strong>@justice.gov.uk account</strong></em></p>
 <p>Some services have a mixture of users. For example, a service might be used by both prison and probation staff and the police, which means users may access the service with a NOMIS, Delius or an external account.</p>
 <h3 id="users-that-sign-in-with-a-nomis-account">Users that sign in with a NOMIS account</h3><p>NOMIS is a system for managing people in prison but not everyone who works in a prison will have a NOMIS account.</p>
@@ -372,9 +373,11 @@ This service can be used to authenticate end users / consumers who wish to use a
 <li>Users that have multiple accounts will see all the services they have permission to access, from one place. For example, if a user can access two services when they sign in with their Delius account and four services when they sign in with their NOMIS account, they will see all six services when they access HMPPS Auth with their @justice.gov.uk account.</li>
 </ul>
 <p><strong>_Could we insert Peter’s video here?</strong>_</p>
-<h2 id="creating-allocating-and-managing-user-permissions">Creating, allocating and managing user permissions</h2><p>The digital services that users can access with HMPPS Auth, and what they can do in those services, is determined by:
-which roles have been allocated to their account(s)
-Which groups they belong to</p>
+<h2 id="creating-allocating-and-managing-user-permissions">Creating, allocating and managing user permissions</h2><h5 id="the-digital-services-that-users-can-access-with-hmpps-auth-and-what-they-can-do-in-those-services-is-determined-by">The digital services that users can access with HMPPS Auth, and what they can do in those services, is determined by:</h5>
+<ul>
+<li>Which roles have been allocated to their account(s)</li>
+<li>Which groups they belong to</li>
+</ul>
 <h3 id="groups-and-roles">Groups and Roles</h3>
 <ul>
 <li>Auth user groups are: &hellip;</li>
@@ -386,14 +389,18 @@ To provide access to your service. Every service will need at least one role eve
 <h3 id="creating-and-managing-groups">Creating and managing groups</h3><p>To add..</p>
 <p><em>Can we include examples where it might be best to user roles over groups? (just thinking about how we can avoid the mistakes Refer and Monitor an Intervention made from happening again in the future)</em></p>
 <h3 id="creating-and-allocating-roles">Creating and allocating roles</h3><p>Roles are a way to assign permissions to your users. For example, your service might have a role to suggest changes to an offender’s record and another role to approve those changes.</p>
-<p>Different types of roles can be allocated to different types of account:
-- NOMIS account users can be allocated DPS (digital prison service) roles.
-- Delius account users will automatically have the probation role.
-- External account users can be assigned external user roles.</p>
-<p>Before creating roles for your service you should consider:
-- Who are your users and how will they access your service?
-- Do they have a NOMIS and/or a Delius account?
-- Will your service be used by people outside of Ministry of Justice? For example, the police or external training providers.</p>
+<h5 id="different-types-of-roles-can-be-allocated-to-different-types-of-account">Different types of roles can be allocated to different types of account:</h5>
+<ul>
+<li>NOMIS account users can be allocated DPS (digital prison service) roles.</li>
+<li>Delius account users will automatically have the probation role.</li>
+<li>External account users can be assigned external user roles.</li>
+</ul>
+<h5 id="before-creating-roles-for-your-service-you-should-consider">Before creating roles for your service you should consider:</h5>
+<ul>
+<li>Who are your users and how will they access your service?</li>
+<li>Do they have a NOMIS and/or a Delius account?</li>
+<li>Will your service be used by people outside of Ministry of Justice? For example, the police or external training providers.</li>
+</ul>
 <h4 id="dps-nomis-user-roles">DPS (NOMIS) user roles</h4><p>To add.. 
 <em>How to create a role, how the roles will be allocated to users</em></p>
 <h4 id="external-user-roles">External user roles</h4><p>To add.. 
@@ -413,11 +420,12 @@ To provide access to your service. Every service will need at least one role eve
 <a href="images/select-service.png" target="_blank" rel="noopener noreferrer"><img src="/images/select-service.png" alt="Select Service" /></a></p>
 <p>The Digital Prison Services homepage that users in prisons see after clicking on the ‘DPS’ desktop icon. This can also be accessed from the Digital Prison Services tile on the Auth landing page (shown above).
 <a href="images/dps-select-service.png" target="_blank" rel="noopener noreferrer"><img src="/images/dps-select-service.png" alt="Select DPS Service" /></a></p>
-<h3 id="create-a-service-tile">Create a service tile:</h3><p>To identify where you service tile should appear we need to know:
-- Will your service only be accessed by prison staff? If yes, the service tile will be added to the Digital Prison Services homepage.
-- Will your service be accessed by users that sign in with an external Auth account, a Delius account or an @justice.gov.uk account?</p>
-<p>To create a service tile you need to provide the following information about your service:</p>
-
+<h3 id="create-a-service-tile">Create a service tile:</h3><h5 id="to-identify-where-you-service-tile-should-appear-we-need-to-know">To identify where you service tile should appear we need to know:</h5>
+<ul>
+<li>Will your service only be accessed by prison staff? If yes, the service tile will be added to the Digital Prison Services homepage.</li>
+<li>Will your service be accessed by users that sign in with an external Auth account, a Delius account or an @justice.gov.uk account?</li>
+</ul>
+<h5 id="to-create-a-service-tile-you-need-to-provide-the-following-information-about-your-service">To create a service tile you need to provide the following information about your service:</h5>
 <ul>
 <li><strong>Name</strong>: (what is shown on the tile e.g Book a secure move, Allocate a POM)</li>
 <li><strong>Description</strong>: (short description to appear on the tile e.g Allocate the appropriate offender manager to a prisoner)</li>
@@ -439,11 +447,14 @@ To provide access to your service. Every service will need at least one role eve
 <ul>
 <li>X</li>
 <li>Y</li>
+<li>Z</li>
 </ul>
-<h2 id="z">- Z</h2><h3 id="auth-environments">Auth environments</h3><p>HMPPS Auth has three environments:
-- Prod - this is the environment your users will access your live service in. Access to production is restricted as it includes real data about people in prison.
-- Preprod - this environment is a copy of the prod environment. Every X weeks preprod will be overwritten to match the prod environment.
-- Dev (T3) - This environment is for testing and does not include any real data about people in prison.</p>
+<h3 id="auth-environments">Auth environments</h3><h5 id="hmpps-auth-has-three-environments">HMPPS Auth has three environments:</h5>
+<ul>
+<li>Prod - this is the environment your users will access your live service in. Access to production is restricted as it includes real data about people in prison.</li>
+<li>Preprod - this environment is a copy of the prod environment. Every X weeks preprod will be overwritten to match the prod environment.</li>
+<li>Dev (T3) - This environment is for testing and does not include any real data about people in prison.</li>
+</ul>
 <h3 id="testing-your-service-in-auth">Testing your service in Auth</h3><p>To test your service in the HMPPS Auth Dev environment someone in your team will need a NOMIS admin account so they can allocate your service’s role(s) to other members of your team.</p>
 <p>We often get asked about test data - do we have any guidance or anything we can say about that here?</p>
 <p>The above is just for testing services for NOMIS users.. Can we add more info about how to test as an external user and a Delius user?</p>
