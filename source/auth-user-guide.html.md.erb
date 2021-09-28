@@ -21,14 +21,14 @@ It is used by over **X** digital services and is used by more than **X** users e
 - Provide users with access to your service
 
 ### Before you start
-When you are designing your service your user research should consider:
+##### When you are designing your service your user research should consider:
 - How will your users access your service? What kind of user accounts will they need? Do they work in prison or probation or are they external to MoJ? Do they already have NOMIS and/or Delius accounts?
 - How will you provide your users with the permissions they need to access and use your service? How will these be allocated and managed?
 - How will your users find your service? And how will they find out how to get help and support?
 - What data and from which existing APIs will your service be using data? How will it identify and authenticate itself to be allowed to access this data?
 
 ### User accounts
-HMPPS Auth allows users to access digital services by signing in with:
+##### HMPPS Auth allows users to access digital services by signing in with:
 - NOMIS username and password - most, but not all, people working in prisons will have a NOMIS account
 - Delius username and password - most, but not all, probation staff will have a Delius account
 - HMPPS Auth external account username and password - for users that do not have a NOMIS or Delius account or are external to the Ministry of Justice. For example, the police or external prison training providers
@@ -93,9 +93,9 @@ We are working on providing access to HMPPS Auth for users that have an _@justic
 **_Could we insert Peter’s video here?**_
 
 ## Creating, allocating and managing user permissions
-The digital services that users can access with HMPPS Auth, and what they can do in those services, is determined by:
-which roles have been allocated to their account(s)
-Which groups they belong to
+##### The digital services that users can access with HMPPS Auth, and what they can do in those services, is determined by:
+- Which roles have been allocated to their account(s)
+- Which groups they belong to
 
 
 ### Groups and Roles
@@ -117,12 +117,12 @@ _Can we include examples where it might be best to user roles over groups? (just
 
 Roles are a way to assign permissions to your users. For example, your service might have a role to suggest changes to an offender’s record and another role to approve those changes.
 
-Different types of roles can be allocated to different types of account:
+##### Different types of roles can be allocated to different types of account:
 - NOMIS account users can be allocated DPS (digital prison service) roles.
 - Delius account users will automatically have the probation role.
 - External account users can be assigned external user roles.
 
-Before creating roles for your service you should consider:
+##### Before creating roles for your service you should consider:
 - Who are your users and how will they access your service?
 - Do they have a NOMIS and/or a Delius account?
 - Will your service be used by people outside of Ministry of Justice? For example, the police or external training providers.
@@ -163,11 +163,11 @@ The Digital Prison Services homepage that users in prisons see after clicking on
 
 
 ### Create a service tile:
-To identify where you service tile should appear we need to know:
+##### To identify where you service tile should appear we need to know:
 - Will your service only be accessed by prison staff? If yes, the service tile will be added to the Digital Prison Services homepage.
 - Will your service be accessed by users that sign in with an external Auth account, a Delius account or an @justice.gov.uk account?
 
-To create a service tile you need to provide the following information about your service:
+##### To create a service tile you need to provide the following information about your service:
 
 - **Name**: (what is shown on the tile e.g Book a secure move, Allocate a POM)
 - **Description**: (short description to appear on the tile e.g Allocate the appropriate offender manager to a prisoner)
@@ -196,9 +196,9 @@ To request client credentials you must create a ticket on the DPS Tech Team’s 
 - X
 - Y
 - Z
-- 
+
 ### Auth environments
-HMPPS Auth has three environments:
+##### HMPPS Auth has three environments:
 - Prod - this is the environment your users will access your live service in. Access to production is restricted as it includes real data about people in prison.
 - Preprod - this environment is a copy of the prod environment. Every X weeks preprod will be overwritten to match the prod environment.
 - Dev (T3) - This environment is for testing and does not include any real data about people in prison.
