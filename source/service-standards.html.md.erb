@@ -92,7 +92,7 @@ This means that we accept a `traceparent` header which can then be used to corre
 
 ### Application version
 All our requests are also augmented with the current version of the application to help identify when issues first occurred and link back to the correct code.
-This is of format <date>.<circleci job number>.<github reference> so can be traced back not only to the circleci job that built the code, but also the github commit of the code.
+This is of format `<date>.<circleci job number>.<github reference>` so can be traced back not only to the circleci job that built the code, but also the github commit of the code.
 
 [openapi-3]: https://www.gov.uk/government/publications/recommended-open-standards-for-government/describing-restful-apis-with-openapi-3 "Describing RESTful APIs with OpenAPI 3"
 [azure-monitor]: https://docs.microsoft.com/en-us/azure/azure-monitor/ "Azure Monitor documentation"
