@@ -361,7 +361,7 @@ Both should then be included as extra attributes in the request logging so that 
 <h3 id="correlating-requests">Correlating requests</h3><p>We confirm to <a href="https://www.w3.org/TR/trace-context/" title="Trace Context">W3C tracing guidelines</a>.
 This means that we accept a <code>traceparent</code> header which can then be used to correlate requests across all applications and to identify a user&rsquo;s journey through the application stack.</p>
 <h3 id="application-version">Application version</h3><p>All our requests are also augmented with the current version of the application to help identify when issues first occurred and link back to the correct code.
-This is of format <date>.<circleci job number>.<github reference> so can be traced back not only to the circleci job that built the code, but also the github commit of the code.</p>
+This is of format <code>&lt;date&gt;.&lt;circleci job number&gt;.&lt;github reference&gt;</code> so can be traced back not only to the circleci job that built the code, but also the github commit of the code.</p>
 
 
               <div data-module='page-expiry' data-last-reviewed-on="2021-12-06">
