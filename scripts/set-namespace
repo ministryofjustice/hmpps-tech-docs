@@ -1,0 +1,49 @@
+#!/bin/bash
+
+filter_arg=${1:?No filter specified}
+env=$2
+
+combined_args="$filter_arg$env"
+aks_envs="prison-api:hmpps-auth"
+studio_dev_envs="nomis-user-roles-api-dev:nomis-prisoner-deletion-service-dev:nomis-user-roles-api-stage"
+studio_live_envs="nomis-user-roles:nomis-prisoner-deletion-service"
+
+context_arg="${combined_args//:*/}"
+filter=${filter_arg//$context_arg:/}
+namespace_no_envname="${combined_args%-*}"
+if [[ "$context_arg" != "$combined_args" ]]; then
+  context="$context_arg.cloud-platform.service.justice.gov.uk"
+  echo "Found a CP $context cluster namespace. Attempting to switch context first to $context"
+  kubectl config use-context "$context"
+elif [[ ":$aks_envs:" =~ .*:"$namespace_no_envname":.* ]]; then
+  context="nomisapi-${combined_args##*-}"
+  echo "Found a AKS cluster namespace. Attempting to switch context first to $context"
+  kubectl config use-context "$context"
+elif [[ ":$studio_dev_envs:" =~ .*:"$filter":.* ]]; then
+  context="aks-studio-hosting-dev-1"
+  echo "Found a studio dev cluster namespace. Attempting to switch context first to $context"
+  kubectl config use-context "$context"
+elif [[ ":$studio_live_envs:" =~ .*:"$namespace_no_envname":.* ]]; then
+  context="aks-studio-hosting-live-1"
+  echo "Found a studio live cluster namespace. Attempting to switch context first to $context"
+  kubectl config use-context "$context"
+else 
+  if [[ $(kubectl config current-context) != 'live-1.cloud-platform.service.justice.gov.uk' ]]; then
+    echo "Switching to cloud platform context first"
+    kubectl config use-context live-1.cloud-platform.service.justice.gov.uk
+  fi
+fi
+
+condition=$([[ -z "$env" ]] && echo "grep $filter" || echo "grep -e $filter.*$env")
+if ! namespace=$(kubectl get namespaces -o name | sed 's#namespace/##' | $condition); then
+  echo "Get list of namespaces failed: $OUTPUT"
+  echo "Attempting to carry on regardless"
+  namespace=$filter
+fi
+words=$(echo "$namespace" | wc -w)
+if [[ $words -ne 1 ]]; then
+  echo -e "Did not find just one namespace:\n$namespace"
+  exit 1
+fi
+echo "Setting current context namespace to $namespace"
+kubectl config set-context --current --namespace="$namespace"
