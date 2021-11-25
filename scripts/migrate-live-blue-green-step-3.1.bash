@@ -16,10 +16,11 @@ function git_current_branch() {
   fi
   echo ${ref#refs/heads/}
 }
+[[ $(uname) -eq "Darwin" ]] && NL=$'\\\n' || NL="\n"
 
 for file in $(cat "$APPLICATION_FILE"); do
   cd $file
-  sed -Ei 's/host: (.*)/host: \1\n    contextColour: green/' helm_deploy/values-${ENV_SUFFIX}.yaml
+  sed -Ei '' 's/host: (.*)/host: \1$NL    contextColour: green/' helm_deploy/values-${ENV_SUFFIX}.yaml
   git checkout -b ${USER_INITIALS}-${JIRA_TICKET}-migrate-${ENV_SUFFIX}-to-live
   git commit -m "${JIRA_TICKET}: 🔨 Migrate ${ENV_SUFFIX} to live context" .
   git push --set-upstream origin $(git_current_branch)
