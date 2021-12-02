@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 NAMESPACE_FILE=${1-namespaces}
 to_context=live-1.cloud-platform.service.justice.gov.uk
