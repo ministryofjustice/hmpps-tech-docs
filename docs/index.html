@@ -4,7 +4,6 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-      <meta name="robots" content="noindex">
 
     <title>DPS Tech Team docs</title>
 
@@ -12,17 +11,18 @@
 
     <link rel="canonical" href="https://tech-docs.hmpps.service.justice.gov.uk/">
 
+      <meta name="robots" content="noindex" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:domain" content="tech-docs.hmpps.service.justice.gov.uk" />
+      <meta name="twitter:image" content="https://tech-docs.hmpps.service.justice.gov.uk/images/govuk-large.png" />
+      <meta name="twitter:title" content="DPS Tech Team docs" />
+      <meta name="twitter:url" content="https://tech-docs.hmpps.service.justice.gov.uk/" />
 
       <meta property="og:image" content="https://tech-docs.hmpps.service.justice.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="DPS Tech Team docs" />
       <meta property="og:title" content="DPS Tech Team docs" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://tech-docs.hmpps.service.justice.gov.uk/" />
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:domain" content="tech-docs.hmpps.service.justice.gov.uk" />
-      <meta property="twitter:image" content="https://tech-docs.hmpps.service.justice.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="DPS Tech Team docs" />
-      <meta property="twitter:url" content="https://tech-docs.hmpps.service.justice.gov.uk/" />
 
     
   </head>
@@ -65,32 +65,38 @@
       </div>
 
         <div id="toc-heading" class="toc-show fixedsticky">
-          <a href="#toc" class="toc-show__label js-toc-show" aria-controls="toc">
+          <button type="button" class="toc-show__label js-toc-show" aria-controls="toc">
             Table of contents <span class="toc-show__icon"></span>
-          </a>
+          </button>
         </div>
 
       <div class="app-pane__body" data-module="in-page-navigation">
           <div class="app-pane__toc">
-            <div class="toc" data-module="table-of-contents">
+            <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents" role="dialog">
               <div class="search" data-module="search">
-  <form action="https://www.google.co.uk/search" method="get" role="search">
+  <form action="https://www.google.co.uk/search" method="get" role="search" class="search__form govuk-!-margin-bottom-4">
     <input type="hidden" name="as_sitesearch" value="https://tech-docs.hmpps.service.justice.gov.uk"/>
-    <label class="govuk-label search__label" for="search">
+    <label class="govuk-label search__label" for="search" aria-hidden="true">
       Search (via Google)
     </label>
-    <input class="govuk-input govuk-!-margin-bottom-4" id="search" name="q" type="text" aria-controls="search-results" placeholder="Search">
+    <input
+      type="text"
+      id="search" name="q"
+      class="govuk-input govuk-!-margin-bottom-0 search__input"
+      aria-controls="search-results"
+      placeholder="Search">
+    <button type="submit" class="search__button">Search</button>
   </form>
   <div id="search-results" class="search-results" aria-hidden="true" role="dialog" aria-labelledby="search-results-title">
     <div class="search-results__inner">
       <button class="search-results__close">Close<span class="search-results__close-label"> search results</span></button>
-      <h2 id="search-results-title" class="search-results__title" aria-live="polite">Results</h2>
+      <h2 id="search-results-title" class="search-results__title" aria-live="assertive" role="alert">Results</h2>
       <div class="search-results__content"></div>
     </div>
   </div>
 </div>
 
-              <a href="#" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></a>
+              <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
               <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading" data-module="collapsible-navigation">
                       <ul>
   <li>
@@ -164,85 +170,6 @@
 </ul>
 <ul>
   <li>
-    <a href="/auth-user-guide.html#auth-user-guide"><span>Auth User Guide</span></a>
-    <ul>
-      <li>
-        <a href="/auth-user-guide.html#about-hmpps-auth"><span>About HMPPS Auth</span></a>
-        <ul>
-          <li>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#before-you-start"><span>Before you start</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#user-accounts"><span>User accounts</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#users-that-sign-in-with-a-nomis-account"><span>Users that sign in with a NOMIS account</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#users-that-sign-in-with-a-delius-account"><span>Users that sign in with a DELIUS account</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#auth-external-accounts"><span>Auth external accounts</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#users-that-have-multiple-accounts"><span>Users that have multiple accounts</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#coming-soon-accessing-auth-with-an-justice-gov-uk-account"><span>Coming soon: Accessing Auth with an @justice.gov.uk account</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/auth-user-guide.html#creating-allocating-and-managing-user-permissions"><span>Creating, allocating and managing user permissions</span></a>
-        <ul>
-          <li>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#groups-and-roles"><span>Groups and Roles</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#creating-and-managing-groups"><span>Creating and managing groups</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#creating-and-allocating-roles"><span>Creating and allocating roles</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#giving-your-users-multiple-roles"><span>Giving your users multiple roles</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/auth-user-guide.html#helping-users-to-find-your-service"><span>Helping users to find your service</span></a>
-        <ul>
-          <li>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#create-a-service-tile"><span>Create a service tile:</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#feedback-and-support"><span>Feedback and support</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#client-credentials"><span>Client credentials</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#requesting-client-credentials"><span>Requesting client credentials</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#auth-environments"><span>Auth environments</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#testing-your-service-in-auth"><span>Testing your service in Auth</span></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-<ul>
-  <li>
     <a href="/application-platform.html#hmpps-application-platform"><span>HMPPS Application Platform</span></a>
     <ul>
       <li>
@@ -293,6 +220,81 @@
           </li>
           <li>
             <a href="/application-platform.html#configuring-the-build-pipeline"><span>Configuring the build pipeline</span></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<ul>
+  <li>
+    <a href="/auth-user-guide.html#auth-user-guide"><span>Auth User Guide</span></a>
+    <ul>
+      <li>
+        <a href="/auth-user-guide.html#about-hmpps-auth"><span>About HMPPS Auth</span></a>
+        <ul>
+          <li>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#before-you-start"><span>Before you start</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#user-accounts"><span>User accounts</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#dps-users"><span>DPS users</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#users-that-sign-in-with-a-delius-account"><span>Users that sign in with a DELIUS account</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#auth-external-accounts"><span>Auth external accounts</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#users-that-have-multiple-accounts"><span>Users that have multiple accounts</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/auth-user-guide.html#creating-allocating-and-managing-user-permissions"><span>Creating, allocating and managing user permissions</span></a>
+        <ul>
+          <li>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#groups-and-roles"><span>Groups and Roles</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#creating-and-managing-groups"><span>Creating and managing groups</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#creating-and-allocating-roles"><span>Creating and allocating roles</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#giving-your-users-multiple-roles"><span>Giving your users multiple roles</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/auth-user-guide.html#onboarding-users"><span>Onboarding users</span></a>
+      </li>
+      <li>
+        <a href="/auth-user-guide.html#helping-users-to-find-your-service"><span>Helping users to find your service</span></a>
+        <ul>
+          <li>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#create-a-service-tile"><span>Create a service tile:</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/auth-user-guide.html#getting-access-to-auth-and-testing-your-service"><span>Getting access to Auth and testing your service</span></a>
+        <ul>
+          <li>
+            <a href="/auth-user-guide.html#client-credentials"><span>Client credentials</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#creating-test-user-accounts"><span>Creating test user accounts</span></a>
           </li>
         </ul>
       </li>

@@ -4,7 +4,6 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-      <meta name="robots" content="noindex">
 
     <title>Auth User Guide - DPS Tech Team docs</title>
 
@@ -12,17 +11,18 @@
 
     <link rel="canonical" href="https://tech-docs.hmpps.service.justice.gov.uk/auth-user-guide.html">
 
+      <meta name="robots" content="noindex" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:domain" content="tech-docs.hmpps.service.justice.gov.uk" />
+      <meta name="twitter:image" content="https://tech-docs.hmpps.service.justice.gov.uk/images/govuk-large.png" />
+      <meta name="twitter:title" content="Auth User Guide - DPS Tech Team docs" />
+      <meta name="twitter:url" content="https://tech-docs.hmpps.service.justice.gov.uk/auth-user-guide.html" />
 
       <meta property="og:image" content="https://tech-docs.hmpps.service.justice.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="DPS Tech Team docs" />
       <meta property="og:title" content="Auth User Guide" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://tech-docs.hmpps.service.justice.gov.uk/auth-user-guide.html" />
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:domain" content="tech-docs.hmpps.service.justice.gov.uk" />
-      <meta property="twitter:image" content="https://tech-docs.hmpps.service.justice.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="Auth User Guide - DPS Tech Team docs" />
-      <meta property="twitter:url" content="https://tech-docs.hmpps.service.justice.gov.uk/auth-user-guide.html" />
 
     
   </head>
@@ -65,32 +65,38 @@
       </div>
 
         <div id="toc-heading" class="toc-show fixedsticky">
-          <a href="#toc" class="toc-show__label js-toc-show" aria-controls="toc">
+          <button type="button" class="toc-show__label js-toc-show" aria-controls="toc">
             Table of contents <span class="toc-show__icon"></span>
-          </a>
+          </button>
         </div>
 
       <div class="app-pane__body" data-module="in-page-navigation">
           <div class="app-pane__toc">
-            <div class="toc" data-module="table-of-contents">
+            <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents" role="dialog">
               <div class="search" data-module="search">
-  <form action="https://www.google.co.uk/search" method="get" role="search">
+  <form action="https://www.google.co.uk/search" method="get" role="search" class="search__form govuk-!-margin-bottom-4">
     <input type="hidden" name="as_sitesearch" value="https://tech-docs.hmpps.service.justice.gov.uk"/>
-    <label class="govuk-label search__label" for="search">
+    <label class="govuk-label search__label" for="search" aria-hidden="true">
       Search (via Google)
     </label>
-    <input class="govuk-input govuk-!-margin-bottom-4" id="search" name="q" type="text" aria-controls="search-results" placeholder="Search">
+    <input
+      type="text"
+      id="search" name="q"
+      class="govuk-input govuk-!-margin-bottom-0 search__input"
+      aria-controls="search-results"
+      placeholder="Search">
+    <button type="submit" class="search__button">Search</button>
   </form>
   <div id="search-results" class="search-results" aria-hidden="true" role="dialog" aria-labelledby="search-results-title">
     <div class="search-results__inner">
       <button class="search-results__close">Close<span class="search-results__close-label"> search results</span></button>
-      <h2 id="search-results-title" class="search-results__title" aria-live="polite">Results</h2>
+      <h2 id="search-results-title" class="search-results__title" aria-live="assertive" role="alert">Results</h2>
       <div class="search-results__content"></div>
     </div>
   </div>
 </div>
 
-              <a href="#" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></a>
+              <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
               <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading" data-module="collapsible-navigation">
                       <ul>
   <li>
@@ -164,85 +170,6 @@
 </ul>
 <ul>
   <li>
-    <a href="/auth-user-guide.html#auth-user-guide"><span>Auth User Guide</span></a>
-    <ul>
-      <li>
-        <a href="/auth-user-guide.html#about-hmpps-auth"><span>About HMPPS Auth</span></a>
-        <ul>
-          <li>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#before-you-start"><span>Before you start</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#user-accounts"><span>User accounts</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#users-that-sign-in-with-a-nomis-account"><span>Users that sign in with a NOMIS account</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#users-that-sign-in-with-a-delius-account"><span>Users that sign in with a DELIUS account</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#auth-external-accounts"><span>Auth external accounts</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#users-that-have-multiple-accounts"><span>Users that have multiple accounts</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#coming-soon-accessing-auth-with-an-justice-gov-uk-account"><span>Coming soon: Accessing Auth with an @justice.gov.uk account</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/auth-user-guide.html#creating-allocating-and-managing-user-permissions"><span>Creating, allocating and managing user permissions</span></a>
-        <ul>
-          <li>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#groups-and-roles"><span>Groups and Roles</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#creating-and-managing-groups"><span>Creating and managing groups</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#creating-and-allocating-roles"><span>Creating and allocating roles</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#giving-your-users-multiple-roles"><span>Giving your users multiple roles</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/auth-user-guide.html#helping-users-to-find-your-service"><span>Helping users to find your service</span></a>
-        <ul>
-          <li>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#create-a-service-tile"><span>Create a service tile:</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#feedback-and-support"><span>Feedback and support</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#client-credentials"><span>Client credentials</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#requesting-client-credentials"><span>Requesting client credentials</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#auth-environments"><span>Auth environments</span></a>
-          </li>
-          <li>
-            <a href="/auth-user-guide.html#testing-your-service-in-auth"><span>Testing your service in Auth</span></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-<ul>
-  <li>
     <a href="/application-platform.html#hmpps-application-platform"><span>HMPPS Application Platform</span></a>
     <ul>
       <li>
@@ -299,6 +226,81 @@
     </ul>
   </li>
 </ul>
+<ul>
+  <li>
+    <a href="/auth-user-guide.html#auth-user-guide"><span>Auth User Guide</span></a>
+    <ul>
+      <li>
+        <a href="/auth-user-guide.html#about-hmpps-auth"><span>About HMPPS Auth</span></a>
+        <ul>
+          <li>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#before-you-start"><span>Before you start</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#user-accounts"><span>User accounts</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#dps-users"><span>DPS users</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#users-that-sign-in-with-a-delius-account"><span>Users that sign in with a DELIUS account</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#auth-external-accounts"><span>Auth external accounts</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#users-that-have-multiple-accounts"><span>Users that have multiple accounts</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/auth-user-guide.html#creating-allocating-and-managing-user-permissions"><span>Creating, allocating and managing user permissions</span></a>
+        <ul>
+          <li>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#groups-and-roles"><span>Groups and Roles</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#creating-and-managing-groups"><span>Creating and managing groups</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#creating-and-allocating-roles"><span>Creating and allocating roles</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#giving-your-users-multiple-roles"><span>Giving your users multiple roles</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/auth-user-guide.html#onboarding-users"><span>Onboarding users</span></a>
+      </li>
+      <li>
+        <a href="/auth-user-guide.html#helping-users-to-find-your-service"><span>Helping users to find your service</span></a>
+        <ul>
+          <li>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#create-a-service-tile"><span>Create a service tile:</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/auth-user-guide.html#getting-access-to-auth-and-testing-your-service"><span>Getting access to Auth and testing your service</span></a>
+        <ul>
+          <li>
+            <a href="/auth-user-guide.html#client-credentials"><span>Client credentials</span></a>
+          </li>
+          <li>
+            <a href="/auth-user-guide.html#creating-test-user-accounts"><span>Creating test user accounts</span></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 
               </nav>
@@ -307,13 +309,12 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
-              <h1 id="auth-user-guide">Auth User Guide</h1><p>This document describes HMPPS Auth, how it can be used and aspects to consider before integrating with the service</p>
+              <h1 id="auth-user-guide">Auth User Guide</h1><p>This document describes HMPPS Auth, how it can be used and what you must consider before integrating with the service.</p>
 <h2 id="about-hmpps-auth">About HMPPS Auth</h2><p>HMPPS Auth is for accessing HMPPS digital services which includes Digital Prison Services (DPS) and probation services. 
-This service can be used to authenticate end users / consumers who wish to use any of the suite of digital products and legacy applications such as Delius. The HMPPS Auth service will authenticate the user and will issue a token to allow them to navigate across multiple services without the need to log on to each of individual services separately. This token contains the user details such as username and the roles that a user has when accessing a service.</p>
-<p>It is used by over <strong>X</strong> digital services and is used by more than <strong>X</strong> users each day.</p>
+This service can be used to authenticate users who need to use any of HMPPS&rsquo; digital products and legacy applications, such as Delius.</p>
 <h4 id="you-can-use-hmpps-auth-to">You can use HMPPS Auth to:</h4>
 <ul>
-<li>Authenticate your service so that it can access the data it needs via our APIs</li>
+<li>Authenticate your service so that it can access the data it needs via HMPPS APIs</li>
 <li>Provide users with access to your service</li>
 </ul>
 <h3 id="before-you-start">Before you start</h3><h5 id="when-you-are-designing-your-service-your-user-research-should-consider">When you are designing your service your user research should consider:</h5>
@@ -323,35 +324,45 @@ This service can be used to authenticate end users / consumers who wish to use a
 <li>How will your users find your service? And how will they find out how to get help and support?</li>
 <li>What data and from which existing APIs will your service be using data? How will it identify and authenticate itself to be allowed to access this data?</li>
 </ul>
-<h3 id="user-accounts">User accounts</h3><h5 id="hmpps-auth-allows-users-to-access-digital-services-by-signing-in-with">HMPPS Auth allows users to access digital services by signing in with:</h5>
+<h3 id="user-accounts">User accounts</h3><p>To access HMPPS digital services users need to sign in and have the appropriate role(s). Roles provie permission to access services and determine what a user can do in a service.</p>
+<h5 id="users-can-sign-in-to-hmpps-auth-with-a">Users can sign in to HMPPS Auth with a:</h5>
 <ul>
-<li>NOMIS username and password - most, but not all, people working in prisons will have a NOMIS account</li>
-<li>Delius username and password - most, but not all, probation staff will have a Delius account</li>
-<li>HMPPS Auth external account username and password - for users that do not have a NOMIS or Delius account or are external to the Ministry of Justice. For example, the police or external prison training providers</li>
+<li>Digitial Prison Services (DPS) account - this allows users to sign in with their NOMIS username and password</li>
+<li>Probation account - this allows users to sign in with their Delius username and password</li>
+<li>HMPPS Auth external accounts - for users that do not have a NOMIS or Delius account or are external to the Ministry of Justice. For example, the police or external prison training providers</li>
 </ul>
-<p><em>Coming soon: users will be able to access HMPSS Auth with an <strong>@justice.gov.uk account</strong></em></p>
-<p>Some services have a mixture of users. For example, a service might be used by both prison and probation staff and the police, which means users may access the service with a NOMIS, Delius or an external account.</p>
-<h3 id="users-that-sign-in-with-a-nomis-account">Users that sign in with a NOMIS account</h3><p>NOMIS is a system for managing people in prison but not everyone who works in a prison will have a NOMIS account.</p>
-<h4 id="nomis-users-can">NOMIS users can:</h4>
+<p>Some services need to be accessed by a mixture of users. For example, a service might be used by both prison and probation staff and the police, which means users may access the service by signing in with a NOMIS, Delius or an external account.</p>
+<h3 id="dps-users">DPS users</h3><p>Digital Prison Services (DPS) users sign in to HMPPS Auth with their NOMIS account. NOMIS is a system for managing people in prison.</p>
+<h4 id="dps-users-can">DPS users can:</h4>
 <ul>
-<li>sign in to HMPPS Auth with a NOMIS username and password</li>
+<li>sign in to HMPPS Auth with their NOMIS username and password</li>
 <li>use HMPPS Auth to reset their NOMIS password and request an email reminder of their NOMIS username</li>
 <li>be allocated digital prison service (DPS) roles</li>
+<li>can manage other DPS user accounts, providing they have the right role (permission) to do this</li>
 </ul>
-<p>When designing your service you should consider whether any of your users will have a NOMIS account.</p>
-<p>NOMIS user accounts are created by <strong>[TBC]</strong>.</p>
-<p>To find out how to create NOMIS user accounts in the Auth developer environment see <em>Testing your service</em></p>
+<p>When designing your service you should consider whether any of your users have a NOMIS account.</p>
+<p>While most prison staff will already have a NOMIS account some prison staff might not use NOMIS. And some prison staff that have NOMIS accounts do not use the legacy NOMIS system.</p>
+<p>To find out how to onboard DPS users see <a href="#onboarding-users">onboarding users</a>.</p>
+<p>To find out how to create NOMIS user accounts in the Auth developer environment see <a href="#getting-access-to-auth-and-testing-your-service">Testing your service</a></p>
 <h3 id="users-that-sign-in-with-a-delius-account">Users that sign in with a DELIUS account</h3><p>Delius is a probation case management system, which is mainly used by probation staff but some prison staff also have Delius accounts.</p>
 <h4 id="delius-users">Delius users:</h4>
 <ul>
 <li>can sign in to HMPPS Auth with a Delius username and password</li>
-<li>automatically have the probation role which means they can access any digital services that are available to users with this role</li>
+<li>automatically have the probation role, which means they can access any digital services that are available to users with this role</li>
 <li>cannot be allocated additional roles</li>
 <li>can change their Delius password in HMPPS Auth. This new password can then be used to sign into Delius too.</li>
-<li>cannot change their email address in HMPPS Auth.  Delius users can update their account details in Delius.</li>
+<li>cannot change their email address in HMPPS Auth.</li>
 </ul>
-<p><em>Delius user accounts are created by <strong>[TBC]</strong>.</em></p>
-<h3 id="auth-external-accounts">Auth external accounts</h3><p>External accounts are for users that don’t have a NOMIS or Delius account or are external to the Ministry of Justice. For example, users that work for charities, education or housing providers that work with people that are in or leaving prison.</p>
+<h3 id="auth-external-accounts">Auth external accounts</h3>
+<ul>
+<li>are for users that don’t have a NOMIS or Delius account or are external to the Ministry of Justice. For example, users that work for charities, education or housing providers that work with people that are in or leaving prison.</li>
+<li>can sign in with an email address and password</li>
+<li>can change their email address and password</li>
+<li>can be allocated an external role(s)</li>
+<li>can be added to a group </li>
+<li>can manage groups, providing they have the right role (permission) to do this</li>
+<li>can manage other external users, providing they have the right role (permission) to do this</li>
+</ul>
 <h4 id="external-accounts-are-not-suitable-for-users-that-have">External accounts are not suitable for users that have:</h4>
 <ul>
 <li>A Delius account</li>
@@ -364,36 +375,27 @@ This service can be used to authenticate end users / consumers who wish to use a
 <li>Identify support staff that would be able to administer the users, create accounts for them (if necessary) and give them management privileges within those groups</li>
 </ul>
 <p>We have scripts for bulk creation of groups and users if required, please contact the tech team for future information.</p>
-<h3 id="users-that-have-multiple-accounts">Users that have multiple accounts</h3><p>Some users have both a NOMIS and a Delius account. This means that some users can see and access different digital services depending on which account they sign into HMPPS Auth with.</p>
-<p>For example, a user that signs into HMPPS Auth with their Delius account will only see services that are available to Delius users, even if these services are also available to NOMIS and external users. To access services that are only available to NOMIS users they will need to sign in to HMPPS Auth with their NOMIS account.</p>
-<h3 id="coming-soon-accessing-auth-with-an-justice-gov-uk-account"><strong>Coming soon</strong>: Accessing Auth with an <em>@justice.gov.uk</em> account</h3><p>We are working on providing access to HMPPS Auth for users that have an <em>@justice.gov.uk</em> email address.</p>
-<h4 id="benefits-will-include">Benefits will include:</h4>
-<ul>
-<li>staff who are already signed in to their computers with their @justice.gov.uk account will not need to sign in again to access HMPPS digital services</li>
-<li>Users that have multiple accounts will see all the services they have permission to access, from one place. For example, if a user can access two services when they sign in with their Delius account and four services when they sign in with their NOMIS account, they will see all six services when they access HMPPS Auth with their @justice.gov.uk account.</li>
-</ul>
-<p><strong>_Could we insert Peter’s video here?</strong>_</p>
+<h3 id="users-that-have-multiple-accounts">Users that have multiple accounts</h3><p>Some users have both a NOMIS and a Delius account. This means that some users can see and access different digital services depending on which account they sign into HMPPS Auth with. For example, a user that signs into HMPPS Auth with their Delius account will only see services that are available to Delius users, even if these services are also available to NOMIS and external users. To access services that are only available to NOMIS users they will need to sign in to HMPPS Auth with their NOMIS account.</p>
+<p>We are working on improving the user journeys for users that have multiple accounts.</p>
 <h2 id="creating-allocating-and-managing-user-permissions">Creating, allocating and managing user permissions</h2><h5 id="the-digital-services-that-users-can-access-with-hmpps-auth-and-what-they-can-do-in-those-services-is-determined-by">The digital services that users can access with HMPPS Auth, and what they can do in those services, is determined by:</h5>
 <ul>
 <li>Which roles have been allocated to their account(s)</li>
 <li>Which groups they belong to</li>
 </ul>
-<h3 id="groups-and-roles">Groups and Roles</h3>
+<h3 id="groups-and-roles">Groups and Roles</h3><p>Roles and groups provide permission to access services and determine what a user can do in a service.</p>
+
 <ul>
-<li>Auth user groups are: &hellip;</li>
-<li>Auth user roles are: &hellip;</li>
-<li>You should create groups when: &hellip;</li>
-<li>You should create user roles: 
-To provide access to your service. Every service will need at least one role even if the service also has groups. For example..</li>
+<li>Roles: can be allocated to all types of users</li>
+<li>Groups: only external users can be added to and manage groups</li>
 </ul>
-<h3 id="creating-and-managing-groups">Creating and managing groups</h3><p>To add..</p>
-<p><em>Can we include examples where it might be best to user roles over groups? (just thinking about how we can avoid the mistakes Refer and Monitor an Intervention made from happening again in the future)</em></p>
-<h3 id="creating-and-allocating-roles">Creating and allocating roles</h3><p>Roles are a way to assign permissions to your users. For example, your service might have a role to suggest changes to an offender’s record and another role to approve those changes.</p>
+<p>To provide access to your service it will need at least one role even if the service also has groups.</p>
+<h3 id="creating-and-managing-groups">Creating and managing groups</h3><p>Content coming soon.</p>
+<h3 id="creating-and-allocating-roles">Creating and allocating roles</h3><p>Roles are a way to assign permissions to your users. For example, your service might have a role that allows users to suggest changes to an offender’s record and another role to approve those changes.</p>
 <h5 id="different-types-of-roles-can-be-allocated-to-different-types-of-account">Different types of roles can be allocated to different types of account:</h5>
 <ul>
-<li>NOMIS account users can be allocated DPS (digital prison service) roles.</li>
-<li>Delius account users will automatically have the probation role.</li>
-<li>External account users can be assigned external user roles.</li>
+<li>DPS roles can be allocated to DPS users - people who sign in with a NOMIS username and password</li>
+<li>Probation users (people who sign in with a DELIUS username and password) will automatically have the probation role.</li>
+<li>External account users can be allocated to external users.</li>
 </ul>
 <h5 id="before-creating-roles-for-your-service-you-should-consider">Before creating roles for your service you should consider:</h5>
 <ul>
@@ -401,75 +403,57 @@ To provide access to your service. Every service will need at least one role eve
 <li>Do they have a NOMIS and/or a Delius account?</li>
 <li>Will your service be used by people outside of Ministry of Justice? For example, the police or external training providers.</li>
 </ul>
-<h4 id="dps-nomis-user-roles">DPS (NOMIS) user roles</h4><p>To add.. 
+<h4 id="dps-nomis-user-roles">DPS (NOMIS) user roles</h4><p>Content coming soon.
 <em>How to create a role, how the roles will be allocated to users</em></p>
-<h4 id="external-user-roles">External user roles</h4><p>To add.. 
+<h4 id="external-user-roles">External user roles</h4><p>Content coming soon.
 <em>How to create a role, how the roles will be allocated to users</em></p>
-<h4 id="using-the-delius-probation-role">Using the Delius probation role</h4><p>To add..</p>
-<h3 id="giving-your-users-multiple-roles">Giving your users multiple roles</h3><p>You might need to provide some of your users with more than one role. For example, a manager may need to both suggest and approve decisions in a service.</p>
+<h4 id="using-the-delius-probation-role">Using the Delius probation role</h4><p>Content coming soon.</p>
+<h3 id="giving-your-users-multiple-roles">Giving your users multiple roles</h3><p>You might need to provide some of your users with more than one role in your service. For example, a manager may need to both suggest and approve decisions in a service.</p>
 <p>Users can be allocated as many roles as they need but you should consider how your users will switch between roles in your service. For example, the Digital Categorisation service allows users with multiple roles to select which role they want to use from a menu at the top of the page.</p>
-<p><a href="images/switch-roles.png" target="_blank" rel="noopener noreferrer"><img src="/images/switch-roles.png" alt="Change roles in application" /></a></p>
+<p><a href="images/switch-roles.png" rel="noopener noreferrer"><img src="/images/switch-roles.png" alt="Change roles in application" /></a></p>
+<h2 id="onboarding-users">Onboarding users</h2><p>Content coming soon.</p>
 <h2 id="helping-users-to-find-your-service">Helping users to find your service</h2><p>HMPPS Auth provides users with access to a variety of digital services. This makes it easy for users to find everything they need from a single place.</p>
 <h4 id="users-can-access-hmpps-digital-services-by">Users can access HMPPS digital services by:</h4>
 <ul>
 <li>Visiting the HMPPS Auth sign-in page and signing in</li>
-<li>Clicking on the DPS desktop icon - this is available on most of the computers that prison staff use. When users click on the icon&hellip;??</li>
+<li>Clicking on the DPS desktop icon - this is available on most of the computers that prison staff use. </li>
 </ul>
 <p>When users are signed in to HMPPS Auth all of the services they have permission to access will be displayed as service tiles.</p>
 <p>The landing page that users see after signing in at the HMPPS Auth sign in page:
-<a href="images/select-service.png" target="_blank" rel="noopener noreferrer"><img src="/images/select-service.png" alt="Select Service" /></a></p>
+<a href="images/select-service.png" rel="noopener noreferrer"><img src="/images/select-service.png" alt="Select Service" /></a></p>
 <p>The Digital Prison Services homepage that users in prisons see after clicking on the ‘DPS’ desktop icon. This can also be accessed from the Digital Prison Services tile on the Auth landing page (shown above).
-<a href="images/dps-select-service.png" target="_blank" rel="noopener noreferrer"><img src="/images/dps-select-service.png" alt="Select DPS Service" /></a></p>
-<h3 id="create-a-service-tile">Create a service tile:</h3><h5 id="to-identify-where-you-service-tile-should-appear-we-need-to-know">To identify where you service tile should appear we need to know:</h5>
+<a href="images/dps-select-service.png" rel="noopener noreferrer"><img src="/images/dps-select-service.png" alt="Select DPS Service" /></a></p>
+<h3 id="create-a-service-tile">Create a service tile:</h3><p>To identify where you service tile should appear we need to know:
+- Will your service only be accessed by prison staff? If yes, the service tile will be added to the Digital Prison Services homepage.
+- Will your service be accessed by any users that sign in with an external Auth account and/or a Delius account?</p>
+<p>To create a service tile you need to provide the following information about your service:</p>
+
 <ul>
-<li>Will your service only be accessed by prison staff? If yes, the service tile will be added to the Digital Prison Services homepage.</li>
-<li>Will your service be accessed by users that sign in with an external Auth account, a Delius account or an @justice.gov.uk account?</li>
+<li><strong>Service name</strong>: this will be displayed on the tile e.g Book a secure move</li>
+<li><strong>Service description</strong>: a short description that will be displayed on the tile e.g Allocate the appropriate offender manager to a prisoner</li>
+<li><strong>Roles</strong>: the role(s) users must have to be able to see the tile</li>
+<li><strong>Url / email</strong>: the url of the service i.e where it should take the user once they have clicked on the tile</li>
+<li><strong>Help email</strong>: we need a contact email address for any enquiries from your service users about logging in or accessing your service. Some teams set up a generic inbox for this.</li>
 </ul>
-<h5 id="to-create-a-service-tile-you-need-to-provide-the-following-information-about-your-service">To create a service tile you need to provide the following information about your service:</h5>
-<ul>
-<li><strong>Name</strong>: (what is shown on the tile e.g Book a secure move, Allocate a POM)</li>
-<li><strong>Description</strong>: (short description to appear on the tile e.g Allocate the appropriate offender manager to a prisoner)</li>
-<li><strong>Roles</strong>: the role(s) users must have to be able to see the tile. For example: ROLE_ALLOC_MGR</li>
-<li><strong>Url / email</strong>: (the url of the service i.e where it should take the user once they have clicked on the tile.. e.g https://allocation-manager-staging.apps.live-1.cloud-platform.service.justice.gov.uk)</li>
-<li><strong>Help email</strong>: we need a contact email address for any enquiries about logging in/access from your users&hellip; some services set up a generic inbox for this i.e to manage enquiries from users who have been locked out of their account for any reason or login but aren&rsquo;t part of the group they expected to be in etc.</li>
-</ul>
-<h3 id="feedback-and-support">Feedback and support</h3><p>To add..</p>
-<p>The information teams need to provide to be listed on https://support-dev.hmpps.service.justice.gov.uk/feedback-and-support</p>
-<h3 id="client-credentials">Client credentials</h3><p>You will need client credentials to…</p>
-<h4 id="before-requesting-client-credentials-you-should-consider">Before requesting client credentials you should consider:</h4>
-<ul>
-<li>X</li>
-<li>Y</li>
-<li>Z</li>
-</ul>
-<h3 id="requesting-client-credentials">Requesting client credentials</h3><p>To request client credentials you must create a ticket on the DPS Tech Team’s Jira board. You can use this template ticket to provide the data we need.</p>
-<h4 id="we-need-the-following-information-from-you">We need the following information from you:</h4>
-<ul>
-<li>X</li>
-<li>Y</li>
-<li>Z</li>
-</ul>
-<h3 id="auth-environments">Auth environments</h3><h5 id="hmpps-auth-has-three-environments">HMPPS Auth has three environments:</h5>
-<ul>
-<li>Prod - this is the environment your users will access your live service in. Access to production is restricted as it includes real data about people in prison.</li>
-<li>Preprod - this environment is a copy of the prod environment. Every X weeks preprod will be overwritten to match the prod environment.</li>
-<li>Dev (T3) - This environment is for testing and does not include any real data about people in prison.</li>
-</ul>
-<h3 id="testing-your-service-in-auth">Testing your service in Auth</h3><p>To test your service in the HMPPS Auth Dev environment someone in your team will need a NOMIS admin account so they can allocate your service’s role(s) to other members of your team.</p>
-<p>We often get asked about test data - do we have any guidance or anything we can say about that here?</p>
-<p>The above is just for testing services for NOMIS users.. Can we add more info about how to test as an external user and a Delius user?</p>
+<p>Before a tile is created you must also have a way your users to give feedback and get support with your service. We recommend adding your service to https://support-dev.hmpps.service.justice.gov.uk/feedback-and-support</p>
+<h2 id="getting-access-to-auth-and-testing-your-service">Getting access to Auth and testing your service</h2><p>HMPPS Auth has three environments:
+- Prod - this is the environment your users will access your live service in. Access to production is restricted as it includes real data about people in prison.
+- Preprod - this environment is a copy of the prod environment. Every two weeks preprod will be overwritten to match the prod environment.
+- Dev (T3) - This environment is for testing and does not include any real data about people in prison.</p>
+<h3 id="client-credentials">Client credentials</h3><p>Content coming soon</p>
+<h3 id="creating-test-user-accounts">Creating test user accounts</h3><p>Content coming soon.</p>
 
 
-              <div data-module='page-expiry' data-last-reviewed-on="2021-12-27">
+              <div data-module='page-expiry' data-last-reviewed-on="2022-03-03">
     <div class='page-expiry--not-expired'>
-      This page was last reviewed on 27 September 2021.
+      This page was last reviewed on 3 December 2021.
 
-        It needs to be reviewed again on 27 December 2021
+        It needs to be reviewed again on 3 March 2022
 .
     </div>
 
     <div class='page-expiry--expired'>
-      This page was set to be reviewed before 27 December 2021.
+      This page was set to be reviewed before 3 March 2022.
       This might mean the content is out of date.
     </div>
   </div>
