@@ -5,33 +5,28 @@ NAMESPACE_FILE=${1-namespaces}
 USER_INITIALS=${3-pgp}
 JIRA_TICKET=${4-DT-2796}
 
-function git_current_branch() {
-  local ref
-  ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
-  local ret=$?
-  if [[ $ret != 0 ]]; then
-    [[ $ret == 128 ]] && return  # no git repo.
-    ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
-  fi
-  echo ${ref#refs/heads/}
-}
-
 if [[ ! -r $NAMESPACE_FILE ]]; then
   echo "Unable to read file named \"$NAMESPACE_FILE\" for list of namespaces"
   exit 1
 fi
 
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+. "${DIR}"/common-functions.bash
+
 NAMESPACE_LIST=$(cat "$NAMESPACE_FILE")
+
 cd cloud-platform-environments
-for namespace in $NAMESPACE_LIST; do
+git_stash_changes_to_main
+echo "$NAMESPACE_LIST" | while read -r namespace; do
   echo "Processing $namespace"
-  cd namespaces/live-1.cloud-platform.service.justice.gov.uk/${namespace}
-  git checkout main && git pull
+  cd "namespaces/live-1.cloud-platform.service.justice.gov.uk/${namespace}"
   cloud-platform environment migrate
   cd - >/dev/null
-  git checkout -b ${USER_INITIALS}-${JIRA_TICKET}-migrate-live-${namespace}
+  git checkout main
+  git checkout -b "${USER_INITIALS}-${JIRA_TICKET}-migrate-live-${namespace}"
   git add .
   git commit -m "${JIRA_TICKET}: 🔧 Migrate to live context for $namespace" .
-  git push --set-upstream origin $(git_current_branch)
+  git push --set-upstream origin "$(git_current_branch)"
   gh pr create --fill
 done
+git_stash_pop_changes

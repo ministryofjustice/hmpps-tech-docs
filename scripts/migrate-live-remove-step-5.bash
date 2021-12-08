@@ -2,19 +2,11 @@
 set -e
 
 NAMESPACE_FILE=${1-namespaces}
-USER_INITIALS=${3-pgp}
-JIRA_TICKET=${4-DT-2796}
+USER_INITIALS=${2-pgp}
+JIRA_TICKET=${3-DT-2796}
 
-function git_current_branch() {
-  local ref
-  ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
-  local ret=$?
-  if [[ $ret != 0 ]]; then
-    [[ $ret == 128 ]] && return  # no git repo.
-    ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
-  fi
-  echo ${ref#refs/heads/}
-}
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+. "${DIR}"/common-functions.bash
 
 if [[ ! -r $NAMESPACE_FILE ]]; then
   echo "Unable to read file named \"$NAMESPACE_FILE\" for list of namespaces"
@@ -23,13 +15,15 @@ fi
 
 NAMESPACE_LIST=$(cat "$NAMESPACE_FILE")
 cd cloud-platform-environments/namespaces/live-1.cloud-platform.service.justice.gov.uk
-for namespace in $NAMESPACE_LIST; do
+git_stash_changes_to_main
+echo "$NAMESPACE_LIST" | while read -r namespace; do
   echo "Processing $namespace"
-  git checkout main && git pull
-  rm -r ${namespace}
-  git checkout -b ${USER_INITIALS}-${JIRA_TICKET}-remove-live-1-${namespace}
+  git checkout main
+  rm -r "${namespace}"
+  git checkout -b "${USER_INITIALS}-${JIRA_TICKET}-remove-live-1-${namespace}"
   git add .
   git commit -m "${JIRA_TICKET}: 🔧 Delete live-1 context for $namespace as now migrated" .
-  git push --set-upstream origin $(git_current_branch)
+  git push --set-upstream origin "$(git_current_branch)"
   gh pr create --fill
 done
+git_stash_pop_changes

@@ -7,10 +7,11 @@ if [[ ! -r $NAMESPACE_FILE ]]; then
   echo "Unable to read file named \"$NAMESPACE_FILE\" for list of namespaces"
   exit 1
 fi
-
 NAMESPACE_LIST=$(cat "$NAMESPACE_FILE")
 
-cd cloud-platform-environments/namespaces/live-1.cloud-platform.service.justice.gov.uk
+cd "cloud-platform-environments/namespaces/$to_context" || exit 1
 
-for namespace in $NAMESPACE_LIST; do echo $namespace && grep -r $namespace --exclude-dir=$namespace;done
+echo "$NAMESPACE_LIST" | while read -r namespace; do
+  echo "$namespace" && grep -r "$namespace" --exclude-dir="$namespace"
+done
 

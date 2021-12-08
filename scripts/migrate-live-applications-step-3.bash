@@ -9,6 +9,6 @@ if [[ ! -r $NAMESPACE_FILE ]]; then
   exit 1
 fi
 
-NAMESPACE_LIST=$(cat "$NAMESPACE_FILE")
-
-for namespace in $NAMESPACE_LIST; do kubectl --context=$to_context -n $namespace get deployments;done | awk '{print $1}' | sort | grep -v NAME
+while read -r namespace; do
+  kubectl --context=$to_context -n "$namespace" get deployments
+done < "$NAMESPACE_FILE" | awk '{print $1}' | sort | grep -v NAME
