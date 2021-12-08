@@ -6,36 +6,21 @@ SCRIPT_FILE=${2-../upgrade-kotlin-mockito.bash}
 BRANCH_NAME=${3?No branch specified}
 COMMIT_MSG=${4?No commit message specified}
 
-function git_current_branch() {
-  local ref
-  ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
-  local ret=$?
-  if [[ $ret != 0 ]]; then
-    [[ $ret == 128 ]] && return  # no git repo.
-    ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
-  fi
-  echo ${ref#refs/heads/}
-}
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+. "${DIR}"/common-functions.bash
 
-function gsm() {
-  CHANGES=$(git status -s | grep -v '??' | wc -l)
-  [[ $CHANGES -eq 0 ]] || git stash
-  git checkout main || git checkout master
-  git pull
-  [[ $CHANGES -eq 0 ]] || git stash pop
-}
+echo "About to do the upgrades"
 
-echo "About to do the upgrades" 
-
-for file in $(cat $APPLICATION_FILE); do
-  cd $file
-
-  gsm #switch to main
+while read -r application; do
+  cd "$application"
+  git_stash_changes_to_main
 
   $SCRIPT_FILE
   git checkout -b "$BRANCH_NAME"
   git commit -m "$COMMIT_MSG" .
-  git push --set-upstream origin $(git_current_branch)
+  git push --set-upstream origin "$(git_current_branch)"
   gh pr create --fill
+
+  git_stash_pop_changes
   cd - >/dev/null
-done
+done < "$APPLICATION_FILE"
