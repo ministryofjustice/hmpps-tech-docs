@@ -181,7 +181,34 @@ HMPPS Auth has three environments:
 - Dev (T3) - this environment is for testing and does not include any real data about people in prison.
 
 ### Requesting Tokens
-We have put together diagrams on a [Miro board](https://miro.com/app/board/uXjVOd1vhUY=/) to help teams understand the types of tokens they need to request from the DPS Tech Team.
+ - We have put together diagrams below to provide information about tokens in HMPPS Auth. It should help explain the types of tokens which need to be requested from the DPS Tech Team.
+ - We have covered a number of scenarios which describe typical shape of applications, their stack, interactions with Auth and other services.
+ - There are a few concepts which influence the grant types to request:
+  - **User roles**
+     - Roles which can be assigned to a user or an API
+  - **System roles**
+     - Roles which should not be assigned to users and they are provided to systems for talking to other APIs. For example `ROLE_COMMUNITY`
+  - **Controlled roles**
+     - Endpoints protected by roles which are controlled because they require additional approval before they can be added to a client credential. For example `ROLE_GLOBAL_SEARCH`
+
+This section does not discuss how to appropriately protect _your_ endpoints with roles.
+
+![Key](images/tokens-key.png)
+
+#### Scenario 1
+When your services makes calls to services which are authenticated with **user roles**. You can use grant type of _Authorization Code_
+
+![Scenario 1](images/tokens-scenario-1.png)
+
+#### Scenario 2
+When your API makes calls to services which are authenticated with **system or controlled roles**.
+
+![Scenario 2](images/tokens-scenario-2.png)
+
+#### Scenario 3
+When both your frontend and API make calls to services which are authenticated with **system or controlled roles**.
+
+![Scenario 3](images/tokens-scenario-3.png)
 
 ### Client credentials
 Content coming soon.
