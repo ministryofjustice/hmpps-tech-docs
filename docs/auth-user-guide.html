@@ -170,64 +170,6 @@
 </ul>
 <ul>
   <li>
-    <a href="/application-platform.html#hmpps-application-platform"><span>HMPPS Application Platform</span></a>
-    <ul>
-      <li>
-        <a href="/application-platform.html#about-the-hmpps-application-platform"><span>About the HMPPS Application Platform</span></a>
-        <ul>
-          <li>
-            <a href="/application-platform.html#benefits-of-using-the-application-platform"><span>Benefits of using the Application Platform</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/application-platform.html#application-platform-shared-components"><span>Application Platform Shared Components</span></a>
-        <ul>
-          <li>
-            <a href="/application-platform.html#project-bootstrapper"><span>Project Bootstrapper</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#kotlin-template"><span>Kotlin Template</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#typescript-template"><span>Typescript Template</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#gradle-build-plugin"><span>Gradle Build Plugin</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#circleci-orb"><span>CircleCI Orb</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#helm-charts"><span>Helm Charts</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#spring-boot-sqs-starter-library"><span>Spring Boot SQS Starter Library</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/application-platform.html#creating-a-new-service"><span>Creating A New Service</span></a>
-        <ul>
-          <li>
-            <a href="/application-platform.html#prerequisites"><span>Prerequisites</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#creating-resources-in-cloud-platform"><span>Creating resources in Cloud Platform</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#generating-your-project-and-build-pipeline"><span>Generating your project and build pipeline</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#configuring-the-build-pipeline"><span>Configuring the build pipeline</span></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-<ul>
-  <li>
     <a href="/auth-user-guide.html#auth-user-guide"><span>Auth User Guide</span></a>
     <ul>
       <li>
@@ -291,10 +233,71 @@
         <a href="/auth-user-guide.html#getting-access-to-auth-and-testing-your-service"><span>Getting access to Auth and testing your service</span></a>
         <ul>
           <li>
+            <a href="/auth-user-guide.html#requesting-tokens"><span>Requesting Tokens</span></a>
+          </li>
+          <li>
             <a href="/auth-user-guide.html#client-credentials"><span>Client credentials</span></a>
           </li>
           <li>
             <a href="/auth-user-guide.html#creating-test-user-accounts"><span>Creating test user accounts</span></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<ul>
+  <li>
+    <a href="/application-platform.html#hmpps-application-platform"><span>HMPPS Application Platform</span></a>
+    <ul>
+      <li>
+        <a href="/application-platform.html#about-the-hmpps-application-platform"><span>About the HMPPS Application Platform</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#benefits-of-using-the-application-platform"><span>Benefits of using the Application Platform</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/application-platform.html#application-platform-shared-components"><span>Application Platform Shared Components</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#project-bootstrapper"><span>Project Bootstrapper</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#kotlin-template"><span>Kotlin Template</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#typescript-template"><span>Typescript Template</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#gradle-build-plugin"><span>Gradle Build Plugin</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#circleci-orb"><span>CircleCI Orb</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#helm-charts"><span>Helm Charts</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#spring-boot-sqs-starter-library"><span>Spring Boot SQS Starter Library</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/application-platform.html#creating-a-new-service"><span>Creating A New Service</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#prerequisites"><span>Prerequisites</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#creating-resources-in-cloud-platform"><span>Creating resources in Cloud Platform</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#generating-your-project-and-build-pipeline"><span>Generating your project and build pipeline</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#configuring-the-build-pipeline"><span>Configuring the build pipeline</span></a>
           </li>
         </ul>
       </li>
@@ -436,11 +439,46 @@ This service can be used to authenticate users who need to use any of HMPPS&rsqu
 <li><strong>Help email</strong>: we need a contact email address for any enquiries from your service users about logging in or accessing your service. Some teams set up a generic inbox for this.</li>
 </ul>
 <p>Before a tile is created you must also have a way your users to give feedback and get support with your service. We recommend adding your service to https://support-dev.hmpps.service.justice.gov.uk/feedback-and-support</p>
-<h2 id="getting-access-to-auth-and-testing-your-service">Getting access to Auth and testing your service</h2><p>HMPPS Auth has three environments:
-- Prod - this is the environment your users will access your live service in. Access to production is restricted as it includes real data about people in prison.
-- Preprod - this environment is a copy of the prod environment. Every two weeks preprod will be overwritten to match the prod environment.
-- Dev (T3) - This environment is for testing and does not include any real data about people in prison.</p>
-<h3 id="client-credentials">Client credentials</h3><p>Content coming soon</p>
+<h2 id="getting-access-to-auth-and-testing-your-service">Getting access to Auth and testing your service</h2><p>HMPPS Auth has three environments:</p>
+
+<ul>
+<li>Prod - this is the environment your users will access your live service in. Access to production is restricted as it includes real data about people in prison.</li>
+<li>Preprod - this environment is a copy of the prod environment. Every two weeks preprod will be overwritten to match the prod environment.</li>
+<li>Dev (T3) - this environment is for testing and does not include any real data about people in prison.</li>
+</ul>
+<h3 id="requesting-tokens">Requesting Tokens</h3>
+<ul>
+<li>We have put together diagrams below to provide information about tokens in HMPPS Auth. It should help explain the types of tokens which need to be requested from the DPS Tech Team.</li>
+<li>We have covered a number of scenarios which describe typical shape of applications, their stack, interactions with Auth and other services.</li>
+<li>There are a few concepts which influence the grant types to request:
+
+<ul>
+<li><strong>User roles</strong>
+
+<ul>
+<li>Roles which can be assigned to a user or an API</li>
+</ul></li>
+<li><strong>System roles</strong>
+
+<ul>
+<li>Roles which should not be assigned to users and they are provided to systems for talking to other APIs. For example <code>ROLE_COMMUNITY</code></li>
+</ul></li>
+<li><strong>Controlled roles</strong>
+
+<ul>
+<li>Endpoints protected by roles which are controlled because they require additional approval before they can be added to a client credential. For example <code>ROLE_GLOBAL_SEARCH</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>This section does not discuss how to appropriately protect <em>your</em> endpoints with roles.</p>
+<p><a href="images/tokens-key.png" rel="noopener noreferrer"><img src="/images/tokens-key.png" alt="Key" /></a></p>
+<h4 id="scenario-1">Scenario 1</h4><p>When your services makes calls to services which are authenticated with <strong>user roles</strong>. You can use grant type of <em>Authorization Code</em></p>
+<p><a href="images/tokens-scenario-1.png" rel="noopener noreferrer"><img src="/images/tokens-scenario-1.png" alt="Scenario 1" /></a></p>
+<h4 id="scenario-2">Scenario 2</h4><p>When your API makes calls to services which are authenticated with <strong>system or controlled roles</strong>.</p>
+<p><a href="images/tokens-scenario-2.png" rel="noopener noreferrer"><img src="/images/tokens-scenario-2.png" alt="Scenario 2" /></a></p>
+<h4 id="scenario-3">Scenario 3</h4><p>When both your frontend and API make calls to services which are authenticated with <strong>system or controlled roles</strong>.</p>
+<p><a href="images/tokens-scenario-3.png" rel="noopener noreferrer"><img src="/images/tokens-scenario-3.png" alt="Scenario 3" /></a></p>
+<h3 id="client-credentials">Client credentials</h3><p>Content coming soon.</p>
 <h3 id="creating-test-user-accounts">Creating test user accounts</h3><p>Content coming soon.</p>
 
 
