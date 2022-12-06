@@ -1,9 +1,11 @@
 #!/bin/bash
+. "${DIR}"/common-functions.bash
+
 ./gradlew wrapper --gradle-version=7.6 --distribution-type=bin
 
 ./gradlew useLatestVersions
 
-find . -name '*.kt' -exec sed -i \
+find . -name '*.kt' -exec $SED -i \
  -e 's/import javax.servlet/import jakarta.servlet/' \
  -e 's/import javax.validation/import jakarta.validation/' \
  -e 's/import javax.transaction/import jakarta.transaction/' \
@@ -17,9 +19,9 @@ find . -name '*.kt' -exec sed -i \
  -e 's/import org.springframework.boot.web.server.LocalServerPort/import org.springframework.boot.test.web.server.LocalServerPort/' \
  {} \;
 
-find . -name '*.yml' -exec sed -i \
+find . -name '*.yml' -exec $SED -i \
  -e 's/PostgreSQL10Dialect/PostgreSQLDialect/' \
  {} \;
 
 
-sed -i 's/com.vladmihalcea:hibernate-types-52/com.vladmihalcea:hibernate-types-60/' build.gradle.kts
+$SED -i 's/com.vladmihalcea:hibernate-types-52/com.vladmihalcea:hibernate-types-60/' build.gradle.kts
