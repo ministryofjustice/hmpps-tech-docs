@@ -24,4 +24,15 @@ find . -name '*.yml' -exec $SED -i \
  {} \;
 
 
-$SED -i 's/com.vladmihalcea:hibernate-types-52/com.vladmihalcea:hibernate-types-60/' build.gradle.kts
+$SED -i \
+  -e 's/com.vladmihalcea:hibernate-types-52/com.vladmihalcea:hibernate-types-60/' \
+  -e 's/testImplementation("com.github.tomakehurst:wiremock-standalone:2[^"]*")/testImplementation("com.github.tomakehurst:wiremock-jre8-standalone:2.35.0")/' \
+  -e 's/testImplementation("io.jsonwebtoken:jjwt:0.9.1")/testImplementation("io.jsonwebtoken:jjwt-impl:0.11.5")\n  testImplementation("io.jsonwebtoken:jjwt-jackson:0.11.5")/' \
+  -e 's/implementation("org.springdoc:springdoc-openapi-ui:1[^"]*")/implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.0")/' \
+  -e 's/implementation("org.springdoc:springdoc-openapi-webflux-ui:1[^"]*")/implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.0.0")/' \
+  build.gradle.kts
+
+$SED -i \
+  -e '/implementation("org.springdoc:springdoc-openapi-kotlin:1.6.13")/d' \
+  -e '/implementation("org.springdoc:springdoc-openapi-security:1.6.13")/d' \
+  build.gradle.kts
