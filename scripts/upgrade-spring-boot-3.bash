@@ -16,7 +16,7 @@ $SED -i -z -e 's/repositories {\n}\n//' build.gradle.kts
 
 $SED -i -e 's#dependencies {#repositories {\n  maven { url = uri("https://repo.spring.io/milestone") }\n  mavenCentral()\n}\ndependencies {#' \
         -e 's/spring-boot") version "[0-9].[0-9].[0-9]\(-beta\)*/spring-boot") version "5.0.0-beta/' \
-        -e 's/hmpps-sqs-spring-boot-starter:[0-9].[0-9].[0-9]\(-beta\)*/hmpps-sqs-spring-boot-starter:2.0.0-beta/' \
+        -e 's/hmpps-sqs-spring-boot-starter:[0-9].[0-9].[0-9]\(-beta\)\?\(-beta-[0-9]\)\?"/hmpps-sqs-spring-boot-starter:2.0.0-beta-3"/' \
   build.gradle.kts
 
 find . -name '*.kt' -exec $SED -i \
@@ -51,7 +51,8 @@ $SED -i -e 's/com.vladmihalcea:hibernate-types-52/com.vladmihalcea:hibernate-typ
         -e 's/implementation("org.springdoc:springdoc-openapi-webflux-ui:1[^"]*")/implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.0.2")/' \
   build.gradle.kts
 
-$SED -i -e '/implementation("org.springdoc:springdoc-openapi-kotlin")/d' \
-$SED -i -e '/implementation("org.springdoc:springdoc-openapi-data-rest")/d' \
-        -e '/implementation("org.springdoc:springdoc-openapi-security")/d' \
+$SED -i -e '/implementation("org.springdoc:springdoc-openapi-kotlin/d' \
+        -e '/implementation("org.springdoc:springdoc-openapi-data-rest/d' \
+        -e '/implementation("org.springdoc:springdoc-openapi-security/d' \
+        -e '/testImplementation("io.swagger.parser.v3:swagger-parser/d' \
   build.gradle.kts
