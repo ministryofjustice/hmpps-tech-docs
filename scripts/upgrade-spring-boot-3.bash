@@ -31,12 +31,20 @@ find . -name '*.kt' -exec $SED -i \
   -e 's/@Type(type = "yes_no")/@Convert(converter = YesNoConverter::class)/' \
   -e 's/antMatchers/requestMatchers/' \
   -e 's/import org.springframework.boot.web.server.LocalServerPort/import org.springframework.boot.test.web.server.LocalServerPort/' \
-  -e 's/@JmsListener(destination = "\([^"]*\)", containerFactory/@SqsListener(queueNames = ["\1"], factory/' \
+  -e 's/@JmsListener(destination = "\([^"]*\)", containerFactory/@SqsListener("\1", factory/' \
   -e 's/import org.springframework.jms.annotation.JmsListener/import io.awspring.cloud.sqs.annotation.SqsListener/' \
   -e 's/class \([a-zA-Z]*\) : WebSecurityConfigurerAdapter() {/class \1 {/' \
   -e 's/override fun configure(http: HttpSecurity) {/@Bean\n  fun filterChain(http: HttpSecurity): SecurityFilterChain {/' \
   -e '/import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter/d' \
   -e 's/EnableGlobalMethodSecurity/EnableMethodSecurity/' \
+  -e '/@BatchSize/d' \
+  -e '/import org.hibernate.annotations.BatchSize/d' \
+  -e 's/OpenApiCustomiser/OpenApiCustomizer/g' \
+  -e 's/signWith(SignatureAlgorithm.RS256, keyPair.private)/signWith(keyPair.private, SignatureAlgorithm.RS256)/' \
+  {} \;
+
+find . -name '*.kt' -exec $SED -i -z \
+  -e 's/referencedColumnName = "\([a-zA-Z]*\)",\([[:space:]]*\)nullable = false/referencedColumnName = "\1",\2nullable = true/g' \
   {} \;
 
 find . -name '*.yml' -exec $SED -i \
@@ -54,5 +62,4 @@ $SED -i -e 's/com.vladmihalcea:hibernate-types-52/com.vladmihalcea:hibernate-typ
 $SED -i -e '/implementation("org.springdoc:springdoc-openapi-kotlin/d' \
         -e '/implementation("org.springdoc:springdoc-openapi-data-rest/d' \
         -e '/implementation("org.springdoc:springdoc-openapi-security/d' \
-        -e '/testImplementation("io.swagger.parser.v3:swagger-parser/d' \
   build.gradle.kts
