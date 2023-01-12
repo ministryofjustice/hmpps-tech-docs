@@ -16,7 +16,7 @@ $SED -i -z -e 's/repositories {\n}\n//' build.gradle.kts
 
 $SED -i -e 's#dependencies {#repositories {\n  maven { url = uri("https://repo.spring.io/milestone") }\n  mavenCentral()\n}\ndependencies {#' \
         -e 's/spring-boot") version "[0-9].[0-9].[0-9]\(-beta\)\?\(-beta-[0-9]\)\?/spring-boot") version "5.0.0-beta-4/' \
-        -e 's/hmpps-sqs-spring-boot-starter:[0-9].[0-9].[0-9]\(-beta\)\?\(-beta-[0-9]\)\?"/hmpps-sqs-spring-boot-starter:2.0.0-beta-6"/' \
+        -e 's/hmpps-sqs-spring-boot-starter:[0-9].[0-9].[0-9]\(-beta\)\?\(-beta-[0-9]\)\?"/hmpps-sqs-spring-boot-starter:2.0.0-beta-7"/' \
   build.gradle.kts
 
 find . -name '*.kt' -exec $SED -i \
@@ -74,4 +74,4 @@ find . -name 'App*InsightsConfig*.kt' -exec $SED -i -z \
   -e 's#import.*#import com.microsoft.applicationinsights.TelemetryClient\nimport org.springframework.context.annotation.Bean\nimport org.springframework.context.annotation.Configuration\n\n/**\n * TelemetryClient gets altered at runtime by the java agent and so is a no-op otherwise\n */\n@Configuration\nclass ApplicationInsightsConfiguration {\n  @Bean\n  fun telemetryClient(): TelemetryClient = TelemetryClient()\n}\n\nfun TelemetryClient.trackEvent(name: String, properties: Map<String, String>) = this.trackEvent(name, properties, null)\n#' \
   {} \;
 
-grep ApplicationInsightsAppender src/main/resources/log*.xml && echo "\nOld app insights appender detected - will need removing"
+grep -n ApplicationInsightsAppender src/main/resources/log*.xml && ls src/main/resources/log*.xml && echo -e "\nOld app insights appender detected - will need removing"
