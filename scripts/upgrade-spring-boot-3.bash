@@ -15,7 +15,7 @@ $SED -i -e '/spring.io\/milestone/d' \
 $SED -i -z -e 's/repositories {\n}\n//' build.gradle.kts
 
 $SED -i -e 's#dependencies {#repositories {\n  maven { url = uri("https://repo.spring.io/milestone") }\n  mavenCentral()\n}\ndependencies {#' \
-        -e 's/spring-boot") version "[0-9].[0-9].[0-9]\(-beta\)\?\(-beta-[0-9]\)\?/spring-boot") version "5.0.0/' \
+        -e 's/spring-boot") version "[0-9].[0-9].[0-9]\(-beta\)\?\(-beta-[0-9]\)\?/spring-boot") version "5.0.1/' \
         -e 's/hmpps-sqs-spring-boot-starter:[0-9].[0-9].[0-9]\(-beta\)\?\(-beta-[0-9]\)\?"/hmpps-sqs-spring-boot-starter:2.0.0-beta-10"/' \
   build.gradle.kts
 
