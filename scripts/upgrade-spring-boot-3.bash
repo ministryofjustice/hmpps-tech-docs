@@ -1,4 +1,9 @@
 #!/bin/bash
+
+############
+# See thread - https://mojdt.slack.com/archives/C69NWE339/p1681458769482799 - for help with upgrading
+############
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 . "${SCRIPT_DIR}"/common-functions.bash
@@ -15,8 +20,8 @@ $SED -i -e '/spring.io\/milestone/d' \
 $SED -i -z -e 's/repositories {\n}\n//' build.gradle.kts
 
 $SED -i -e 's#dependencies {#repositories {\n  maven { url = uri("https://repo.spring.io/milestone") }\n  mavenCentral()\n}\ndependencies {#' \
-        -e 's/spring-boot") version "[0-9].[0-9].[0-9]\(-beta\)\?\(-beta-[0-9]\)\?/spring-boot") version "5.0.1/' \
-        -e 's/hmpps-sqs-spring-boot-starter:[0-9].[0-9].[0-9]\(-beta\)\?\(-beta-[0-9]\)\?"/hmpps-sqs-spring-boot-starter:2.0.0-beta-10"/' \
+        -e 's/spring-boot") version "[0-9].[0-9].[0-9]\(-beta\)\?\(-beta-[0-9]\)\?/spring-boot") version "5.1.3/' \
+        -e 's/hmpps-sqs-spring-boot-starter:[0-9].[0-9].[0-9]\(-beta\)\?\(-beta-[0-9]\)\?"/hmpps-sqs-spring-boot-starter:2.0.0-beta-14"/' \
   build.gradle.kts
 
 find . -name '*.kt' -exec $SED -i \
