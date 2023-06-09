@@ -149,7 +149,7 @@ To see an example of the library in action look at the project's [test applicati
 
 ## Creating A New Service
 
-By using the [application platform shared components](#application-platform-shared-components) it is possible to get a skeleton service into production very quickly. We recommend getting a skeleton application deployed all the way to production as early as possible. This removes any surprises you might encounter with deploying your application into production and allows you to start adding value to users as early as possible. Note that depending upon your project you may wish to limit access to your production service. Be careful who you publish the production service URLs to. Control access by using roles assigned to users or services - ask in MOJ Slack channel `#dps_tech_team` for more details.
+By using the [application platform shared components](#application-platform-shared-components) it is possible to get a skeleton service into production very quickly. We recommend getting a skeleton application deployed all the way to production as early as possible. This removes any surprises you might encounter with deploying your application into production and allows you to start adding value to users as early as possible. Note that depending upon your project you may wish to limit access to your production service. Be careful who you publish the production service URLs to. Control access by using roles assigned to users or services - ask in MOJ Slack channel `#hmpps-auth-audit-registers` for more details.
 
 ### Prerequisites
 
@@ -247,8 +247,8 @@ Clone the bootstrap GitHub project from the link in the [project bootstrapper se
 
 * Create a new branch
 * Add your project to the `projects.json` file. You should be able to copy from the README example for deploying from a template. The value of `github_template_repo` should be `hmpps-template-kotlin` for backend projects or `hmpps-template-typescript` for frontend projects.
-* Raise a Pull Request and ask for a review in the MOJ Slack channel `#dps_tech_team`
-* Once merged, ask again in `#dps_tech_team` for somebody to apply the changes
+* Raise a Pull Request and ask for a review in the MOJ Slack channel `#hmpps_dev`
+* Once merged, ask again in `#hmpps_dev` for somebody to apply the changes
 
 Once complete you will have a new project on Github and your build pipeline will be ready. It's worth checking these resources to make sure the bootstrap worked and familiarise yourself with the build pipeline.
 
@@ -285,13 +285,13 @@ The Typescript template project requires a secret which is used to sign session 
 
 Users sign in to the UI application using the Oauth2 `authorization_grant` flow. After a successful sign in the UI application calls `hmpps-auth` to receive a valid access token. We need a client and secret to prove to `hmpps-auth` that we are allowed to request access tokens. These secrets are stored in Kubernetes secrets `API_CLIENT_ID` and `API_CLIENT_SECRET`.
 
-To request a new authorization code client from `hmpps-auth` raise a ticket on the DPS Tech Team JIRA board in [this format](https://dsdmoj.atlassian.net/browse/DT-2550). Then ask in MOJ Slack channel `#dps_tech_team` for the ticket to be prioritised. Once the clients have been created in `hmpps-auth` the DPS Tech team will copy the secrets into your namespace.
+To request a new authorization code client from `hmpps-auth` raise a ticket on the DPS Tech Team JIRA board in [this format](https://dsdmoj.atlassian.net/browse/DT-2550). Then ask in MOJ Slack channel `#hmpps-auth-audit-registers` for the ticket to be prioritised. Once the clients have been created in `hmpps-auth` the DPS Tech team will copy the secrets into your namespace.
 
 ##### client_credentials client
 
 When a UI application needs to call an API it must prove that it is authorised to call that API using the Oauth2 `client_credentials` flow. The UI application calls `hmpps-auth` to request an access token it can present to other APIs as authorisation. We need a client and secret to prove to `hmpps-auth` we can have an access token. These secrets are stored in Kubernetes secrets `SYSTEM_CLIENT_ID` and `SYSTEM_CLIENT_SECRET`.
 
-To request a new client credentials client from `hmpps-auth` raise a ticket on the DPS Tech Team JIRA board in [this format](https://dsdmoj.atlassian.net/browse/DT-2549). Then ask in MOJ Slack channel `#dps_tech_team` for the ticket to be prioritised. Once the clients have been created in `hmpps-auth` the DPS Tech team will copy the secrets into your namespace.
+To request a new client credentials client from `hmpps-auth` raise a ticket on the DPS Tech Team JIRA board in [this format](https://dsdmoj.atlassian.net/browse/DT-2549). Then ask in MOJ Slack channel `#hmpps-auth-audit-registers` for the ticket to be prioritised. Once the clients have been created in `hmpps-auth` the DPS Tech team will copy the secrets into your namespace.
 
 #### Checking the application is healthy
 
