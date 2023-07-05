@@ -332,3 +332,16 @@ If you're creating a Typescript application you may still have a failing deploym
 
 Once the application is deployed you should receive another alert from pingdom saying that your application is now up. This means your deployment succeeded and the app is healthy.
 
+
+### Developing locally
+
+With our growing number of service dependencies (APIs, DBs, etc) it can sometimes be impractical to spin up dependencies locally, with Docker for instance. In which case developers prefer to point their locally running application at our 'dev' environment. This therefore requires credentials to authenticate with HMPPS Auth in dev.
+
+We used to require that developers request their own personal credentials that would mirror their service's configuration and roles. *We are no longer considering this necessary for the dev environment*.
+
+We will relax the IP allow listing to support use of dev service credentials within MoJ GlobalProtect and MoJ Digital VPN IP ranges.  This will reduce the support burden on our team and avoid issues where developer and service credential configuration gets out of step.
+
+The process to follow will now be:
+
+* Request HMPPS Auth credentials as normal for your service and store them as Kubernetes secrets
+* When a developer needs credentials to develop against the dev environment, they can inspect their service's Kubernetes secrets for the credentials they need and set them as local environment variables.
