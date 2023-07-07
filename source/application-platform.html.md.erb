@@ -341,7 +341,9 @@ We used to require that developers request their own personal credentials that w
 
 We will relax the IP allow listing to support use of dev service credentials within MoJ GlobalProtect and MoJ Digital VPN IP ranges.  This will reduce the support burden on our team and avoid issues where developer and service credential configuration gets out of step.
 
-The process to follow will now be:
+The default process to follow will now be:
 
 * Request HMPPS Auth credentials as normal for your service and store them as Kubernetes secrets
 * When a developer needs credentials to develop against the dev environment, they can inspect their service's Kubernetes secrets for the credentials they need and set them as local environment variables.
+
+Personal credentials can still be requested if required (for maintenance of queues for example).
