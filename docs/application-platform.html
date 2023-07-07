@@ -170,64 +170,6 @@
 </ul>
 <ul>
   <li>
-    <a href="/application-platform.html#hmpps-application-platform"><span>HMPPS Application Platform</span></a>
-    <ul>
-      <li>
-        <a href="/application-platform.html#about-the-hmpps-application-platform"><span>About the HMPPS Application Platform</span></a>
-        <ul>
-          <li>
-            <a href="/application-platform.html#benefits-of-using-the-application-platform"><span>Benefits of using the Application Platform</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/application-platform.html#application-platform-shared-components"><span>Application Platform Shared Components</span></a>
-        <ul>
-          <li>
-            <a href="/application-platform.html#project-bootstrapper"><span>Project Bootstrapper</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#kotlin-template"><span>Kotlin Template</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#typescript-template"><span>Typescript Template</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#gradle-build-plugin"><span>Gradle Build Plugin</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#circleci-orb"><span>CircleCI Orb</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#helm-charts"><span>Helm Charts</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#spring-boot-sqs-starter-library"><span>Spring Boot SQS Starter Library</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/application-platform.html#creating-a-new-service"><span>Creating A New Service</span></a>
-        <ul>
-          <li>
-            <a href="/application-platform.html#prerequisites"><span>Prerequisites</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#creating-resources-in-cloud-platform"><span>Creating resources in Cloud Platform</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#generating-your-project-and-build-pipeline"><span>Generating your project and build pipeline</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#configuring-the-build-pipeline"><span>Configuring the build pipeline</span></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-<ul>
-  <li>
     <a href="/auth-user-guide.html#auth-user-guide"><span>Auth User Guide</span></a>
     <ul>
       <li>
@@ -298,6 +240,67 @@
           </li>
           <li>
             <a href="/auth-user-guide.html#creating-test-user-accounts"><span>Creating test user accounts</span></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<ul>
+  <li>
+    <a href="/application-platform.html#hmpps-application-platform"><span>HMPPS Application Platform</span></a>
+    <ul>
+      <li>
+        <a href="/application-platform.html#about-the-hmpps-application-platform"><span>About the HMPPS Application Platform</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#benefits-of-using-the-application-platform"><span>Benefits of using the Application Platform</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/application-platform.html#application-platform-shared-components"><span>Application Platform Shared Components</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#project-bootstrapper"><span>Project Bootstrapper</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#kotlin-template"><span>Kotlin Template</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#typescript-template"><span>Typescript Template</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#gradle-build-plugin"><span>Gradle Build Plugin</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#circleci-orb"><span>CircleCI Orb</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#helm-charts"><span>Helm Charts</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#spring-boot-sqs-starter-library"><span>Spring Boot SQS Starter Library</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/application-platform.html#creating-a-new-service"><span>Creating A New Service</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#prerequisites"><span>Prerequisites</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#creating-resources-in-cloud-platform"><span>Creating resources in Cloud Platform</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#generating-your-project-and-build-pipeline"><span>Generating your project and build pipeline</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#configuring-the-build-pipeline"><span>Configuring the build pipeline</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#developing-locally"><span>Developing locally</span></a>
           </li>
         </ul>
       </li>
@@ -487,6 +490,16 @@
 <p>Once these changes have been made raise a PR and merge when reviewed. Your Circle build should now deploy to dev and request approval for preprod. After approving the preprod deployment the build will request approval for prod deployment. Approve and your service will be deployed to prod.</p>
 <p>If you&rsquo;re creating a Typescript application you may still have a failing deployment. Make sure you create the same secrets in prod that you <a href="#typescript-application-secrets">created for dev</a>.</p>
 <p>Once the application is deployed you should receive another alert from pingdom saying that your application is now up. This means your deployment succeeded and the app is healthy.</p>
+<h3 id="developing-locally">Developing locally</h3><p>With our growing number of service dependencies (APIs, DBs, etc) it can sometimes be impractical to spin up dependencies locally, with Docker for instance. In which case developers prefer to point their locally running application at our &lsquo;dev&rsquo; environment. This therefore requires credentials to authenticate with HMPPS Auth in dev.</p>
+<p>We used to require that developers request their own personal credentials that would mirror their service&rsquo;s configuration and roles. <em>We are no longer considering this necessary for the dev environment</em>.</p>
+<p>We will relax the IP allow listing to support use of dev service credentials within MoJ GlobalProtect and MoJ Digital VPN IP ranges.  This will reduce the support burden on our team and avoid issues where developer and service credential configuration gets out of step.</p>
+<p>The default process to follow will now be:</p>
+
+<ul>
+<li>Request HMPPS Auth credentials as normal for your service and store them as Kubernetes secrets</li>
+<li>When a developer needs credentials to develop against the dev environment, they can inspect their service&rsquo;s Kubernetes secrets for the credentials they need and set them as local environment variables.</li>
+</ul>
+<p>Personal credentials can still be requested if required (for maintenance of queues for example).</p>
 
 
               <div data-module='page-expiry' data-last-reviewed-on="2021-12-06">
