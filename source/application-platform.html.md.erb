@@ -347,3 +347,6 @@ The default process to follow will now be:
 * When a developer needs credentials to develop against the dev environment, they can inspect their service's Kubernetes secrets for the credentials they need and set them as local environment variables.
 
 Personal credentials can still be requested if required (for maintenance of queues for example).
+
+**Note (1):** Because preprod and prod environments contain production data, we are still restricting service credentials to the service host (e.g. Cloud Platform) IP ranges in these environments.  This means that if you need to call preprod or prod APIs from your local machine, and you are SC cleared or have a suitable waiver, you'll still need to request personal client credentials.
+**Note (2):** Remember that the credentials are for a particular OAuth2 flow (`authorization_code` or `client_credentials`). This means, for example, that you won't be able to use your service's `authorization_code` credentials to make a `client_credentials` token request for calling an API.
