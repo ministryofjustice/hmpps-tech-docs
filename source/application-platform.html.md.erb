@@ -1,6 +1,6 @@
 ---
 title: HMPPS Application Platform
-last_reviewed_on: 2021-09-06
+last_reviewed_on: 2024-08-16
 review_in: 3 months
 weight: 20
 ---
@@ -279,7 +279,9 @@ If you are trying to create a Typescript application your deployment is probably
 
 ##### session secret
 
-The Typescript template project requires a secret which is used to sign session cookies. This is how it knows that cookies haven't been tampered with when presented by a client. Using the [Cloud Platform secrets guide](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/add-secrets-to-deployment.html#adding-a-secret-to-an-application) update the secret `<your-new-service-name>` by adding a new key `SESSION_SECRET` followed by a random value (don't forget to base64 encode the value).
+The Typescript template project requires a secret which is used to sign session cookies. This is how it knows that cookies haven't been tampered with when presented by a client. Using the [Cloud Platform secrets guide](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/add-secrets-to-deployment.html#configuring-secrets-manually-using-kubenetes-secret) update the secret `<your-new-service-name>` by adding a new key `SESSION_SECRET` followed by a random value (don't forget to base64 encode the value).
+
+**Note:** Please do not use / configure the [Cloud Platform Secrets Manager](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/add-secrets-to-deployment.html#configuring-secrets-using-aws-secrets-manager), since this prevents scheduled secret rotation scripts from running successfully.
 
 ##### authorization_code client
 
