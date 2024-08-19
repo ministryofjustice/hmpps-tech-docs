@@ -170,6 +170,67 @@
 </ul>
 <ul>
   <li>
+    <a href="/application-platform.html#hmpps-application-platform"><span>HMPPS Application Platform</span></a>
+    <ul>
+      <li>
+        <a href="/application-platform.html#about-the-hmpps-application-platform"><span>About the HMPPS Application Platform</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#benefits-of-using-the-application-platform"><span>Benefits of using the Application Platform</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/application-platform.html#application-platform-shared-components"><span>Application Platform Shared Components</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#project-bootstrapper"><span>Project Bootstrapper</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#kotlin-template"><span>Kotlin Template</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#typescript-template"><span>Typescript Template</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#gradle-build-plugin"><span>Gradle Build Plugin</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#circleci-orb"><span>CircleCI Orb</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#helm-charts"><span>Helm Charts</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#spring-boot-sqs-starter-library"><span>Spring Boot SQS Starter Library</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/application-platform.html#creating-a-new-service"><span>Creating A New Service</span></a>
+        <ul>
+          <li>
+            <a href="/application-platform.html#prerequisites"><span>Prerequisites</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#creating-resources-in-cloud-platform"><span>Creating resources in Cloud Platform</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#generating-your-project-and-build-pipeline"><span>Generating your project and build pipeline</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#configuring-the-build-pipeline"><span>Configuring the build pipeline</span></a>
+          </li>
+          <li>
+            <a href="/application-platform.html#developing-locally"><span>Developing locally</span></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<ul>
+  <li>
     <a href="/auth-user-guide.html#auth-user-guide"><span>Auth User Guide</span></a>
     <ul>
       <li>
@@ -240,67 +301,6 @@
           </li>
           <li>
             <a href="/auth-user-guide.html#creating-test-user-accounts"><span>Creating test user accounts</span></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-<ul>
-  <li>
-    <a href="/application-platform.html#hmpps-application-platform"><span>HMPPS Application Platform</span></a>
-    <ul>
-      <li>
-        <a href="/application-platform.html#about-the-hmpps-application-platform"><span>About the HMPPS Application Platform</span></a>
-        <ul>
-          <li>
-            <a href="/application-platform.html#benefits-of-using-the-application-platform"><span>Benefits of using the Application Platform</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/application-platform.html#application-platform-shared-components"><span>Application Platform Shared Components</span></a>
-        <ul>
-          <li>
-            <a href="/application-platform.html#project-bootstrapper"><span>Project Bootstrapper</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#kotlin-template"><span>Kotlin Template</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#typescript-template"><span>Typescript Template</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#gradle-build-plugin"><span>Gradle Build Plugin</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#circleci-orb"><span>CircleCI Orb</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#helm-charts"><span>Helm Charts</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#spring-boot-sqs-starter-library"><span>Spring Boot SQS Starter Library</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/application-platform.html#creating-a-new-service"><span>Creating A New Service</span></a>
-        <ul>
-          <li>
-            <a href="/application-platform.html#prerequisites"><span>Prerequisites</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#creating-resources-in-cloud-platform"><span>Creating resources in Cloud Platform</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#generating-your-project-and-build-pipeline"><span>Generating your project and build pipeline</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#configuring-the-build-pipeline"><span>Configuring the build pipeline</span></a>
-          </li>
-          <li>
-            <a href="/application-platform.html#developing-locally"><span>Developing locally</span></a>
           </li>
         </ul>
       </li>
@@ -466,7 +466,8 @@
 <p>This is a good time to update <code>README.md</code> to replace the template readme with content more relevant to your service. See the <a href="/service-standards.html#readme">service standards</a> for inspiration.</p>
 <p>Also update the Slack alert and release channels in the Circle build (.circleci/config.yml). These should be channels relating to your team / service area.</p>
 <h3 id="configuring-the-build-pipeline">Configuring the build pipeline</h3><h4 id="typescript-application-secrets">Typescript application secrets</h4><p>If you are trying to create a Typescript application your deployment is probably failing. There are a few secrets that are only required by Typescript applications. Once these secrets are created your application should start deploying. It&rsquo;s worth running the command <code>kubectl -n &lt;your-new-service-name&gt;-dev get events</code> to try and spot which secrets are missing.</p>
-<h5 id="session-secret">session secret</h5><p>The Typescript template project requires a secret which is used to sign session cookies. This is how it knows that cookies haven&rsquo;t been tampered with when presented by a client. Using the <a href="https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/add-secrets-to-deployment.html#adding-a-secret-to-an-application">Cloud Platform secrets guide</a> update the secret <code>&lt;your-new-service-name&gt;</code> by adding a new key <code>SESSION_SECRET</code> followed by a random value (don&rsquo;t forget to base64 encode the value).</p>
+<h5 id="session-secret">session secret</h5><p>The Typescript template project requires a secret which is used to sign session cookies. This is how it knows that cookies haven&rsquo;t been tampered with when presented by a client. Using the <a href="https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/add-secrets-to-deployment.html#configuring-secrets-manually-using-kubenetes-secret">Cloud Platform secrets guide</a> update the secret <code>&lt;your-new-service-name&gt;</code> by adding a new key <code>SESSION_SECRET</code> followed by a random value (don&rsquo;t forget to base64 encode the value).</p>
+<p><strong>Note:</strong> Please do not use / configure the <a href="https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/add-secrets-to-deployment.html#configuring-secrets-using-aws-secrets-manager">Cloud Platform Secrets Manager</a>, since this prevents scheduled secret rotation scripts from running successfully.</p>
 <h5 id="authorization-code-client">authorization_code client</h5><p>Users sign in to the UI application using the Oauth2 <code>authorization_grant</code> flow. After a successful sign in the UI application calls <code>hmpps-auth</code> to receive a valid access token. We need a client and secret to prove to <code>hmpps-auth</code> that we are allowed to request access tokens. These secrets are stored in Kubernetes secrets <code>API_CLIENT_ID</code> and <code>API_CLIENT_SECRET</code>.</p>
 <p>To request a new authorization code client from <code>hmpps-auth</code> raise a ticket on the DPS Tech Team JIRA board in <a href="https://dsdmoj.atlassian.net/browse/DT-2550">this format</a>. Then ask in MOJ Slack channel <code>#hmpps-auth-audit-registers</code> for the ticket to be prioritised. Once the clients have been created in <code>hmpps-auth</code> the DPS Tech team will copy the secrets into your namespace.</p>
 <h5 id="client-credentials-client">client_credentials client</h5><p>When a UI application needs to call an API it must prove that it is authorised to call that API using the Oauth2 <code>client_credentials</code> flow. The UI application calls <code>hmpps-auth</code> to request an access token it can present to other APIs as authorisation. We need a client and secret to prove to <code>hmpps-auth</code> we can have an access token. These secrets are stored in Kubernetes secrets <code>SYSTEM_CLIENT_ID</code> and <code>SYSTEM_CLIENT_SECRET</code>.</p>
@@ -504,16 +505,16 @@
 <strong>Note (2):</strong> Remember that the credentials are for a particular OAuth2 flow (<code>authorization_code</code> or <code>client_credentials</code>). This means, for example, that you won&rsquo;t be able to use your service&rsquo;s <code>authorization_code</code> credentials to make a <code>client_credentials</code> token request for calling an API.</p>
 
 
-              <div data-module='page-expiry' data-last-reviewed-on="2021-12-06">
+              <div data-module='page-expiry' data-last-reviewed-on="2024-11-16">
     <div class='page-expiry--not-expired'>
-      This page was last reviewed on 6 September 2021.
+      This page was last reviewed on 16 August 2024.
 
-        It needs to be reviewed again on 6 December 2021
+        It needs to be reviewed again on 16 November 2024
 .
     </div>
 
     <div class='page-expiry--expired'>
-      This page was set to be reviewed before 6 December 2021.
+      This page was set to be reviewed before 16 November 2024.
       This might mean the content is out of date.
     </div>
   </div>
