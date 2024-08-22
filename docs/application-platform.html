@@ -379,8 +379,14 @@
 <li>You must be a member of a team in the <a href="https://github.com/ministryofjustice">Ministry of Justice</a> GitHub organisation. That team must belong to parent team <a href="https://github.com/orgs/ministryofjustice/teams/hmpps-developers">HMPPS Developers</a>.</li>
 <li>The team must have an MOJ Slack channel. You may want a second channel dedicated to alerts.</li>
 <li>The new service needs a <a href="https://www.gov.uk/service-manual/design/naming-your-service">good name</a>. Note that by convention we use the service name in the DNS domain used by the service. As this will have a size limit try not to make your service name too long - a maximum of 25 characters should be ok.</li>
-<li>Decide which DNS domain to use depending on your user base. <code>.hmpps.service.justice.gov.uk</code>, <code>.prison.service.justice.gov.uk</code> or <code>.probation.service.justice.gov.uk</code> are already available and require no extra work. Anything else will need assistance from Cloud Platform.</li>
-<li>Clone the <a href="https://github.com/ministryofjustice/cloud-platform-environments">cloud-platform-environments git repository</a>.</li>
+<li>Decide which DNS domain to use depending on your user base. The following domains are already available and require no extra work. Any others will need assistance from Cloud Platform.
+
+<ul>
+<li><code>.hmpps.service.justice.gov.uk</code></li>
+<li><code>.prison.service.justice.gov.uk</code></li>
+<li><code>.probation.service.justice.gov.uk</code> </li>
+</ul></li>
+<li><code>git clone</code> the <a href="https://github.com/ministryofjustice/cloud-platform-environments">cloud-platform-environments git repository</a> to your local machine.</li>
 <li>Decide upon the type of project - for backend projects we will be using the <a href="#kotlin-template">Kotlin Template</a> and for frontend projects we will be using the <a href="#typescript-template">Typescript template</a>.</li>
 <li>Install the Kubernetes CLI <a href="https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html#how-to-use-kubectl-to-connect-to-the-cluster">kubectl</a></li>
 <li>Create an account on <a href="https://quay.io">Quay.io</a> and link it to the <a href="https://quay.io/organization/hmpps">hmpps org</a></li>
@@ -396,8 +402,8 @@
 <ul>
 <li>In the <code>cloud-platform-environments</code> repo create a new branch</li>
 <li>Look in directory <code>namespaces/live-1.cloud-platform.service.justice.gov.uk</code></li>
-<li>For APIs take a copy of the <code>hmpps-template-kotlin</code> directory or for UIs take a copy of the <code>hmpps-template-typescript</code> directory</li>
-<li>For the new directory name append dev to your new service name, e.g. <code>&lt;your-new-service-name&gt;-dev</code></li>
+<li>The github Kotlin and Typescript template projects are both configured to use the <code>hmpps-templates-dev</code> directory, and it can be used as the basis of your project&rsquo;s namespace configuration for the <code>-dev</code>, <code>-preprod</code> and <code>-prod</code> environments with appropriate changes.</li>
+<li>Create a copy of this template directory, and rename it, appending dev to your new service name, e.g. <code>&lt;your-new-service-name&gt;-dev</code></li>
 </ul>
 <p>You will now have a bunch of Kubernetes definition files in your new directory. There will be several places that need updating:</p>
 
@@ -405,7 +411,7 @@
 <li>Change the defaults under directory <code>resources/variables</code></li>
 <li>Replace the template namespace references with your new namespace name (e.g. replace all instances of <code>hmpps-template-kotlin</code> with <code>&lt;your-new-service-name&gt;-dev</code>). Some projects will not have a github repository at this point, the following stages after creating the namespaces will create this for you. The <code>cloud-platform.justice.gov.uk/source-code:</code> for you project will be <code>https://github.com/ministryofjustice/&lt;your-new-service-name&gt;.git</code></li>
 <li>When finished perform a quick search for the word <code>template</code> in your new directory in case you missed any</li>
-<li>Add your GitHub team to the <code>rbac</code> yaml - copy the existing subject of kind <code>Group</code> but replace <code>dps-tech</code> with your GitHub team. (Note you should keep the <code>dps-tech</code> Group as this is required for some administration tasks on the namespace).</li>
+<li>Add your GitHub team to the <code>rbac</code> yaml - copy the existing subject of kind <code>Group</code> but replace <code>hmpps-sre</code> with your GitHub team. (Note: please <em>copy</em>, do not replace the <code>hmpps-sre</code> Group - it is required for administration tasks on the namespace).</li>
 <li>Update the certificate&rsquo;s DNS name. By convention we prefer <code>&lt;your-new-service-name&gt;-dev.hmpps|prison|probation.service.justice.gov.uk</code> - where you choose one of <code>hmpps</code>, <code>prison</code> or <code>probation</code></li>
 <li>Check that the certificate&rsquo;s DNS name isn&rsquo;t longer than 63 characters - if it is you&rsquo;ll need to choose a shorter name</li>
 <li>Make sure the certificate&rsquo;s property <code>spec.secretName</code> doesn&rsquo;t include the word <code>dev</code>. This secret name should be the same for all namespaces/environments.</li>
