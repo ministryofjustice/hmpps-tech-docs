@@ -188,15 +188,15 @@ Initially we will create a dev namespace. We'll refer to this as `<your-new-serv
 
 * In the `cloud-platform-environments` repo create a new branch
 * Look in directory `namespaces/live-1.cloud-platform.service.justice.gov.uk`
-* For APIs take a copy of the `hmpps-template-kotlin` directory or for UIs take a copy of the `hmpps-template-typescript` directory
-* For the new directory name append dev to your new service name, e.g. `<your-new-service-name>-dev`
+* The Kotlin and Typescript template projects are both configured to use the [`hmpps-templates-dev`](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-templates-dev) directory - this template should be used as the basis of your project's namespace configuration for the `-dev`, `-preprod` and `-prod` environments with appropriate changes.
+* Create a copy of this template directory, and name it, appending dev to your new service name, e.g. `<your-new-service-name>-dev`
 
 You will now have a bunch of Kubernetes definition files in your new directory. There will be several places that need updating:
 
 * Change the defaults under directory `resources/variables`
 * Replace the template namespace references with your new namespace name (e.g. replace all instances of `hmpps-template-kotlin` with `<your-new-service-name>-dev`). Some projects will not have a github repository at this point, the following stages after creating the namespaces will create this for you. The `cloud-platform.justice.gov.uk/source-code:` for you project will be `https://github.com/ministryofjustice/<your-new-service-name>.git`
 * When finished perform a quick search for the word `template` in your new directory in case you missed any
-* Add your GitHub team to the `rbac` yaml - copy the existing subject of kind `Group` but replace `dps-tech` with your GitHub team. (Note you should keep the `dps-tech` Group as this is required for some administration tasks on the namespace).
+* Add your GitHub team to the `rbac` yaml - copy the existing subject of kind `Group` but replace `hmpps-sre` with your GitHub team. (Note: please *copy*, do not replace the `hmpps-sre` Group - it is required for administration tasks on the namespace).
 * Update the certificate's DNS name. By convention we prefer `<your-new-service-name>-dev.hmpps|prison|probation.service.justice.gov.uk` - where you choose one of `hmpps`, `prison` or `probation`
 * Check that the certificate's DNS name isn't longer than 63 characters - if it is you'll need to choose a shorter name
 * Make sure the certificate's property `spec.secretName` doesn't include the word `dev`. This secret name should be the same for all namespaces/environments.
